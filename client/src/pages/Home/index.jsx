@@ -113,12 +113,75 @@ const images = [
     date: "10 Mar 2022",
     category: "Noticia",
   },
+  {
+    label: "13Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "14Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "15Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "16Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "17Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "18Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "19Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
 ];
 
 const imagesBannerSlider = images.slice(0, 1);
 // const imagesBannerSlider = images.slice(0, 3);
 const imagesHorizontalCard = images.slice(3, 7);
-const imagesComunCard = images.slice(7, 12);
+const imagesComunCard = images.slice(7, images.lenght);
 
 export default function Home() {
   return (
@@ -174,7 +237,7 @@ export default function Home() {
                     alignContent: "center",
                   }}
                 >
-                  {/* <AdBanner /> */}
+                  <AdBanner />
                 </Box>
               </Paper>
             </Grid>

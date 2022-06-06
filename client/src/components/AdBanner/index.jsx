@@ -7,7 +7,7 @@ import { Button, Typography, Grid, Box } from "@mui/material";
 
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
-export default function AdBanner(props) {
+export default function AdBanner() {
   return (
     <>
       <Grid
