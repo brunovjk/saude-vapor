@@ -31,7 +31,7 @@ function CardArticle(props) {
             </>
           ),
           imgPath:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMVPiS5aZDDGkslGuaVkzXT7MBB33S6hKIZTaOUFQiulQUD6ZR6HkBj8eG-R7t2ySOero&usqp=CAU",
+            "https://img.freepik.com/vetores-gratis/equipe-do-armazem-vestindo-uniforme-carregando-a-caixa-de-encomendas-e-verificando-o-produto-do-armazem-entrega-e-armazenamento-logistico-e-transporte-por-caminhao-entrega-e-logistica-da-industria-entrega-comercial_1150-60906.jpg",
         },
       ];
       setImage(imagesSkeleton[0]);
@@ -87,7 +87,7 @@ function CardArticle(props) {
                         overflow: "hidden",
                         WebkitBoxOrient: "vertical",
                         WebkitLineClamp: 1,
-                        my: "8px",
+                        my: "6px",
                       }}
                     >
                       {image.label}

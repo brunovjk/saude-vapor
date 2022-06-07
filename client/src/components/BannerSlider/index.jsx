@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper";
 
 function BannerSlider(props) {
-  const [elevation, setElevation] = useState(2);
+  const [elevation, setElevation] = useState(3);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -55,8 +55,8 @@ function BannerSlider(props) {
         overflow: "hidden",
         borderRadius: "0px",
       }}
-      onMouseEnter={() => setElevation(0)}
-      onMouseLeave={() => setElevation(2)}
+      onMouseEnter={() => setElevation(1)}
+      onMouseLeave={() => setElevation(3)}
     >
       <Box sx={{ width: "100vw" }}>
         <Swiper

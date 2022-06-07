@@ -227,10 +227,11 @@ const images = [
 
 const imagesBannerSlider = images.slice(0, 3);
 const imagesHorizontalCard = images.slice(3, 7);
-const imagesComunCardSecondPage = images.slice(12, 24);
+const imagesComunCardFirstPage = images.slice(0, 12);
+const imagesComunCardSecondPage = images.slice(16, 24);
 
 export default function Home() {
-  const [imagesComunCard, setImagesComunCard] = useState(images.slice(0, 12));
+  const [imagesComunCard, setImagesComunCard] = useState(images.slice(0, 4));
 
   const fetchMoreData = () => {
     const newItens = imagesComunCard.concat(imagesComunCardSecondPage);
@@ -281,6 +282,40 @@ export default function Home() {
         {/* AdBanner container */}
         <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
           <AdBanner />
+        </Grid>
+        {/* Cards Primeiros Artigos container */}
+        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
+          {imagesComunCardFirstPage.length > 0 ? (
+            <>
+              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
+                {imagesComunCardFirstPage.map((imageComunCard, index) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                      <CardArticle
+                        direction="column"
+                        image={[imageComunCard]}
+                      />
+                    </Grid>
+                  );
+                })}
+                <Grid item xs={12}>
+                  <AdBanner />
+                </Grid>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
+                {Array.from(Array(8).keys()).map((index) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                      <CardArticle direction="column" />
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </>
+          )}
         </Grid>
         {/* Cards Artigos container */}
         <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
