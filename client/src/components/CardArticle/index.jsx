@@ -31,7 +31,7 @@ function CardArticle(props) {
             </>
           ),
           imgPath:
-            "https://saudevapor.com/static/media/folhas.61bace99e376301ebfdb.png",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMVPiS5aZDDGkslGuaVkzXT7MBB33S6hKIZTaOUFQiulQUD6ZR6HkBj8eG-R7t2ySOero&usqp=CAU",
         },
       ];
       setImage(imagesSkeleton[0]);

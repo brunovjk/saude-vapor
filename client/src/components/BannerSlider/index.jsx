@@ -29,7 +29,19 @@ function BannerSlider(props) {
             </>
           ),
           imgPath:
-            "https://saudevapor.com/static/media/folhas.61bace99e376301ebfdb.png",
+            "https://blog.inteligov.com.br/wp-content/uploads/2020/04/seguranca-da-informacao-1013x675.jpeg",
+        },
+        {
+          label: <Skeleton animation="wave" variant="text" />,
+          date: <Skeleton animation="wave" variant="text" />,
+          description: (
+            <>
+              <Skeleton animation="wave" variant="text" />
+              <Skeleton animation="wave" variant="text" />
+            </>
+          ),
+          imgPath:
+            "https://www.biti9.com.br/wp-content/uploads/2021/06/Gestao-da-informacao-1080x675.jpg",
         },
       ];
       setImages(imagesSkeleton);
