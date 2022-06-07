@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Skeleton,
   Typography,
@@ -12,26 +12,31 @@ import { NavLink } from "react-router-dom";
 
 function CardArticle(props) {
   const [elevation, setElevation] = useState(2);
-  if (typeof props.image !== "undefined" && props.image.length > 0) {
-    var image = props.image;
-  } else {
-    var image = [
-      {
-        label: <Skeleton animation="wave" variant="text" />,
-        date: <Skeleton animation="wave" variant="text" />,
-        category: <Skeleton animation="wave" variant="text" />,
-        description: (
-          <>
-            <Skeleton animation="wave" variant="text" />
-            <Skeleton animation="wave" variant="text" />
-            <Skeleton animation="wave" variant="text" />
-          </>
-        ),
-        imgPath:
-          "https://saudevapor.com/static/media/folhas.61bace99e376301ebfdb.png",
-      },
-    ];
-  }
+  const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    if (typeof props.image !== "undefined" && props.image.length > 0) {
+      setImage(props.image[0]);
+    } else {
+      const imagesSkeleton = [
+        {
+          label: <Skeleton animation="wave" variant="text" width="240px" />,
+          date: <Skeleton animation="wave" variant="text" width="56px" />,
+          category: <Skeleton animation="wave" variant="text" width="96px" />,
+          description: (
+            <>
+              <Skeleton animation="wave" variant="text" width="280px" />
+              <Skeleton animation="wave" variant="text" width="280px" />
+              <Skeleton animation="wave" variant="text" width="128px" />
+            </>
+          ),
+          imgPath:
+            "https://saudevapor.com/static/media/folhas.61bace99e376301ebfdb.png",
+        },
+      ];
+      setImage(imagesSkeleton[0]);
+    }
+  }, [props.image]);
   return (
     <>
       <NavLink to="/styleguide">
@@ -52,8 +57,8 @@ function CardArticle(props) {
               <CardMedia
                 component="img"
                 height="100%"
-                src={image[0].imgPath}
-                alt={image[0].label}
+                src={image.imgPath}
+                alt={image.label}
               />
             </Grid>
             <Grid item xs={7}>
@@ -65,13 +70,11 @@ function CardArticle(props) {
                   alignItems="flex-start"
                 >
                   <Grid item>
-                    <Typography variant="underline2">
-                      {image[0].date}
-                    </Typography>
+                    <Typography variant="underline2">{image.date}</Typography>
                   </Grid>
                   <Grid item>
                     <Typography variant="underline2" color="primary">
-                      {image[0].category}
+                      {image.category}
                     </Typography>
                   </Grid>
 
@@ -87,7 +90,7 @@ function CardArticle(props) {
                         my: "8px",
                       }}
                     >
-                      {image[0].label}
+                      {image.label}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -101,7 +104,7 @@ function CardArticle(props) {
                         WebkitLineClamp: 3,
                       }}
                     >
-                      {image[0].description}
+                      {image.description}
                     </Typography>
                   </Grid>
                 </Grid>

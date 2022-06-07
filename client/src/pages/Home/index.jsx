@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { BannerSlider, CardArticle, AdBanner } from "../../components";
-import { Grid, Box, Paper } from "@mui/material";
+import { Grid, Box, Paper, LinearProgress } from "@mui/material";
+
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const images = [
   {
@@ -176,14 +178,70 @@ const images = [
     date: "10 Mar 2022",
     category: "Noticia",
   },
+  {
+    label: "20Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "21Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "22Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "23Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
+  {
+    label: "24Bali, Indonesia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80",
+    date: "10 Mar 2022",
+    category: "Noticia",
+  },
 ];
 
 const imagesBannerSlider = images.slice(0, 1);
 // const imagesBannerSlider = images.slice(0, 3);
 const imagesHorizontalCard = images.slice(3, 7);
-const imagesComunCard = images.slice(7, images.lenght);
+const imagesComunCardSecondPage = images.slice(12, 24);
 
 export default function Home() {
+  const [imagesComunCard, setImagesComunCard] = useState(images.slice(0, 12));
+
+  const fetchMoreData = () => {
+    const newItens = imagesComunCard.concat(imagesComunCardSecondPage);
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+    setTimeout(() => {
+      setImagesComunCard(newItens);
+    }, 1000);
+  };
+
   return (
     <>
       <Grid container spacing={{ xs: "8px", sm: "16px", md: "32px" }}>
@@ -241,31 +299,49 @@ export default function Home() {
                 </Box>
               </Paper>
             </Grid>
-
-            {imagesComunCard.length > 0 ? (
-              <>
-                {imagesComunCard.map((imageComunCard, index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <CardArticle
-                        direction="column"
-                        image={[imageComunCard]}
-                      />
+            <Grid item xs={12}>
+              {imagesComunCard.length > 0 ? (
+                <>
+                  <InfiniteScroll
+                    dataLength={imagesComunCard.length}
+                    next={fetchMoreData}
+                    hasMore={true}
+                    loader={<LinearProgress sx={{ m: "32px" }} />}
+                  >
+                    <Grid
+                      container
+                      spacing={{ xs: "16px", sm: "32px", md: "48px" }}
+                    >
+                      {imagesComunCard.map((imageComunCard, index) => {
+                        return (
+                          <Grid item xs={12} sm={6} md={3} key={index}>
+                            <CardArticle
+                              direction="column"
+                              image={[imageComunCard]}
+                            />
+                          </Grid>
+                        );
+                      })}
                     </Grid>
-                  );
-                })}
-              </>
-            ) : (
-              <>
-                {Array.from(Array(8).keys()).map((index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <CardArticle direction="column" />
-                    </Grid>
-                  );
-                })}
-              </>
-            )}
+                  </InfiniteScroll>
+                </>
+              ) : (
+                <>
+                  <Grid
+                    container
+                    spacing={{ xs: "16px", sm: "32px", md: "48px" }}
+                  >
+                    {Array.from(Array(8).keys()).map((index) => {
+                      return (
+                        <Grid item xs={12} sm={6} md={3} key={index}>
+                          <CardArticle direction="column" />
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                </>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
