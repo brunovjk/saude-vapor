@@ -46,7 +46,7 @@ function BannerSlider(props) {
       onMouseEnter={() => setElevation(0)}
       onMouseLeave={() => setElevation(2)}
     >
-      <Box>
+      <Box sx={{ width: "100vw" }}>
         <Swiper
           slidesPerView={1}
           centeredSlides={true}

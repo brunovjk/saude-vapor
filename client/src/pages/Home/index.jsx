@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BannerSlider, CardArticle, AdBanner } from "../../components";
-import { Grid, Box, Paper, LinearProgress } from "@mui/material";
+import { Grid, LinearProgress } from "@mui/material";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -244,17 +244,15 @@ export default function Home() {
   return (
     <>
       <Grid container spacing={{ xs: "8px", sm: "16px", md: "32px" }}>
-        <Grid item xs={12}>
+        {/* Banners container */}
+        <Grid container item>
           <BannerSlider images={imagesBannerSlider} />
         </Grid>
-        <Grid item>
-          <Grid
-            container
-            spacing={{ xs: "16px", sm: "32px", md: "64px" }}
-            px={{ xs: "16px", sm: "32px", md: "64px" }}
-          >
-            {imagesHorizontalCard.length > 0 ? (
-              <>
+        {/* Cards Noticias container */}
+        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
+          {imagesHorizontalCard.length > 0 ? (
+            <>
+              <Grid container spacing={{ xs: "16px", sm: "32px", md: "64px" }}>
                 {imagesHorizontalCard.map((imageHorizontalCard, index) => {
                   return (
                     <Grid item xs={12} md={6} key={index}>
@@ -265,9 +263,11 @@ export default function Home() {
                     </Grid>
                   );
                 })}
-              </>
-            ) : (
-              <>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid container spacing={{ xs: "16px", sm: "32px", md: "64px" }}>
                 {Array.from(Array(4).keys()).map((index) => {
                   return (
                     <Grid item xs={12} md={6} key={index}>
@@ -275,73 +275,54 @@ export default function Home() {
                     </Grid>
                   );
                 })}
-              </>
-            )}
-            <Grid item xs={12}>
-              <Paper
-                variant="outlined"
-                sx={{ width: "100%", overflow: "hidden" }}
+              </Grid>
+            </>
+          )}
+        </Grid>
+        {/* AdBanner container */}
+        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
+          <AdBanner />
+        </Grid>
+        {/* Cards Artigos container */}
+        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
+          {imagesComunCard.length > 0 ? (
+            <>
+              <InfiniteScroll
+                dataLength={imagesComunCard.length}
+                next={fetchMoreData}
+                hasMore={true}
+                loader={<LinearProgress sx={{ m: "32px" }} />}
               >
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  sx={{
-                    width: "100%",
-                    backgroundColor: "secondary.95",
-                    height: { xs: "340px", sm: "480px", md: "90px" },
-                    alignItems: "center",
-                    alignContent: "center",
-                  }}
+                <Grid
+                  container
+                  spacing={{ xs: "16px", sm: "32px", md: "48px" }}
                 >
-                  <AdBanner />
-                </Box>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              {imagesComunCard.length > 0 ? (
-                <>
-                  <InfiniteScroll
-                    dataLength={imagesComunCard.length}
-                    next={fetchMoreData}
-                    hasMore={true}
-                    loader={<LinearProgress sx={{ m: "32px" }} />}
-                  >
-                    <Grid
-                      container
-                      spacing={{ xs: "16px", sm: "32px", md: "48px" }}
-                    >
-                      {imagesComunCard.map((imageComunCard, index) => {
-                        return (
-                          <Grid item xs={12} sm={6} md={3} key={index}>
-                            <CardArticle
-                              direction="column"
-                              image={[imageComunCard]}
-                            />
-                          </Grid>
-                        );
-                      })}
+                  {imagesComunCard.map((imageComunCard, index) => {
+                    return (
+                      <Grid item xs={12} sm={6} md={3} key={index}>
+                        <CardArticle
+                          direction="column"
+                          image={[imageComunCard]}
+                        />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </InfiniteScroll>
+            </>
+          ) : (
+            <>
+              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
+                {Array.from(Array(8).keys()).map((index) => {
+                  return (
+                    <Grid item xs={12} sm={6} md={3} key={index}>
+                      <CardArticle direction="column" />
                     </Grid>
-                  </InfiniteScroll>
-                </>
-              ) : (
-                <>
-                  <Grid
-                    container
-                    spacing={{ xs: "16px", sm: "32px", md: "48px" }}
-                  >
-                    {Array.from(Array(8).keys()).map((index) => {
-                      return (
-                        <Grid item xs={12} sm={6} md={3} key={index}>
-                          <CardArticle direction="column" />
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </>
-              )}
-            </Grid>
-          </Grid>
+                  );
+                })}
+              </Grid>
+            </>
+          )}
         </Grid>
       </Grid>
     </>
