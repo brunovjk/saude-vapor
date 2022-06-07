@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Typography, Grid, Box } from "@mui/material";
 
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
 // import "swiper/css";
+// import "swiper/css/bundle";
 
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
@@ -33,32 +34,28 @@ export default function AdBanner() {
               ></Box>
             </Grid>
             <Grid item>
-              {/*<Swiper
-                  autoplay={{
-                    delay: 1000,
-                    disableOnInteraction: true,
-                  }}
-                  modules={[Autoplay]}
-                >
-                   <SwiperSlide>
-                    <Typography variant="h2" color="primary.store">
-                      Economize
-                    </Typography>
-                    <Typography variant="h2">sua erva</Typography>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Typography variant="h2" color="primary.store">
-                      Controle
-                    </Typography>
-                    <Typography variant="h2">sua brisa</Typography>
-                  </SwiperSlide>
-                  <SwiperSlide> */}
-              <Typography variant="h2" color="primary.store">
-                Reduza
-              </Typography>
-              <Typography variant="h2">os danos</Typography>
-              {/* </SwiperSlide>
-                </Swiper> */}
+              <Swiper
+                slidesPerView={1}
+                autoplay={{
+                  delay: 1000,
+                  disableOnInteraction: true,
+                }}
+                modules={[Autoplay]}
+              >
+                <SwiperSlide>
+                  <Typography variant="h2" color="primary.store">
+                    Controle
+                  </Typography>
+                  <Typography variant="h2">sua brisa</Typography>
+                </SwiperSlide>
+
+                <SwiperSlide>
+                  <Typography variant="h2" color="primary.store">
+                    Reduza
+                  </Typography>
+                  <Typography variant="h2">os danos</Typography>
+                </SwiperSlide>
+              </Swiper>
             </Grid>
           </Grid>
         </Grid>

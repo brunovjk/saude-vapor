@@ -225,8 +225,7 @@ const images = [
   },
 ];
 
-const imagesBannerSlider = images.slice(0, 1);
-// const imagesBannerSlider = images.slice(0, 3);
+const imagesBannerSlider = images.slice(0, 3);
 const imagesHorizontalCard = images.slice(3, 7);
 const imagesComunCardSecondPage = images.slice(12, 24);
 
