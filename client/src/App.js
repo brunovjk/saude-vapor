@@ -10,7 +10,7 @@ import { Navbar, Footer, ScrollToTop } from "./components";
 
 import {
   Home,
-  // Sobre,
+  About,
   // Busca,
   // Contato,
   Login,
@@ -38,15 +38,15 @@ export default function App() {
           <Routes>
             {/* <Route path="/:blogId" element={<Blog />} />*/}
             <Route path="/" element={<Home />} />
-            {/*<Route path="/sobre" element={<Sobre />} />
-            <Route path="/busca" element={<Busca />} />
+            <Route path="/sobre" element={<About />} />
+            {/*<Route path="/busca" element={<Busca />} />
             <Route path="/contato" element={<Contato />} /> />*/}
             <Route
               path="/login"
               element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
             />
 
-            <Route path="/createaccount" element={<CreateAccount />} />
+            <Route path="/criarconta" element={<CreateAccount />} />
             {/*<Route path="/publicar" element={<Publicar />} />
 
             <Route path="/termos" element={<Termos />} />*/}

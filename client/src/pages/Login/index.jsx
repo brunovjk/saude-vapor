@@ -94,7 +94,7 @@ export default function Login() {
             <Typography variant="body2" color="text.primary">
               Não tem conta?
             </Typography>
-            <NavLink to="/createaccount">
+            <NavLink to="/criarconta">
               <Typography variant="body2" color="primary.30">
                  CADASTRE-SE.
               </Typography>

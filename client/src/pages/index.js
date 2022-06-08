@@ -1,5 +1,5 @@
 export { default as Home } from "./Home";
-// export { default as Sobre } from "./2-Sobre";
+export { default as About } from "./About";
 // export { default as Busca } from "./3-Busca";
 // export { default as Contato } from "./4-Contato";
 // export { default as Login } from "./5-Login";
