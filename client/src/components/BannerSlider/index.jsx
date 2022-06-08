@@ -68,6 +68,7 @@ function BannerSlider(props) {
           }}
           pagination={{
             clickable: true,
+            dynamicBullets: true,
           }}
           modules={[Autoplay, Pagination]}
           className="mySwiper"
@@ -147,7 +148,7 @@ function BannerSlider(props) {
                           item
                           sx={{
                             mt: "18px",
-                            px: { xs: "12px", sm: "36px" },
+                            px: { xs: "0px", sm: "36px" },
                           }}
                         >
                           <Typography
@@ -160,6 +161,7 @@ function BannerSlider(props) {
                               WebkitLineClamp: { xs: 3, sm: 2 },
                               letterSpacing: -0.8,
                               fontWeight: 400,
+                              mb: { xs: "24px", sm: "24px", md: "8px" },
                             }}
                           >
                             {step.description}

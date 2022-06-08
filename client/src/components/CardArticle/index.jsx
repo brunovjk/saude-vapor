@@ -11,7 +11,7 @@ import {
 import { NavLink } from "react-router-dom";
 
 function CardArticle(props) {
-  const [elevation, setElevation] = useState(2);
+  const [elevation, setElevation] = useState(3);
   const [image, setImage] = useState([]);
 
   useEffect(() => {
@@ -49,8 +49,8 @@ function CardArticle(props) {
             },
             borderRadius: "18px",
           }}
-          onMouseEnter={() => setElevation(0)}
-          onMouseLeave={() => setElevation(2)}
+          onMouseEnter={() => setElevation(1)}
+          onMouseLeave={() => setElevation(3)}
         >
           <Grid container direction={props.direction}>
             <Grid item xs={5}>

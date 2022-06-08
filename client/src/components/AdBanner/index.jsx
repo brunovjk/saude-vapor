@@ -8,7 +8,7 @@ import "swiper/css/bundle";
 
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
-export default function AdBanner() {
+export default function AdBanner(props) {
   return (
     <>
       <Paper variant="outlined" sx={{ width: "100%", overflow: "hidden" }}>
@@ -17,11 +17,9 @@ export default function AdBanner() {
           alignItems="center"
           justifyContent="center"
           sx={{
+            height: { xs: "390px", sm: "480px", md: "90px" },
             width: "100%",
             backgroundColor: "secondary.95",
-            height: { xs: "340px", sm: "480px", md: "90px" },
-            alignItems: "center",
-            alignContent: "center",
           }}
         >
           <Grid
@@ -31,57 +29,85 @@ export default function AdBanner() {
             alignItems="center"
             spacing={2}
           >
+            {/* Logo Call reponsive */}
             <Grid item>
               <Grid
                 container
                 direction="row"
-                justifyContent="center"
+                justifyContent="space-evenly"
                 alignItems="center"
-                spacing={2}
+                sx={{ width: { xs: "150px", sm: "280px" } }}
               >
-                <Grid item>
+                {/* logo */}
+                <Grid itemxs={2}>
                   <Box
                     component="img"
                     src={LogoIcon40}
                     sx={{ width: "32px", height: "32px" }}
-                  ></Box>
+                  />
                 </Grid>
-                <Grid item>
-                  {/* <Swiper
-                    slidesPerView={1}
-                    autoplay={{
-                      delay: 1000,
-                      disableOnInteraction: true,
-                    }}
-                    modules={[Autoplay]}
-                    sx={{ width: "100%" }}
-                  >
-                    <SwiperSlide> */}
-                  <Typography variant="h2" color="primary.store">
-                    Controle
-                  </Typography>
-                  <Typography variant="h2">sua brisa</Typography>
-                  {/* </SwiperSlide>
-                  </Swiper> */}
+                {/* carosel */}
+                <Grid item xs={8}>
+                  <Box>
+                    <Swiper
+                      slidesPerView={1}
+                      centeredSlides={true}
+                      autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: true,
+                      }}
+                      modules={[Autoplay]}
+                      className="mySwiper"
+                    >
+                      {props.copyCalls.slice(0, 3).map((copyCall, index) => (
+                        <SwiperSlide key={index}>
+                          <Box component="div">
+                            <Typography variant="h2" color="primary.store">
+                              {copyCall.phrase1}
+                            </Typography>
+                            <Typography variant="h2">
+                              {copyCall.phrase2}
+                            </Typography>
+                          </Box>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </Box>
                 </Grid>
               </Grid>
             </Grid>
+            {/* call */}
             <Grid item>
-              <Typography variant="h2">GOSTOU</Typography>
-              <Typography variant="h2" color="primary.store">
-                DA IDEIA?
-              </Typography>
+              <Box display="grid" alignItems="center" justifyContent="center">
+                <Typography variant="h2">
+                  {props.copyCalls[3].phraseMainCall1}
+                </Typography>
+                <Typography variant="h2" color="primary.store">
+                  {props.copyCalls[3].phraseMainCall2}
+                </Typography>
+              </Box>
             </Grid>
+            {/* button */}
             <Grid item>
-              <Button sx={{ p: "28px" }} color="store">
-                ADQUIRA JÁ <br /> SEU VAPORIZADOR
-              </Button>
+              <Box display="flex" alignItems="center" justifyContent="center">
+                <Button
+                  target="_blank"
+                  href={props.copyCalls[5].url}
+                  sx={{ p: "28px" }}
+                  align="center"
+                  color="store"
+                >
+                  {props.copyCalls[4].phraseButtonCall1} <br />
+                  {props.copyCalls[4].phraseButtonCall2}
+                </Button>
+              </Box>
             </Grid>
+            {/* img */}
             <Grid item>
               <Box
                 component="img"
-                src="https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1"
-                sx={{ width: "225px", height: "126px" }}
+                src={props.copyCalls[5].img}
+                sx={{ width: "225px" }}
               ></Box>
             </Grid>
           </Grid>

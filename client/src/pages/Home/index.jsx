@@ -281,9 +281,36 @@ export default function Home() {
         </Grid>
         {/* AdBanner container */}
         <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
-          <AdBanner />
+          <AdBanner
+            copyCalls={[
+              {
+                phrase1: "Controle",
+                phrase2: "sua brisa",
+              },
+              {
+                phrase1: "Reduza",
+                phrase2: "os danos",
+              },
+              {
+                phrase1: "Economize",
+                phrase2: "sua erva",
+              },
+              {
+                phraseMainCall1: "GOSTOU",
+                phraseMainCall2: "DA IDEIA?",
+              },
+              {
+                phraseButtonCall1: "ADQUIRA JÁ",
+                phraseButtonCall2: "SEU VAPORIZADOR",
+              },
+              {
+                img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
+                url: "https://loja.saudevapor.com/",
+              },
+            ]}
+          />
         </Grid>
-        {/* Cards Primeiros Artigos container */}
+        {/* Cards Primeiros Artigos + AdBanner container */}
         <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
           {imagesComunCardFirstPage.length > 0 ? (
             <>
@@ -299,7 +326,35 @@ export default function Home() {
                   );
                 })}
                 <Grid item xs={12}>
-                  <AdBanner />
+                  <AdBanner
+                    copyCalls={[
+                      {
+                        phrase1: "desconto em",
+                        phrase2: "Vaporizadores",
+                      },
+                      {
+                        phrase1: "as melhores",
+                        phrase2: "Sedas de vidro",
+                      },
+                      {
+                        phrase1: "diversos",
+                        phrase2: "Dichavadores",
+                      },
+                      {
+                        phraseMainCall1: "TUDO ISSO EM",
+                        phraseMainCall2: "loja.SaudeVapor.com",
+                      },
+                      {
+                        phraseButtonCall1: "ULTIMAS",
+                        phraseButtonCall2: "OFERTAS",
+                      },
+
+                      {
+                        img: "https://cdn.awsli.com.br/600x450/824/824608/produto/37752803/e624914227.jpg",
+                        url: "https://loja.saudevapor.com/",
+                      },
+                    ]}
+                  />
                 </Grid>
               </Grid>
             </>
