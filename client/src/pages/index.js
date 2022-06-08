@@ -6,4 +6,6 @@ export { default as Home } from "./Home";
 // export { default as Publicar } from "./6-Publicar";
 // export { default as Blog } from "./7-Blog";
 // export { default as Termos } from "./8-Termos";
+export { default as CreateAccount } from "./CreateAccount";
+export { default as Login } from "./Login";
 export { default as Styleguide } from "./Styleguide";

@@ -13,11 +13,12 @@ import {
   // Sobre,
   // Busca,
   // Contato,
-  // Login,
+  Login,
   // Publicar,
   // Blog,
   // Termos,
   Styleguide,
+  CreateAccount,
 } from "./pages";
 
 export default function App() {
@@ -39,12 +40,14 @@ export default function App() {
             <Route path="/" element={<Home />} />
             {/*<Route path="/sobre" element={<Sobre />} />
             <Route path="/busca" element={<Busca />} />
-            <Route path="/contato" element={<Contato />} /> 
+            <Route path="/contato" element={<Contato />} /> />*/}
             <Route
               path="/login"
               element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
             />
-            <Route path="/publicar" element={<Publicar />} />
+
+            <Route path="/createaccount" element={<CreateAccount />} />
+            {/*<Route path="/publicar" element={<Publicar />} />
 
             <Route path="/termos" element={<Termos />} />*/}
             <Route
