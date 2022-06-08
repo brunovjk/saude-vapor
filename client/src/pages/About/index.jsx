@@ -1,10 +1,13 @@
 import React from "react";
 import { Container, Typography, Grid, Box } from "@mui/material";
 import { AdBanner } from "../../components";
+import hero1 from "../../assets/img/hero1.png";
+import hero2 from "../../assets/img/hero2.png";
+import hero3 from "../../assets/img/hero3.png";
 
 export default function About() {
   return (
-    <Container>
+    <Container maxWidth="xl">
       <Grid
         container
         direction="column"
@@ -19,68 +22,99 @@ export default function About() {
           xs={12}
           direction="row"
           justifyContent="center"
-          alignItems="stretch"
+          alignItems="flex-start"
         >
           {/* Copy */}
           <Grid
             container
             item
             xs={12}
-            md={5}
-            pt={{ xs: "16px", sm: "32px", md: "128px" }}
+            md={4}
+            py={{ xs: "16px", sm: "32px", md: "64px" }}
+            spacing={2}
           >
             <Grid item xs={12}>
-              <Typography variant="h2" color="primary.30">
+              <Typography variant="h3" color="primary.30">
                 Saude Vapor
               </Typography>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={{ xs: "16px", sm: "32px", md: "64px" }}>
               <Typography variant="h1" color="text.primary">
-                Lorem Ipsum is simply dummy text of the printing
+                Lorem Ipsum is a dummy text
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body1" color="text.secondary">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                industry. Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry.
               </Typography>
             </Grid>
           </Grid>
           {/* Image */}
-          <Grid
-            container
-            item
-            xs={12}
-            md={7}
-            sx={{ height: { xs: "100%", md: "332px" } }}
-          >
-            <Box
-              component="img"
-              src="https://ethereum.org/static/e7a074a56d991c4f9e65857bafa0f053/1828a/what-is-ethereum.webp"
-              sx={{ width: "100%" }}
-            />
+          <Grid container item xs={12} md={8}>
+            <Box component="img" src={hero1} sx={{ width: "100%" }} />
           </Grid>
         </Grid>
-        {/* Section 1 */}
+
+        {/* Section 2 */}
         <Grid
           container
           item
           xs={12}
-          my={{ xs: "16px", sm: "32px", md: "96px" }}
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          my={{ xs: "16px", sm: "32x", md: "64px" }}
         >
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ width: { xs: "500px", md: "700px" } }}
+          {/* Image */}
+          <Grid item xs={12} sm={6}>
+            <Box
+              sx={{
+                height: { xs: "240px", sm: "100%" },
+                width: "100%",
+                backgroundImage: `url(${hero2})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+          </Grid>
+          {/* Copy */}
+          <Grid
+            container
+            item
+            xs={12}
+            sm={6}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            p={{ xs: "16px", sm: "32x", md: "48px" }}
+            spacing={3}
           >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
-          </Typography>
+            <Grid item xs={12}>
+              <Typography variant="h1" color="text.primary">
+                Lorem Ipsum is a dummy text
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body1" color="text.secondary">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
+
         {/* Ad Banner */}
-        <Grid container item xs={12}>
+        <Grid item m={{ xs: "16px", sm: "32x", md: "48px" }}>
           <AdBanner
             copyCalls={[
               {
@@ -110,10 +144,63 @@ export default function About() {
             ]}
           />
         </Grid>
-        {/* Section 2 */}
-        <Grid container item xs={12}></Grid>
+
         {/* Section 3 */}
-        <Grid container item xs={12}></Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          my={{ xs: "16px", sm: "32x", md: "64px" }}
+          pb={{ xs: "16px", sm: "32x", md: "64px" }}
+        >
+          {/* Copy */}
+          <Grid
+            container
+            item
+            xs={12}
+            sm={6}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            p={{ xs: "16px", sm: "32x", md: "48px" }}
+            spacing={3}
+          >
+            <Grid item xs={12}>
+              <Typography variant="h1" color="text.primary">
+                Lorem Ipsum is a dummy text
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body1" color="text.secondary">
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+              </Typography>
+            </Grid>
+          </Grid>
+          {/* Image */}
+          <Grid item xs={12} sm={6}>
+            <Box
+              sx={{
+                height: { xs: "240px", sm: "100%" },
+                width: "100%",
+                backgroundImage: `url(${hero3})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+          </Grid>
+        </Grid>
       </Grid>
     </Container>
   );
