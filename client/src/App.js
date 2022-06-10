@@ -17,6 +17,8 @@ import {
   Login,
   Styleguide,
   CreateAccount,
+  Dashboard,
+  Blockchain,
 } from "./pages";
 
 export default function App() {
@@ -37,6 +39,7 @@ export default function App() {
             {/* <Route path="/:blogId" element={<Blog />} />*/}
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
+            <Route path="/minhaconta" element={<Dashboard />} />
             <Route path="/busca" element={<Search />} />
             <Route path="/contato" element={<Contact />} />
             <Route
@@ -44,6 +47,8 @@ export default function App() {
               element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
             />
             <Route path="/criarconta" element={<CreateAccount />} />
+            <Route path="/blockchain" element={<Blockchain />} />
+
             <Route path="/termos" element={<Terms />} />
             <Route
               path="/styleguide"

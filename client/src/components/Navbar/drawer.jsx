@@ -13,12 +13,11 @@ import LogoLight from "../../assets/img/logo/Logo24-primary-30.svg";
 import LogoDark from "../../assets/img/logo/Logo24-primary-80.svg";
 
 import InfoIcon from "@mui/icons-material/Info";
-import FeedIcon from "@mui/icons-material/Feed";
 import EmailIcon from "@mui/icons-material/Email";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
+import GridViewIcon from "@mui/icons-material/GridView";
 
 import { NavLink } from "react-router-dom";
 
@@ -45,14 +44,6 @@ const DrawerComponent = (props) => {
             <ListItemText primary="Sobre" />
           </ListItem>
         </NavLink>
-        <NavLink to="#">
-          <ListItem button>
-            <ListItemIcon>
-              <FeedIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Blog" />
-          </ListItem>
-        </NavLink>
         <NavLink to="/busca">
           <ListItem button>
             <ListItemIcon>
@@ -69,28 +60,37 @@ const DrawerComponent = (props) => {
             <ListItemText primary="Contato" />
           </ListItem>
         </NavLink>
-        <NavLink to="/login">
-          <ListItem button>
-            <ListItemIcon>
-              <PersonIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Login" />
-          </ListItem>
-        </NavLink>
-        {props.isAuth && (
-          <NavLink to="/publicar">
+        {!props.isAuth ? (
+          <NavLink to="/login">
             <ListItem button>
               <ListItemIcon>
-                <RocketLaunchIcon color="primary" />
+                <PersonIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary="Publicar" />
+              <ListItemText primary="Login" />
+            </ListItem>
+          </NavLink>
+        ) : (
+          <NavLink to="/minhaconta">
+            <ListItem button>
+              <ListItemIcon>
+                <PersonIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Minha conta" />
             </ListItem>
           </NavLink>
         )}
+        <NavLink to="/blockchain">
+          <ListItem button>
+            <ListItemIcon>
+              <GridViewIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText primary="Blockchain" />
+          </ListItem>
+        </NavLink>
       </List>
 
       <Box sx={{ position: "fixed", bottom: 0, pl: "0.5rem" }}>
-        <NavLink to="/styleguide">
+        <NavLink to="/termos">
           <ListItem button disableGutters>
             <ListItemIcon>
               <HistoryEduIcon color="primary" />

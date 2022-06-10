@@ -6,6 +6,7 @@ export { default as Terms } from "./Terms";
 export { default as CreateAccount } from "./CreateAccount";
 export { default as Login } from "./Login";
 export { default as Styleguide } from "./Styleguide";
+export { default as Dashboard } from "./Dashboard";
+export { default as Blockchain } from "./Blockchain";
 
 // export { default as Publicar } from "./6-Publicar";
-// export { default as Blog } from "./7-Blog";

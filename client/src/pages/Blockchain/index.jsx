@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  BannerSlider,
-  CardArticle,
-  AdBanner,
-  FABSocialMedia,
-} from "../../components";
-import { Grid, LinearProgress } from "@mui/material";
-
-import InfiniteScroll from "react-infinite-scroll-component";
+import { Typography, Grid, Box, Button } from "@mui/material";
+import { CardArticle, AdBanner } from "../../components";
+import hero1 from "../../assets/img/hero1.png";
+import hero2 from "../../assets/img/hero2.png";
 
 const images = [
   {
@@ -230,208 +225,206 @@ const images = [
   },
 ];
 
-const imagesBannerSlider = images.slice(0, 3);
-const imagesHorizontalCard = images.slice(3, 7);
-const imagesComunCardFirstPage = images.slice(0, 12);
-const imagesComunCardSecondPage = images.slice(16, 24);
-
-export default function Home() {
-  const [imagesComunCard, setImagesComunCard] = useState(images.slice(0, 4));
-
-  const fetchMoreData = () => {
-    const newItens = imagesComunCard.concat(imagesComunCardSecondPage);
-
-    setTimeout(() => {
-      setImagesComunCard(newItens);
-    }, 1000);
-  };
-
+export default function Blockchain() {
+  const [showCollection, setShowCollection] = useState(false);
   return (
-    <>
-      {/* FABSocialMedia */}
+    <Grid
+      container
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="stretch"
+      spacing={2}
+    >
+      {/* Hero banner */}
       <Grid
         container
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-end"
-        sx={{
-          widht: "0px",
-          height: "0px",
-        }}
+        item
+        xs={12}
+        direction="row"
+        justifyContent="center"
+        alignItems="flex-start"
+        bgcolor="secondary.95"
       >
-        <FABSocialMedia />
+        {/* Copy */}
+        <Grid
+          container
+          item
+          xs={12}
+          md={4}
+          p={{
+            xs: "16px 0px 0px 16px",
+            sm: "32px 0px 0px 32px",
+            md: "64px 0px 0px 64px",
+          }}
+          spacing={2}
+        >
+          <Grid item xs={12}>
+            <Typography variant="h3" color="primary.30">
+              Saude Vapor
+            </Typography>
+          </Grid>
+          <Grid item xs={12} mt={{ xs: "16px", sm: "32px", md: "64px" }}>
+            <Typography variant="h1" color="text.primary">
+              Lorem Ipsum is a dummy text
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body2" color="text.secondary">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry.
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body2" color="text.secondary">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum is simply dummy text of the printing and
+              typesetting industry.
+            </Typography>
+          </Grid>
+        </Grid>
+        {/* Image */}
+        <Grid container item xs={12} md={8}>
+          <Box component="img" src={hero1} sx={{ width: "100%" }} />
+        </Grid>
       </Grid>
-      <Grid container spacing={{ xs: "8px", sm: "16px", md: "32px" }}>
-        {/* Banners container */}
-        <Grid container item>
-          <BannerSlider images={imagesBannerSlider} />
-        </Grid>
-        {/* Cards Noticias container */}
-        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
-          {imagesHorizontalCard.length > 0 ? (
-            <>
-              <Grid container spacing={{ xs: "16px", sm: "32px", md: "64px" }}>
-                {imagesHorizontalCard.map((imageHorizontalCard, index) => {
-                  return (
-                    <Grid item xs={12} md={6} key={index}>
-                      <CardArticle
-                        direction={{ xs: "column", sm: "row" }}
-                        image={[imageHorizontalCard]}
-                      />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </>
-          ) : (
-            <>
-              <Grid container spacing={{ xs: "16px", sm: "32px", md: "64px" }}>
-                {Array.from(Array(4).keys()).map((index) => {
-                  return (
-                    <Grid item xs={12} md={6} key={index}>
-                      <CardArticle direction={{ xs: "column", sm: "row" }} />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </>
-          )}
-        </Grid>
-        {/* AdBanner container */}
-        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
-          <AdBanner
-            copyCalls={[
-              {
-                phrase1: "Controle",
-                phrase2: "sua brisa",
-              },
-              {
-                phrase1: "Reduza",
-                phrase2: "os danos",
-              },
-              {
-                phrase1: "Economize",
-                phrase2: "sua erva",
-              },
-              {
-                phraseMainCall1: "GOSTOU",
-                phraseMainCall2: "DA IDEIA?",
-              },
-              {
-                phraseButtonCall1: "ADQUIRA JÁ",
-                phraseButtonCall2: "SEU VAPORIZADOR",
-              },
-              {
-                img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                url: "https://loja.saudevapor.com/",
-              },
-            ]}
+      {/* Section 1 */}
+      <Grid
+        container
+        item
+        xs={12}
+        direction="row"
+        justifyContent="center"
+        alignItems="stretch"
+        my={{ xs: "16px", sm: "32x", md: "64px" }}
+      >
+        {/* Image */}
+        <Grid item xs={12} sm={6}>
+          <Box
+            sx={{
+              height: { xs: "240px", sm: "100%" },
+              width: "100%",
+              backgroundImage: `url(${hero2})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           />
         </Grid>
-        {/* Cards Primeiros Artigos + AdBanner container */}
-        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
-          {imagesComunCardFirstPage.length > 0 ? (
-            <>
-              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-                {imagesComunCardFirstPage.map((imageComunCard, index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <CardArticle
-                        direction="column"
-                        image={[imageComunCard]}
-                      />
-                    </Grid>
-                  );
-                })}
-                <Grid item xs={12}>
-                  <AdBanner
-                    copyCalls={[
-                      {
-                        phrase1: "desconto em",
-                        phrase2: "Vaporizadores",
-                      },
-                      {
-                        phrase1: "as melhores",
-                        phrase2: "Sedas de vidro",
-                      },
-                      {
-                        phrase1: "diversos",
-                        phrase2: "Dichavadores",
-                      },
-                      {
-                        phraseMainCall1: "TUDO ISSO EM",
-                        phraseMainCall2: "loja.SaudeVapor.com",
-                      },
-                      {
-                        phraseButtonCall1: "ULTIMAS",
-                        phraseButtonCall2: "OFERTAS",
-                      },
-
-                      {
-                        img: "https://cdn.awsli.com.br/600x450/824/824608/produto/37752803/e624914227.jpg",
-                        url: "https://loja.saudevapor.com/",
-                      },
-                    ]}
-                  />
-                </Grid>
-              </Grid>
-            </>
-          ) : (
-            <>
-              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-                {Array.from(Array(8).keys()).map((index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <CardArticle direction="column" />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </>
-          )}
-        </Grid>
-        {/* Cards Artigos container */}
-        <Grid container item mx={{ xs: "16px", sm: "32px", md: "64px" }}>
-          {imagesComunCard.length > 0 ? (
-            <>
-              <InfiniteScroll
-                dataLength={imagesComunCard.length}
-                next={fetchMoreData}
-                hasMore={true}
-                loader={<LinearProgress sx={{ m: "32px" }} />}
-              >
-                <Grid
-                  container
-                  spacing={{ xs: "16px", sm: "32px", md: "48px" }}
-                >
-                  {imagesComunCard.map((imageComunCard, index) => {
-                    return (
-                      <Grid item xs={12} sm={6} md={3} key={index}>
-                        <CardArticle
-                          direction="column"
-                          image={[imageComunCard]}
-                        />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </InfiniteScroll>
-            </>
-          ) : (
-            <>
-              <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-                {Array.from(Array(8).keys()).map((index) => {
-                  return (
-                    <Grid item xs={12} sm={6} md={3} key={index}>
-                      <CardArticle direction="column" />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </>
-          )}
+        {/* Copy */}
+        <Grid
+          container
+          item
+          xs={12}
+          sm={5}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          p={{ xs: "16px", sm: "32x", md: "48px" }}
+          spacing={3}
+        >
+          <Grid item xs={12}>
+            <Typography variant="h1" color="text.primary">
+              Lorem Ipsum is a dummy text
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" color="text.secondary">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum.
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
-    </>
+      {/* Ad Banner */}
+      <Grid item mx={{ xs: "16px", sm: "32x", md: "48px" }}>
+        <AdBanner
+          copyCalls={[
+            {
+              phrase1: "Controle",
+              phrase2: "sua brisa",
+            },
+            {
+              phrase1: "Reduza",
+              phrase2: "os danos",
+            },
+            {
+              phrase1: "Economize",
+              phrase2: "sua erva",
+            },
+            {
+              phraseMainCall1: "GOSTOU",
+              phraseMainCall2: "DA IDEIA?",
+            },
+            {
+              phraseButtonCall1: "ADQUIRA JÁ",
+              phraseButtonCall2: "SEU VAPORIZADOR",
+            },
+            {
+              img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
+              url: "https://loja.saudevapor.com/",
+            },
+          ]}
+        />
+      </Grid>
+      {/* Section 2 */}
+
+      <Grid
+        container
+        item
+        direction="column"
+        justifyContent="center"
+        alignItems="stretch"
+        my={{ xs: "16px", sm: "32x", md: "64px" }}
+      >
+        {!showCollection ? (
+          <>
+            <Grid item>
+              <Typography align="center" variant="h2">
+                Please Connect to your Wallet to see the Latest Collections
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              item
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              p={{ xs: "8px", sm: "16x", md: "32px" }}
+            >
+              <Button onClick={() => setShowCollection(true)}>Connect</Button>
+            </Grid>
+          </>
+        ) : (
+          <>
+            <Typography align="center" variant="h2">
+              Latest vjkNFTs minted
+            </Typography>
+
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={{ xs: "16px", sm: "32px", md: "48px" }}
+              p={{ xs: "16px", sm: "32x", md: "64px" }}
+            >
+              {images.slice(0, 12).map((imageContent, index) => (
+                <Grid item xs={12} sm={6} md={3} key={index}>
+                  <CardArticle direction="column" image={[imageContent]} />
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
+      </Grid>
+    </Grid>
   );
 }
