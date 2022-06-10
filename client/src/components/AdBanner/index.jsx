@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Typography, Grid, Box, Paper } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,25 +9,45 @@ import "swiper/css/bundle";
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
 export default function AdBanner(props) {
+  try {
+    if (props.vertical !== true) {
+      var adWidth = "100%";
+      var adHeight = "90px";
+      var adSpacing = 2;
+      var adDirection = "row";
+    } else {
+      var adWidth = "320px";
+      var adHeight = "480px";
+      var adSpacing = 5;
+      var adDirection = "column";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <>
-      <Paper variant="outlined" sx={{ width: "100%", overflow: "hidden" }}>
+      <Paper
+        variant="outlined"
+        sx={{ width: { xs: "100%", md: adWidth }, overflow: "hidden" }}
+      >
         <Box
           display="flex"
-          alignItems="center"
+          alignItems={{ xs: "flex-start", md: "center" }}
           justifyContent="center"
           sx={{
-            height: { xs: "390px", sm: "480px", md: "90px" },
-            width: "100%",
+            height: { xs: "280px", sm: "360px", md: adHeight },
+            width: { xs: "100%", md: adWidth },
+            pt: { xs: "16px", sm: "32px", md: "0" },
             backgroundColor: "secondary.95",
           }}
         >
           <Grid
             container
-            direction={{ xs: "column", md: "row " }}
+            direction={{ xs: "column", md: adDirection }}
             justifyContent="space-evenly"
             alignItems="center"
-            spacing={2}
+            spacing={{ xs: 2, md: adSpacing }}
           >
             {/* Logo Call reponsive */}
             <Grid item>

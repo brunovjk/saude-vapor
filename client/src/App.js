@@ -11,12 +11,10 @@ import { Navbar, Footer, ScrollToTop } from "./components";
 import {
   Home,
   About,
-  // Busca,
-  // Contato,
+  Search,
+  Contact,
+  Terms,
   Login,
-  // Publicar,
-  // Blog,
-  // Termos,
   Styleguide,
   CreateAccount,
 } from "./pages";
@@ -39,17 +37,14 @@ export default function App() {
             {/* <Route path="/:blogId" element={<Blog />} />*/}
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
-            {/*<Route path="/busca" element={<Busca />} />
-            <Route path="/contato" element={<Contato />} /> />*/}
+            <Route path="/busca" element={<Search />} />
+            <Route path="/contato" element={<Contact />} />
             <Route
               path="/login"
               element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
             />
-
             <Route path="/criarconta" element={<CreateAccount />} />
-            {/*<Route path="/publicar" element={<Publicar />} />
-
-            <Route path="/termos" element={<Termos />} />*/}
+            <Route path="/termos" element={<Terms />} />
             <Route
               path="/styleguide"
               element={<Styleguide setChecked={setChecked} />}
