@@ -39,7 +39,10 @@ export default function App() {
             {/* <Route path="/:blogId" element={<Blog />} />*/}
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
-            <Route path="/minhaconta" element={<Dashboard />} />
+            <Route
+              path="/minhaconta"
+              element={<Dashboard checked={checked} />}
+            />
             <Route path="/busca" element={<Search />} />
             <Route path="/contato" element={<Contact />} />
             <Route

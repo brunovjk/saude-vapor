@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Typography, Grid, Box, Paper } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,21 +9,20 @@ import "swiper/css/bundle";
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
 export default function AdBanner(props) {
-  try {
-    if (props.vertical !== true) {
-      var adWidth = "100%";
-      var adHeight = "90px";
-      var adSpacing = 2;
-      var adDirection = "row";
-    } else {
-      var adWidth = "320px";
-      var adHeight = "480px";
-      var adSpacing = 5;
-      var adDirection = "column";
+  const [adWidth, setAdWidth] = useState("100%");
+  const [adHeight, setAdHeight] = useState("90px");
+  const [adSpacing, setAdSpacing] = useState(2);
+  const [adDirection, setAdDirection] = useState("row");
+
+  useEffect(() => {
+    if (props.vertical) {
+      console.log("ola");
+      setAdWidth("320px");
+      setAdHeight("480px");
+      setAdSpacing(5);
+      setAdDirection("column");
     }
-  } catch (error) {
-    console.log(error);
-  }
+  }, [props.vertical]);
 
   return (
     <>

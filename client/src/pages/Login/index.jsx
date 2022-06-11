@@ -78,7 +78,11 @@ export default function Login() {
               mt: "24px",
             }}
           >
-            <Button fullWidth={true} sx={{ mx: { xs: "16px", sm: "32px" } }}>
+            <Button
+              fullWidth={true}
+              sx={{ mx: { xs: "16px", sm: "32px" } }}
+              to="/dashboard"
+            >
               ENTRAR
             </Button>
           </Grid>
