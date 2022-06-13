@@ -22,6 +22,8 @@ import {
   Post,
 } from "./pages";
 
+import { PostdataContextProvider } from "./context/PostdataContext";
+
 export default function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
@@ -29,36 +31,37 @@ export default function App() {
 
   return (
     <ThemeProvider theme={checked ? darkTheme : lightTheme}>
+      <CssBaseline />
       <Container disableGutters={true} overflow="hidden" maxWidth="xl">
-        <CssBaseline />
-
         <Router>
           <Navbar isAuth={isAuth} setIsAuth={setIsAuth} checked={checked} />
 
           <ScrollToTop />
-          <Routes>
-            <Route path="/post" element={<Post />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/sobre" element={<About />} />
-            <Route
-              path="/minhaconta"
-              element={<Dashboard checked={checked} />}
-            />
-            <Route path="/busca" element={<Search />} />
-            <Route path="/contato" element={<Contact />} />
-            <Route
-              path="/login"
-              element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
-            />
-            <Route path="/criarconta" element={<CreateAccount />} />
-            <Route path="/blockchain" element={<Blockchain />} />
+          <PostdataContextProvider>
+            <Routes>
+              <Route path="/post" element={<Post />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/sobre" element={<About />} />
+              <Route
+                path="/minhaconta"
+                element={<Dashboard checked={checked} />}
+              />
+              <Route path="/busca" element={<Search />} />
+              <Route path="/contato" element={<Contact />} />
+              <Route
+                path="/login"
+                element={<Login isAuth={isAuth} setIsAuth={setIsAuth} />}
+              />
+              <Route path="/criarconta" element={<CreateAccount />} />
+              <Route path="/blockchain" element={<Blockchain />} />
 
-            <Route path="/termos" element={<Terms />} />
-            <Route
-              path="/styleguide"
-              element={<Styleguide setChecked={setChecked} />}
-            />
-          </Routes>
+              <Route path="/termos" element={<Terms />} />
+              <Route
+                path="/styleguide"
+                element={<Styleguide setChecked={setChecked} />}
+              />
+            </Routes>
+          </PostdataContextProvider>
           <ScrollButton />
           <Footer />
         </Router>

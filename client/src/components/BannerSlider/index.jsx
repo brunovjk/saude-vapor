@@ -22,9 +22,9 @@ function BannerSlider(props) {
     } else {
       const imagesSkeleton = [
         {
-          label: <Skeleton animation="wave" variant="text" />,
+          title: <Skeleton animation="wave" variant="text" />,
           date: <Skeleton animation="wave" variant="text" />,
-          description: (
+          text: (
             <>
               <Skeleton animation="wave" variant="text" />
               <Skeleton animation="wave" variant="text" />
@@ -34,9 +34,9 @@ function BannerSlider(props) {
             "https://blog.inteligov.com.br/wp-content/uploads/2020/04/seguranca-da-informacao-1013x675.jpeg",
         },
         {
-          label: <Skeleton animation="wave" variant="text" />,
+          title: <Skeleton animation="wave" variant="text" />,
           date: <Skeleton animation="wave" variant="text" />,
-          description: (
+          text: (
             <>
               <Skeleton animation="wave" variant="text" />
               <Skeleton animation="wave" variant="text" />
@@ -133,7 +133,7 @@ function BannerSlider(props) {
                                 px: { xs: "0px", md: "36px" },
                               }}
                             >
-                              {step.label}
+                              {step.title}
                             </Typography>
                           </Grid>
                           <Grid item>
@@ -167,7 +167,7 @@ function BannerSlider(props) {
                                 mb: { xs: "24px", sm: "24px", md: "8px" },
                               }}
                             >
-                              {step.description}
+                              {step.text}
                             </Typography>
                           </Grid>
                         </Grid>

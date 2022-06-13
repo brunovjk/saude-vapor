@@ -13,27 +13,58 @@ import {
   Select,
 } from "@mui/material";
 
+import UploadIcon from "@mui/icons-material/Upload";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import UploadIcon from "@mui/icons-material/Upload";
+import Axios from "axios";
 
 export default function Publish() {
-  const [category, setCategory] = useState("");
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [date, setDate] = useState(null);
+  const [category, setCategory] = useState("");
+  const [postData, setPostData] = useState();
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
+  const handleChangeCategory = (event) => {
     if (event.target.value === "Artigos") {
+      setCategory(event.target.value);
       setShowDatePicker(true);
     } else {
+      //event.target.value === "Noticias"
+      setCategory(event.target.value);
       setShowDatePicker(false);
+      setPostData((prevValue) => ({
+        ...prevValue,
+        ["date"]: `${new Date()}`,
+      }));
     }
   };
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
+
+  const handleChangeDate = (event) => {
+    setDate(event);
+    setPostData((prevValue) => ({
+      ...prevValue,
+      ["date"]: event,
+    }));
+  };
+
+  const handleChangePostData = (event) => {
+    setPostData((prevValue) => ({
+      ...prevValue,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleClickPublicar = () => {
+    // console.log(postData);
+    Axios.post(`http://localhost:3001/publish/${category}`, {
+      date: postData.date,
+      title: postData.title,
+      text: postData.text,
+    }).then((response) => {
+      console.log(response);
+    });
   };
 
   return (
@@ -85,13 +116,13 @@ export default function Publish() {
         >
           <Grid item xs={12} sm={6} md={4}>
             <FormControl fullWidth={true}>
-              <InputLabel id="category-select-label">Categoria</InputLabel>
+              <InputLabel name="category-select-label">Categoria</InputLabel>
               <Select
                 labelId="category-select-label"
-                id="category-select"
+                name="category"
                 value={category}
                 label="Categoria"
-                onChange={handleCategoryChange}
+                onChange={handleChangeCategory}
               >
                 <MenuItem value={"Noticias"}>Noticias</MenuItem>
                 <MenuItem value={"Artigos"}>Artigos</MenuItem>
@@ -103,8 +134,10 @@ export default function Publish() {
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Data de publicação"
+                  id="date"
+                  name="date"
                   value={date}
-                  onChange={handleDateChange}
+                  onChange={handleChangeDate}
                   renderInput={(params) => (
                     <TextField fullWidth={true} {...params} />
                   )}
@@ -117,18 +150,20 @@ export default function Publish() {
         <Grid item xs={12}>
           <TextField
             fullWidth={true}
-            id="title-field"
+            name="title"
             label="Titulo"
             variant="outlined"
+            onChange={handleChangePostData}
           />
         </Grid>
         {/* Text area */}
         <Grid item xs={12}>
           <TextField
             fullWidth={true}
-            id="text-area-field"
+            name="text"
             label="Texto"
             variant="outlined"
+            onChange={handleChangePostData}
             multiline
             rows={12}
           />
@@ -142,7 +177,7 @@ export default function Publish() {
           justifyContent="center"
           alignItems="center"
         >
-          <Button>Enviar</Button>
+          <Button onClick={handleClickPublicar}>Enviar</Button>
         </Grid>
       </Grid>
     </Box>

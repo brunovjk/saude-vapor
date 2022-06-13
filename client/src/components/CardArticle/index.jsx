@@ -20,10 +20,10 @@ function CardArticle(props) {
     } else {
       const imagesSkeleton = [
         {
-          label: <Skeleton animation="wave" variant="text" width="240px" />,
+          title: <Skeleton animation="wave" variant="text" width="240px" />,
           date: <Skeleton animation="wave" variant="text" width="56px" />,
           category: <Skeleton animation="wave" variant="text" width="96px" />,
-          description: (
+          text: (
             <>
               <Skeleton animation="wave" variant="text" width="280px" />
               <Skeleton animation="wave" variant="text" width="280px" />
@@ -58,7 +58,7 @@ function CardArticle(props) {
                 component="img"
                 height="100%"
                 src={image.imgPath}
-                alt={image.label}
+                alt={image.title}
               />
             </Grid>
             <Grid item xs={7}>
@@ -90,7 +90,7 @@ function CardArticle(props) {
                         my: "6px",
                       }}
                     >
-                      {image.label}
+                      {image.title}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -104,7 +104,7 @@ function CardArticle(props) {
                         WebkitLineClamp: 3,
                       }}
                     >
-                      {image.description}
+                      {image.text}
                     </Typography>
                   </Grid>
                 </Grid>
