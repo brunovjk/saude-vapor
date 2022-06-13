@@ -6,7 +6,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Container } from "@mui/material";
 
-import { Navbar, Footer, ScrollToTop } from "./components";
+import { Navbar, Footer, ScrollToTop, ScrollButton } from "./components";
 
 import {
   Home,
@@ -19,6 +19,7 @@ import {
   CreateAccount,
   Dashboard,
   Blockchain,
+  Post,
 } from "./pages";
 
 export default function App() {
@@ -36,7 +37,7 @@ export default function App() {
 
           <ScrollToTop />
           <Routes>
-            {/* <Route path="/:blogId" element={<Blog />} />*/}
+            <Route path="/post" element={<Post />} />
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
             <Route
@@ -58,6 +59,7 @@ export default function App() {
               element={<Styleguide setChecked={setChecked} />}
             />
           </Routes>
+          <ScrollButton />
           <Footer />
         </Router>
       </Container>

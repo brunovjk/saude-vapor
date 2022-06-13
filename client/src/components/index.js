@@ -5,3 +5,4 @@ export { default as BannerSlider } from "./BannerSlider";
 export { default as CardArticle } from "./CardArticle";
 export { default as AdBanner } from "./AdBanner";
 export { default as FABSocialMedia } from "./FABSocialMedia";
+export { default as ScrollButton } from "./ScrollButton";

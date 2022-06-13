@@ -10,6 +10,8 @@ import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
 
+import { NavLink } from "react-router-dom";
+
 function BannerSlider(props) {
   const [elevation, setElevation] = useState(3);
   const [images, setImages] = useState([]);
@@ -58,7 +60,7 @@ function BannerSlider(props) {
       onMouseEnter={() => setElevation(1)}
       onMouseLeave={() => setElevation(3)}
     >
-      <Box sx={{ width: "100vw" }}>
+      <Box sx={{ width: "100%" }}>
         <Swiper
           slidesPerView={1}
           centeredSlides={true}
@@ -75,103 +77,105 @@ function BannerSlider(props) {
         >
           {images.map((step, index) => (
             <SwiperSlide key={index}>
-              <Box
-                component="div"
-                sx={{
-                  height: "70vh",
-                  display: "block",
-                  overflow: "hidden",
-                  width: "100%",
-                  cursor: "pointer",
-                  backgroundImage: `url(${step.imgPath})`,
+              <NavLink to="/post">
+                <Box
+                  component="div"
+                  sx={{
+                    height: "70vh",
+                    display: "block",
+                    overflow: "hidden",
+                    width: "100%",
+                    cursor: "pointer",
+                    backgroundImage: `url(${step.imgPath})`,
 
-                  "&:hover": {
-                    opacity: [1, 1, 0.95],
-                  },
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <Grid
-                  container
-                  direction="column"
-                  justifyContent="flex-end"
-                  alignItems="stretch"
-                  sx={{ height: "100%", width: "100%" }}
+                    "&:hover": {
+                      opacity: [1, 1, 0.95],
+                    },
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
                 >
-                  <Grid item>
-                    <Box
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        p: {
-                          xs: "16px",
-                          md: "32px",
-                        },
-                        backgroundColor: "primary.100",
-                        opacity: [1, 1, 0.8],
-                      }}
-                    >
-                      <Grid
-                        container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="stretch"
+                  <Grid
+                    container
+                    direction="column"
+                    justifyContent="flex-end"
+                    alignItems="stretch"
+                    sx={{ height: "100%", width: "100%" }}
+                  >
+                    <Grid item>
+                      <Box
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          p: {
+                            xs: "16px",
+                            md: "32px",
+                          },
+                          backgroundColor: "primary.100",
+                          opacity: [1, 1, 0.8],
+                        }}
                       >
-                        <Grid item>
-                          <Typography
-                            variant="headline"
-                            color="primary.10"
-                            sx={{
-                              display: "-webkit-box",
-                              overflow: "hidden",
-                              WebkitBoxOrient: "vertical",
-                              WebkitLineClamp: { xs: 2, md: 1 },
-                              px: { xs: "0px", md: "36px" },
-                            }}
-                          >
-                            {step.label}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant="underline2"
-                            color="primary.30"
-                            sx={{
-                              px: { xs: "0px", md: "36px" },
-                            }}
-                          >
-                            {step.date}
-                          </Typography>
-                        </Grid>
                         <Grid
-                          item
-                          sx={{
-                            mt: "18px",
-                            px: { xs: "0px", sm: "36px" },
-                          }}
+                          container
+                          direction="column"
+                          justifyContent="center"
+                          alignItems="stretch"
                         >
-                          <Typography
-                            variant="h3"
-                            color="text.secondary "
+                          <Grid item>
+                            <Typography
+                              variant="headline"
+                              color="primary.10"
+                              sx={{
+                                display: "-webkit-box",
+                                overflow: "hidden",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: { xs: 2, md: 1 },
+                                px: { xs: "0px", md: "36px" },
+                              }}
+                            >
+                              {step.label}
+                            </Typography>
+                          </Grid>
+                          <Grid item>
+                            <Typography
+                              variant="underline2"
+                              color="primary.30"
+                              sx={{
+                                px: { xs: "0px", md: "36px" },
+                              }}
+                            >
+                              {step.date}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            item
                             sx={{
-                              display: "-webkit-box",
-                              overflow: "hidden",
-                              WebkitBoxOrient: "vertical",
-                              WebkitLineClamp: { xs: 3, sm: 2 },
-                              letterSpacing: -0.8,
-                              fontWeight: 400,
-                              mb: { xs: "24px", sm: "24px", md: "8px" },
+                              mt: "18px",
+                              px: { xs: "0px", sm: "36px" },
                             }}
                           >
-                            {step.description}
-                          </Typography>
+                            <Typography
+                              variant="h3"
+                              color="text.secondary "
+                              sx={{
+                                display: "-webkit-box",
+                                overflow: "hidden",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: { xs: 3, sm: 2 },
+                                letterSpacing: -0.8,
+                                fontWeight: 400,
+                                mb: { xs: "24px", sm: "24px", md: "8px" },
+                              }}
+                            >
+                              {step.description}
+                            </Typography>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Box>
+                      </Box>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
+                </Box>
+              </NavLink>
             </SwiperSlide>
           ))}
         </Swiper>

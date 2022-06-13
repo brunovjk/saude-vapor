@@ -259,7 +259,7 @@ export default function Home() {
           height: "0px",
         }}
       >
-        <FABSocialMedia />
+        <FABSocialMedia mt="10vh" mr="2vw" direction="column" />
       </Grid>
       <Grid container spacing={{ xs: "8px", sm: "16px", md: "32px" }}>
         {/* Banners container */}

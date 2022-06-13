@@ -4,15 +4,15 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
-export default function FABSocialMedia() {
+export default function FABSocialMedia(props) {
   return (
     <Stack
-      direction="column"
-      justifyContent="center"
+      direction={props.direction}
+      justifyContent="flex-start"
       alignItems="center"
       spacing={2}
-      mt="10vh"
-      mr="2vw"
+      mt={props.mt}
+      mr={props.mr}
     >
       <Fab color="primary" size="small" aria-label="facebook">
         <FacebookIcon fontSize="small" color="secondary" />

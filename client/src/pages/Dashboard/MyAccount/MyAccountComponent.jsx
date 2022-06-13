@@ -39,6 +39,27 @@ export default function MyAccountComponent({ setComponentToRender }) {
                 Informações pessoais
               </Typography>
             </Grid>
+            {/* Nome */}
+            <Grid
+              container
+              item
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-end"
+              spacing={3}
+            >
+              <Grid item>
+                <TextField
+                  disabled
+                  id="outlined-disabled"
+                  label="Nome"
+                  defaultValue="{Nome}"
+                />
+              </Grid>
+              <Grid item>
+                <Button variant="text">Editar Nome</Button>
+              </Grid>
+            </Grid>
             {/* E-mail */}
             <Grid
               container

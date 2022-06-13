@@ -16,8 +16,7 @@ export default function AdBanner(props) {
 
   useEffect(() => {
     if (props.vertical) {
-      console.log("ola");
-      setAdWidth("320px");
+      setAdWidth("280px");
       setAdHeight("480px");
       setAdSpacing(5);
       setAdDirection("column");

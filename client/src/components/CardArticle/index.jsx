@@ -39,7 +39,7 @@ function CardArticle(props) {
   }, [props.image]);
   return (
     <>
-      <NavLink to="/styleguide">
+      <NavLink to="/post">
         <Card
           elevation={elevation}
           sx={{
