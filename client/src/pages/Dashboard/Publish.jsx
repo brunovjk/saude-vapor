@@ -3,9 +3,8 @@ import {
   Box,
   Grid,
   Skeleton,
-  Fab,
+  Input,
   Button,
-  Typography,
   TextField,
   FormControl,
   InputLabel,
@@ -13,7 +12,6 @@ import {
   Select,
 } from "@mui/material";
 
-import UploadIcon from "@mui/icons-material/Upload";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -21,50 +19,55 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Axios from "axios";
 
 export default function Publish() {
-  const [date, setDate] = useState(null);
+  const [file, setFile] = useState();
+  const [fileName, setFileName] = useState("");
   const [category, setCategory] = useState("");
-  const [postData, setPostData] = useState();
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [date, setDate] = useState(null);
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
+  const handleChangeImageUrl = (event) => {
+    setFile(event.target.files[0]);
+    setFileName(event.target.files[0].name);
+  };
 
   const handleChangeCategory = (event) => {
+    setCategory(event.target.value);
     if (event.target.value === "Artigos") {
-      setCategory(event.target.value);
       setShowDatePicker(true);
     } else {
-      //event.target.value === "Noticias"
-      setCategory(event.target.value);
-      setShowDatePicker(false);
-      setPostData((prevValue) => ({
-        ...prevValue,
-        ["date"]: `${new Date()}`,
-      }));
+      setDate(new Date());
     }
   };
-
   const handleChangeDate = (event) => {
-    setDate(event);
-    setPostData((prevValue) => ({
-      ...prevValue,
-      ["date"]: event,
-    }));
+    setDate(event.target.value);
   };
 
-  const handleChangePostData = (event) => {
-    setPostData((prevValue) => ({
-      ...prevValue,
-      [event.target.name]: event.target.value,
-    }));
+  const handleChangeTitle = (event) => {
+    setTitle(event.target.value);
   };
 
-  const handleClickPublicar = () => {
-    Axios.post(`http://localhost:3001/publish/${category}`, {
-      img: postData.img,
-      date: postData.date,
-      title: postData.title,
-      text: postData.text,
-    }).then((response) => {
-      console.log(response);
-    });
+  const handleChangeText = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleClickPublicar = async () => {
+    try {
+      const res = await Axios.post(
+        `http://localhost:3001/publish/${category}`,
+        {
+          file: file,
+          fileName: fileName,
+          date: date,
+          title: title,
+          text: text,
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -83,26 +86,8 @@ export default function Publish() {
           </Box>
         </Grid>
         {/* Upload Image */}
-        <Grid
-          container
-          item
-          xs={12}
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item>
-            <Fab size="small" color="primary" aria-label="UploadIcon">
-              <UploadIcon fontSize="small" color="secondary" />
-            </Fab>
-          </Grid>
-          <Grid item>
-            <Typography variant="body2">Escolher arquivo...</Typography>
-          </Grid>
-          <Grid item>
-            <Button>Enviar</Button>
-          </Grid>
+        <Grid item xs={12}>
+          <Input type="file" onChange={handleChangeImageUrl} />
         </Grid>
         {/* Select Type and Date */}
         <Grid
@@ -146,16 +131,6 @@ export default function Publish() {
             )}
           </Grid>
         </Grid>
-        {/* img */}
-        <Grid item xs={12}>
-          <TextField
-            fullWidth={true}
-            name="img"
-            label="Imagem"
-            variant="outlined"
-            onChange={handleChangePostData}
-          />
-        </Grid>
         {/* Title */}
         <Grid item xs={12}>
           <TextField
@@ -163,7 +138,7 @@ export default function Publish() {
             name="title"
             label="Titulo"
             variant="outlined"
-            onChange={handleChangePostData}
+            onChange={handleChangeTitle}
           />
         </Grid>
         {/* Text area */}
@@ -173,7 +148,7 @@ export default function Publish() {
             name="text"
             label="Texto"
             variant="outlined"
-            onChange={handleChangePostData}
+            onChange={handleChangeText}
             multiline
             rows={12}
           />

@@ -14,28 +14,31 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/publish/Artigos", (req, res) => {
-  const { img } = req.body;
+  const { file } = req.body;
+  const { fileName } = req.body;
   const { date } = req.body;
   const { title } = req.body;
   const { text } = req.body;
 
   let SQL =
-    "INSERT INTO postarticles (img, date, title, text) VALUES (?, ?, ?, ?)";
+    "INSERT INTO postarticles (file, fileName,date, title, text) VALUES (?, ?, ?, ?, ?)";
 
-  db.query(SQL, [img, date, title, text], (err, result) => {
+  db.query(SQL, [file, fileName, date, title, text], (err, result) => {
     console.log(err);
   });
 });
 
 app.post("/publish/Noticias", (req, res) => {
-  const { img } = req.body;
+  const { file } = req.body;
+  const { fileName } = req.body;
   const { date } = req.body;
   const { title } = req.body;
   const { text } = req.body;
 
-  let SQL = "INSERT INTO postnews (img, date, title, text) VALUES (?, ?, ?, ?)";
+  let SQL =
+    "INSERT INTO postnews (file, fileName, date, title, text) VALUES (?, ?, ?, ?, ?)";
 
-  db.query(SQL, [img, date, title, text], (err, result) => {
+  db.query(SQL, [file, fileName, date, title, text], (err, result) => {
     console.log(err);
   });
 });
