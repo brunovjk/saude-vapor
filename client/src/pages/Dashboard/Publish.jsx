@@ -57,8 +57,8 @@ export default function Publish() {
   };
 
   const handleClickPublicar = () => {
-    // console.log(postData);
     Axios.post(`http://localhost:3001/publish/${category}`, {
+      img: postData.img,
       date: postData.date,
       title: postData.title,
       text: postData.text,
@@ -145,6 +145,16 @@ export default function Publish() {
               </LocalizationProvider>
             )}
           </Grid>
+        </Grid>
+        {/* img */}
+        <Grid item xs={12}>
+          <TextField
+            fullWidth={true}
+            name="img"
+            label="Imagem"
+            variant="outlined"
+            onChange={handleChangePostData}
+          />
         </Grid>
         {/* Title */}
         <Grid item xs={12}>

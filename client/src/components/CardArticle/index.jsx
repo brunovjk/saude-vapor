@@ -1,42 +1,11 @@
-import React, { useState, useEffect } from "react";
-import {
-  Skeleton,
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Typography, Card, CardContent, CardMedia, Grid } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
 
 function CardArticle(props) {
   const [elevation, setElevation] = useState(3);
-  const [image, setImage] = useState([]);
 
-  useEffect(() => {
-    if (typeof props.image !== "undefined" && props.image.length > 0) {
-      setImage(props.image[0]);
-    } else {
-      const imagesSkeleton = [
-        {
-          title: <Skeleton animation="wave" variant="text" width="240px" />,
-          date: <Skeleton animation="wave" variant="text" width="56px" />,
-          category: <Skeleton animation="wave" variant="text" width="96px" />,
-          text: (
-            <>
-              <Skeleton animation="wave" variant="text" width="280px" />
-              <Skeleton animation="wave" variant="text" width="280px" />
-              <Skeleton animation="wave" variant="text" width="128px" />
-            </>
-          ),
-          imgPath:
-            "https://img.freepik.com/vetores-gratis/equipe-do-armazem-vestindo-uniforme-carregando-a-caixa-de-encomendas-e-verificando-o-produto-do-armazem-entrega-e-armazenamento-logistico-e-transporte-por-caminhao-entrega-e-logistica-da-industria-entrega-comercial_1150-60906.jpg",
-        },
-      ];
-      setImage(imagesSkeleton[0]);
-    }
-  }, [props.image]);
   return (
     <>
       <NavLink to="/post">
@@ -57,8 +26,8 @@ function CardArticle(props) {
               <CardMedia
                 component="img"
                 height="100%"
-                src={image.imgPath}
-                alt={image.title}
+                src={props.postData[0].img}
+                alt={props.postData[0].img}
               />
             </Grid>
             <Grid item xs={7}>
@@ -70,11 +39,30 @@ function CardArticle(props) {
                   alignItems="flex-start"
                 >
                   <Grid item>
-                    <Typography variant="underline2">{image.date}</Typography>
+                    <Typography
+                      variant="underline2"
+                      sx={{
+                        display: "-webkit-box",
+                        overflow: "hidden",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                      }}
+                    >
+                      {props.postData[0].date}
+                    </Typography>
                   </Grid>
                   <Grid item>
-                    <Typography variant="underline2" color="primary">
-                      {image.category}
+                    <Typography
+                      variant="underline2"
+                      color="primary"
+                      sx={{
+                        display: "-webkit-box",
+                        overflow: "hidden",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                      }}
+                    >
+                      {props.category}
                     </Typography>
                   </Grid>
 
@@ -90,7 +78,7 @@ function CardArticle(props) {
                         my: "6px",
                       }}
                     >
-                      {image.title}
+                      {props.postData[0].title}
                     </Typography>
                   </Grid>
                   <Grid item>
@@ -104,7 +92,7 @@ function CardArticle(props) {
                         WebkitLineClamp: 3,
                       }}
                     >
-                      {image.text}
+                      {props.postData[0].text}
                     </Typography>
                   </Grid>
                 </Grid>

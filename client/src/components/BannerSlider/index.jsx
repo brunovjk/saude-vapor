@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Box, Grid, Skeleton, Paper, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -14,41 +14,6 @@ import { NavLink } from "react-router-dom";
 
 function BannerSlider(props) {
   const [elevation, setElevation] = useState(3);
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    if (typeof props.images !== "undefined" && props.images.length > 0) {
-      setImages(props.images);
-    } else {
-      const imagesSkeleton = [
-        {
-          title: <Skeleton animation="wave" variant="text" />,
-          date: <Skeleton animation="wave" variant="text" />,
-          text: (
-            <>
-              <Skeleton animation="wave" variant="text" />
-              <Skeleton animation="wave" variant="text" />
-            </>
-          ),
-          imgPath:
-            "https://blog.inteligov.com.br/wp-content/uploads/2020/04/seguranca-da-informacao-1013x675.jpeg",
-        },
-        {
-          title: <Skeleton animation="wave" variant="text" />,
-          date: <Skeleton animation="wave" variant="text" />,
-          text: (
-            <>
-              <Skeleton animation="wave" variant="text" />
-              <Skeleton animation="wave" variant="text" />
-            </>
-          ),
-          imgPath:
-            "https://www.biti9.com.br/wp-content/uploads/2021/06/Gestao-da-informacao-1080x675.jpg",
-        },
-      ];
-      setImages(imagesSkeleton);
-    }
-  }, [props.images]);
 
   return (
     <Paper
@@ -65,7 +30,7 @@ function BannerSlider(props) {
           slidesPerView={1}
           centeredSlides={true}
           autoplay={{
-            delay: 2500,
+            delay: 4500,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -75,7 +40,7 @@ function BannerSlider(props) {
           modules={[Autoplay, Pagination]}
           className="mySwiper"
         >
-          {images.map((step, index) => (
+          {props.postData.map((data, index) => (
             <SwiperSlide key={index}>
               <NavLink to="/post">
                 <Box
@@ -86,8 +51,7 @@ function BannerSlider(props) {
                     overflow: "hidden",
                     width: "100%",
                     cursor: "pointer",
-                    backgroundImage: `url(${step.imgPath})`,
-
+                    backgroundImage: `url("${data.img}")`,
                     "&:hover": {
                       opacity: [1, 1, 0.95],
                     },
@@ -133,7 +97,7 @@ function BannerSlider(props) {
                                 px: { xs: "0px", md: "36px" },
                               }}
                             >
-                              {step.title}
+                              {data.title}
                             </Typography>
                           </Grid>
                           <Grid item>
@@ -144,7 +108,7 @@ function BannerSlider(props) {
                                 px: { xs: "0px", md: "36px" },
                               }}
                             >
-                              {step.date}
+                              {data.date}
                             </Typography>
                           </Grid>
                           <Grid
@@ -167,7 +131,7 @@ function BannerSlider(props) {
                                 mb: { xs: "24px", sm: "24px", md: "8px" },
                               }}
                             >
-                              {step.text}
+                              {data.text}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -183,5 +147,4 @@ function BannerSlider(props) {
     </Paper>
   );
 }
-
 export default BannerSlider;
