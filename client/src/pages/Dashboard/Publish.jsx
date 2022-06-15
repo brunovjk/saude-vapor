@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Grid,
-  Skeleton,
   Input,
   Button,
   TextField,
@@ -11,10 +10,6 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import Axios from "axios";
 
@@ -37,7 +32,9 @@ export default function Publish() {
     if (event.target.value === "Artigos") {
       setShowDatePicker(true);
     } else {
-      setDate(new Date());
+      setDate(
+        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+      );
     }
   };
   const handleChangeDate = (event) => {
@@ -52,7 +49,8 @@ export default function Publish() {
     setText(event.target.value);
   };
 
-  const handleClickPublicar = async () => {
+  const handleClickPublicar = async (event) => {
+    event.preventDefault();
     try {
       const res = await Axios.post(
         `http://localhost:3001/publish/${category}`,
@@ -71,23 +69,17 @@ export default function Publish() {
   };
 
   return (
-    <Box>
+    <Box component="form" onSubmit={handleClickPublicar}>
       <Grid
         container
         direction="column"
         justifyContent="flex-start"
         alignItems="stretch"
-        spacing={3}
+        spacing={4}
       >
-        {/* Banner Image */}
-        <Grid item xs={12}>
-          <Box width="100%" height="118px">
-            <Skeleton variant="rectangular" width="100%" height="100%" />
-          </Box>
-        </Grid>
         {/* Upload Image */}
         <Grid item xs={12}>
-          <Input type="file" onChange={handleChangeImageUrl} />
+          <Input required type="file" onChange={handleChangeImageUrl} />
         </Grid>
         {/* Select Type and Date */}
         <Grid
@@ -100,7 +92,7 @@ export default function Publish() {
           spacing={2}
         >
           <Grid item xs={12} sm={6} md={4}>
-            <FormControl fullWidth={true}>
+            <FormControl required fullWidth={true}>
               <InputLabel name="category-select-label">Categoria</InputLabel>
               <Select
                 labelId="category-select-label"
@@ -116,24 +108,20 @@ export default function Publish() {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             {showDatePicker && (
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="Data de publicação"
-                  id="date"
-                  name="date"
-                  value={date}
-                  onChange={handleChangeDate}
-                  renderInput={(params) => (
-                    <TextField fullWidth={true} {...params} />
-                  )}
-                />
-              </LocalizationProvider>
+              <TextField
+                id="date"
+                name="date"
+                onChange={handleChangeDate}
+                required
+                type="date"
+              />
             )}
           </Grid>
         </Grid>
         {/* Title */}
         <Grid item xs={12}>
           <TextField
+            required
             fullWidth={true}
             name="title"
             label="Titulo"
@@ -144,6 +132,7 @@ export default function Publish() {
         {/* Text area */}
         <Grid item xs={12}>
           <TextField
+            required
             fullWidth={true}
             name="text"
             label="Texto"
@@ -162,7 +151,7 @@ export default function Publish() {
           justifyContent="center"
           alignItems="center"
         >
-          <Button onClick={handleClickPublicar}>Enviar</Button>
+          <Button type="submit">Enviar</Button>
         </Grid>
       </Grid>
     </Box>

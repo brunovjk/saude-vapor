@@ -40,7 +40,6 @@ export default function MenuSideList({ setItemSelected }) {
             </ListItemIcon>
             <ListItemText primary="Publicar" />
           </ListItem>
-          {/* )} */}
         </Box>
 
         <Box>
