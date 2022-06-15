@@ -14,7 +14,7 @@ import {
 import Axios from "axios";
 
 export default function Publish() {
-  const [file, setFile] = useState();
+  const [img, setImg] = useState();
   const [fileName, setFileName] = useState("");
   const [category, setCategory] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -23,7 +23,7 @@ export default function Publish() {
   const [text, setText] = useState("");
 
   const handleChangeImageUrl = (event) => {
-    setFile(event.target.files[0]);
+    setImg(event.target.files[0]);
     setFileName(event.target.files[0].name);
   };
 
@@ -52,11 +52,10 @@ export default function Publish() {
   const handleClickPublicar = async (event) => {
     event.preventDefault();
     try {
-      const res = await Axios.post(
+      const res = await Axios.postForm(
         `http://localhost:3001/publish/${category}`,
         {
-          file: file,
-          fileName: fileName,
+          img: img,
           date: date,
           title: title,
           text: text,
@@ -69,7 +68,12 @@ export default function Publish() {
   };
 
   return (
-    <Box component="form" onSubmit={handleClickPublicar}>
+    <Box
+      component="form"
+      method="post"
+      encType="multipart/form-data"
+      onSubmit={handleClickPublicar}
+    >
       <Grid
         container
         direction="column"
@@ -79,7 +83,12 @@ export default function Publish() {
       >
         {/* Upload Image */}
         <Grid item xs={12}>
-          <Input required type="file" onChange={handleChangeImageUrl} />
+          <Input
+            required
+            type="file"
+            name="img"
+            onChange={handleChangeImageUrl}
+          />
         </Grid>
         {/* Select Type and Date */}
         <Grid
