@@ -196,9 +196,16 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           height: "40px",
-          borderRadius: "20px",
+          borderRadius: "12px",
           paddingRight: "24px",
           paddingLeft: "24px",
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "12px",
         },
       },
     },
@@ -402,7 +409,7 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           height: "40px",
-          borderRadius: "20px",
+          borderRadius: "18px",
           paddingRight: "24px",
           paddingLeft: "24px",
         },

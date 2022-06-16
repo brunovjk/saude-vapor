@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -9,24 +9,45 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  CircularProgress,
+  Skeleton,
+  CardMedia,
+  Snackbar,
+  Alert,
 } from "@mui/material";
+
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../context/firebase-config";
 
 import Axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 export default function Publish() {
-  const [img, setImg] = useState();
-  const [fileName, setFileName] = useState("");
+  let navigate = useNavigate();
+  const [urlImage, setUrlImage] = useState("");
   const [category, setCategory] = useState("");
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [date, setDate] = useState(null);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const handleChangeImageUrl = (event) => {
-    setImg(event.target.files[0]);
-    setFileName(event.target.files[0].name);
-  };
+  const [file, setFile] = useState();
+  const [progress, setProgress] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [stateDisabled, setStateDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loadingPost, setLoadingPost] = useState(false);
+  const [successPost, setSuccessPost] = useState(false);
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleChangeImage = (event) => {
+    if (event.target.files[0]) {
+      setStateDisabled(false);
+    }
+    setFile(event.target.files[0]);
+  };
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
     if (event.target.value === "Artigos") {
@@ -40,40 +61,99 @@ export default function Publish() {
   const handleChangeDate = (event) => {
     setDate(event.target.value);
   };
-
   const handleChangeTitle = (event) => {
     setTitle(event.target.value);
   };
-
   const handleChangeText = (event) => {
     setText(event.target.value);
   };
+  const handleUploadImage = async () => {
+    if (!loading) {
+      setLoading(true);
+      setStateDisabled(true);
 
-  const handleClickPublicar = async (event) => {
-    event.preventDefault();
-    try {
-      const res = await Axios.postForm(
-        `http://localhost:3001/publish/${category}`,
-        {
-          img: img,
-          date: date,
-          title: title,
-          text: text,
-        }
-      );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+      try {
+        if (!file) return;
+        const storageRef = ref(storage, `/imagesPost/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const prog = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(prog);
+          },
+          (err) => console.log(err),
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((url) =>
+              setUrlImage(url)
+            );
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
+  useEffect(() => {
+    if (urlImage) {
+      setLoading(false);
+      setSuccess(true);
+      setStateDisabled(false);
+
+      setTimeout(() => {
+        setSuccess(false);
+        setStateDisabled(true);
+      }, 2000);
+    }
+  }, [urlImage]);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handlePublicar = async (event) => {
+    event.preventDefault();
+
+    setLoadingPost(true);
+
+    // Start uploading post
+    if (urlImage && date && title && text) {
+      try {
+        await Axios.post(`http://localhost:3001/publish/${category}`, {
+          urlImage: urlImage,
+          date: date,
+          title: title,
+          text: text,
+        });
+
+        setLoadingPost(false);
+        setSuccessPost(true);
+
+        setTimeout(() => {
+          // Post sended, refresh page
+          setSuccessPost(false);
+          navigate("/");
+        }, 2000);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      setLoadingPost(false);
+      setOpen(true);
+    }
+
+    // Finish uploading post
+  };
+
   return (
-    <Box
-      component="form"
-      method="post"
-      encType="multipart/form-data"
-      onSubmit={handleClickPublicar}
-    >
+    <Box component="form" onSubmit={handlePublicar}>
       <Grid
         container
         direction="column"
@@ -82,13 +162,79 @@ export default function Publish() {
         spacing={4}
       >
         {/* Upload Image */}
-        <Grid item xs={12}>
-          <Input
-            required
-            type="file"
-            name="img"
-            onChange={handleChangeImageUrl}
-          />
+        <Grid
+          container
+          item
+          xs={12}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={3}
+        >
+          {/* Image hold area */}
+          <Grid item xs={12}>
+            {urlImage ? (
+              <CardMedia
+                component="img"
+                src={urlImage}
+                sx={{ width: "100%", height: { xs: "124px", sm: "220px" } }}
+              />
+            ) : (
+              <Skeleton
+                variant="rectangular"
+                sx={{ width: "100%", height: { xs: "124px", sm: "220px" } }}
+              />
+            )}
+          </Grid>
+          {/* Select image button */}
+          <Grid item>
+            <label htmlFor="upload-button-file">
+              <Input
+                accept="image/*"
+                name="img"
+                id="upload-button-file"
+                type="file"
+                sx={{ display: "none" }}
+                onChange={handleChangeImage}
+              />
+              <Button
+                variant="outlined"
+                component="span"
+                sx={{ minWidth: "200px" }}
+              >
+                Escolher imagem
+              </Button>
+            </label>
+          </Grid>
+          {/* Upload image */}
+          <Grid item>
+            <Box sx={{ m: 1, position: "relative" }}>
+              <Button
+                variant="outlined"
+                color={success ? "success" : "primary"}
+                disabled={stateDisabled}
+                component="span"
+                onClick={handleUploadImage}
+                sx={{ minWidth: "200px" }}
+              >
+                {success ? "Sucesso" : "Enviar imagem"}
+              </Button>
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    color: "primary",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    marginTop: "-12px",
+                    marginLeft: "-12px",
+                  }}
+                  value={progress}
+                />
+              )}
+            </Box>
+          </Grid>
         </Grid>
         {/* Select Type and Date */}
         <Grid
@@ -152,17 +298,48 @@ export default function Publish() {
           />
         </Grid>
         {/* Button */}
-        <Grid
-          container
-          item
-          xs={12}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Button type="submit">Enviar</Button>
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              m: 1,
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              type="submit"
+              variant={successPost ? "outlined" : "contained"}
+              color={successPost ? "success" : "primary"}
+              disabled={loadingPost}
+              sx={{ minWidth: "180px" }}
+            >
+              {successPost ? "Post Criado" : "Enviar post"}
+            </Button>
+            {loadingPost && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  color: "primary",
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                }}
+              />
+            )}
+          </Box>
         </Grid>
       </Grid>
+      {/* Alert */}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          Voce precisa preencher todos os campos para crira um post. Inclusive
+          uma imagem.
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
