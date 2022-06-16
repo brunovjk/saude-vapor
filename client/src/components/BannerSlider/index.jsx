@@ -114,7 +114,6 @@ function BannerSlider(props) {
                           <Grid
                             item
                             sx={{
-                              mt: "18px",
                               px: { xs: "0px", sm: "36px" },
                             }}
                           >
@@ -130,8 +129,13 @@ function BannerSlider(props) {
                                 fontWeight: 400,
                                 mb: { xs: "24px", sm: "24px", md: "8px" },
                               }}
+                              component="div"
                             >
-                              {data.text}
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: data.text,
+                                }}
+                              />
                             </Typography>
                           </Grid>
                         </Grid>

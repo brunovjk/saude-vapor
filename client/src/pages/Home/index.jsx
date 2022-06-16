@@ -105,7 +105,6 @@ export default function Home() {
                     <CardArticle
                       direction={{ xs: "column", sm: "row" }}
                       postData={[dataHorizontalCard]}
-                      category="Noticia"
                     />
                   </Grid>
                 );
@@ -154,7 +153,6 @@ export default function Home() {
                     <CardArticle
                       direction="column"
                       postData={[dataCardSecondPage]}
-                      category="Artigo"
                     />
                   </Grid>
                 );
@@ -216,7 +214,6 @@ export default function Home() {
                         <CardArticle
                           direction="column"
                           postData={[singleDataComunCard]}
-                          category="Artigo"
                         />
                       </Grid>
                     );

@@ -16,6 +16,8 @@ import {
   Alert,
 } from "@mui/material";
 
+import EditorContainerComp from "../../components/EditorContainerComp";
+
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../context/firebase-config";
 
@@ -24,6 +26,22 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function Publish() {
+  let months = [
+    "Mes",
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ];
+
   let navigate = useNavigate();
   const [urlImage, setUrlImage] = useState("");
   const [category, setCategory] = useState("");
@@ -89,10 +107,12 @@ export default function Publish() {
     } else {
       setShowDatePicker(false);
       setDateToId(
-        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+        `${new Date().getFullYear()} ${new Date().getMonth()} ${new Date().getDate()}`
       );
       setDate(
-        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+        `${new Date().getDate()} 
+        ${months[new Date().getMonth() + 1]} 
+        ${new Date().getFullYear()}`
       );
     }
   };
@@ -101,17 +121,23 @@ export default function Publish() {
   };
   const handleChangeDate = (event) => {
     setDateToId(event.target.value);
-
-    setDate(event.target.value);
+    if (event.target.value.slice(5, 6) === "0") {
+      const dateFormated = `${event.target.value.slice(8, 10)} ${
+        months[event.target.value.slice(6, 7)]
+      } ${event.target.value.slice(0, 4)} `;
+      setDate(dateFormated);
+    } else {
+      const dateFormated = `${event.target.value.slice(8, 10)} ${
+        months[event.target.value.slice(5, 7)]
+      } ${event.target.value.slice(0, 4)} `;
+      setDate(dateFormated);
+    }
   };
   const handleChangeAuthor = (event) => {
     setAuthor(event.target.value);
   };
   const handleChangeLinkAuthor = (event) => {
     setLinkAuthor(event.target.value);
-  };
-  const handleChangeText = (event) => {
-    setText(event.target.value);
   };
 
   // handleClose Alert
@@ -159,11 +185,11 @@ export default function Publish() {
 
     // Start uploading post
     if (
+      docName &&
       urlImage &&
       category &&
       title &&
       date &&
-      docName &&
       author &&
       linkAuthor &&
       text
@@ -370,16 +396,7 @@ export default function Publish() {
         </Grid>
         {/* Text area */}
         <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth={true}
-            name="text"
-            label="Texto"
-            variant="outlined"
-            onChange={handleChangeText}
-            multiline
-            rows={12}
-          />
+          <EditorContainerComp setText={setText} />
         </Grid>
         {/* Button */}
         <Grid item xs={12}>

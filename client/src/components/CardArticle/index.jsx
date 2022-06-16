@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Card, CardContent, CardMedia, Grid } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
 
 function CardArticle(props) {
   const [elevation, setElevation] = useState(3);
+  const [minHeight, setMinHeight] = useState("");
+
+  useEffect(() => {
+    if (props.direction === "column") {
+      setMinHeight("310px");
+    }
+  }, [props.direction]);
+
+  console.log(minHeight);
 
   return (
     <>
@@ -17,6 +26,7 @@ function CardArticle(props) {
               opacity: [1, 1, 0.9],
             },
             borderRadius: "18px",
+            minHeight: minHeight,
           }}
           onMouseEnter={() => setElevation(1)}
           onMouseLeave={() => setElevation(3)}
@@ -62,7 +72,7 @@ function CardArticle(props) {
                         WebkitLineClamp: 1,
                       }}
                     >
-                      {props.category}
+                      {props.postData[0].category}
                     </Typography>
                   </Grid>
 
@@ -74,25 +84,11 @@ function CardArticle(props) {
                         display: "-webkit-box",
                         overflow: "hidden",
                         WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
+                        WebkitLineClamp: 3,
                         my: "6px",
                       }}
                     >
                       {props.postData[0].title}
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant="underline1"
-                      color="text.secondary"
-                      sx={{
-                        display: "-webkit-box",
-                        overflow: "hidden",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 3,
-                      }}
-                    >
-                      {props.postData[0].text}
                     </Typography>
                   </Grid>
                 </Grid>
