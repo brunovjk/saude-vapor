@@ -51,7 +51,7 @@ function BannerSlider(props) {
                     overflow: "hidden",
                     width: "100%",
                     cursor: "pointer",
-                    backgroundImage: `url("${data.imgUrl}")`,
+                    backgroundImage: `url("${data.urlImage}")`,
                     "&:hover": {
                       opacity: [1, 1, 0.95],
                     },

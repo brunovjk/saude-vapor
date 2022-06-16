@@ -26,8 +26,8 @@ function CardArticle(props) {
               <CardMedia
                 component="img"
                 height="100%"
-                src={props.postData[0].imgUrl}
-                alt={props.postData[0].imgUrl}
+                src={props.postData[0].urlImage}
+                alt={props.postData[0].urlImage}
               />
             </Grid>
             <Grid item xs={7}>

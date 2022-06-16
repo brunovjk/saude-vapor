@@ -27,11 +27,15 @@ export default function Publish() {
   let navigate = useNavigate();
   const [urlImage, setUrlImage] = useState("");
   const [category, setCategory] = useState("");
-  const [date, setDate] = useState(null);
   const [title, setTitle] = useState("");
+  const [date, setDate] = useState(null);
+  const [docName, setDocName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [linkAuthor, setLinkAuthor] = useState("NULL");
   const [text, setText] = useState("");
 
   const [file, setFile] = useState();
+  const [dateToId, setDateToId] = useState(null);
   const [progress, setProgress] = useState(0);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [stateDisabled, setStateDisabled] = useState(true);
@@ -39,33 +43,13 @@ export default function Publish() {
   const [success, setSuccess] = useState(false);
   const [loadingPost, setLoadingPost] = useState(false);
   const [successPost, setSuccessPost] = useState(false);
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleChangeImage = (event) => {
     if (event.target.files[0]) {
       setStateDisabled(false);
     }
     setFile(event.target.files[0]);
-  };
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-    if (event.target.value === "Artigos") {
-      setShowDatePicker(true);
-    } else {
-      setDate(
-        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
-      );
-    }
-  };
-  const handleChangeDate = (event) => {
-    setDate(event.target.value);
-  };
-  const handleChangeTitle = (event) => {
-    setTitle(event.target.value);
-  };
-  const handleChangeText = (event) => {
-    setText(event.target.value);
   };
   const handleUploadImage = async () => {
     if (!loading) {
@@ -98,6 +82,64 @@ export default function Publish() {
     }
   };
 
+  const handleChangeCategory = (event) => {
+    setCategory(event.target.value);
+    if (event.target.value === "Artigos") {
+      setShowDatePicker(true);
+    } else {
+      setShowDatePicker(false);
+      setDateToId(
+        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+      );
+      setDate(
+        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+      );
+    }
+  };
+  const handleChangeTitle = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleChangeDate = (event) => {
+    setDateToId(event.target.value);
+
+    setDate(event.target.value);
+  };
+  const handleChangeAuthor = (event) => {
+    setAuthor(event.target.value);
+  };
+  const handleChangeLinkAuthor = (event) => {
+    setLinkAuthor(event.target.value);
+  };
+  const handleChangeText = (event) => {
+    setText(event.target.value);
+  };
+
+  // handleClose Alert
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  //Handle docName
+  useEffect(() => {
+    if (title && dateToId) {
+      try {
+        let letters = "abcdefghijklmnopqrstuvwxyz";
+        let blogTitle = title.split(" ").join("-");
+        let id = "";
+        for (let i = 0; i < 4; i++) {
+          id += letters[Math.floor(Math.random() * letters.length)];
+        }
+        setDocName(`${dateToId}-${blogTitle}-${id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [title, dateToId]);
+
+  // Handling success buttom
   useEffect(() => {
     if (urlImage) {
       setLoading(false);
@@ -111,25 +153,30 @@ export default function Publish() {
     }
   }, [urlImage]);
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-  const handlePublicar = async (event) => {
+  const handlePublish = async (event) => {
     event.preventDefault();
-
     setLoadingPost(true);
 
     // Start uploading post
-    if (urlImage && date && title && text) {
+    if (
+      urlImage &&
+      category &&
+      title &&
+      date &&
+      docName &&
+      author &&
+      linkAuthor &&
+      text
+    ) {
       try {
         await Axios.post(`http://localhost:3001/publish/${category}`, {
+          docName: docName,
           urlImage: urlImage,
-          date: date,
+          category: category,
           title: title,
+          date: date,
+          author: author,
+          linkAuthor: linkAuthor,
           text: text,
         });
 
@@ -153,13 +200,13 @@ export default function Publish() {
   };
 
   return (
-    <Box component="form" onSubmit={handlePublicar}>
+    <Box component="form" onSubmit={handlePublish}>
       <Grid
         container
         direction="column"
         justifyContent="flex-start"
         alignItems="stretch"
-        spacing={4}
+        spacing={2}
       >
         {/* Upload Image */}
         <Grid
@@ -169,7 +216,8 @@ export default function Publish() {
           direction="row"
           justifyContent="flex-start"
           alignItems="center"
-          spacing={3}
+          spacing={1}
+          pb={2}
         >
           {/* Image hold area */}
           <Grid item xs={12}>
@@ -236,7 +284,7 @@ export default function Publish() {
             </Box>
           </Grid>
         </Grid>
-        {/* Select Type and Date */}
+        {/* Select Category and Date */}
         <Grid
           container
           item
@@ -246,6 +294,7 @@ export default function Publish() {
           alignItems="flex-start"
           spacing={2}
         >
+          {/* Handle category */}
           <Grid item xs={12} sm={6} md={4}>
             <FormControl required fullWidth={true}>
               <InputLabel name="category-select-label">Categoria</InputLabel>
@@ -261,16 +310,51 @@ export default function Publish() {
               </Select>
             </FormControl>
           </Grid>
+          {/* Handle date */}
           <Grid item xs={12} sm={6} md={4}>
             {showDatePicker && (
               <TextField
+                required
+                fullWidth={true}
                 id="date"
                 name="date"
                 onChange={handleChangeDate}
-                required
                 type="date"
               />
             )}
+          </Grid>
+        </Grid>
+        {/* Select Author and LinkAuthor */}
+        <Grid
+          container
+          item
+          xs={12}
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          {/* Handle author */}
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required
+              fullWidth={true}
+              name="author"
+              label="Autor"
+              variant="outlined"
+              onChange={handleChangeAuthor}
+            />
+          </Grid>
+          {/* Handle link author */}
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth={true}
+              type="url"
+              name="link-author"
+              label="Link de referência ao Autor"
+              variant="outlined"
+              onChange={handleChangeLinkAuthor}
+            />
           </Grid>
         </Grid>
         {/* Title */}
@@ -336,7 +420,7 @@ export default function Publish() {
       {/* Alert */}
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Voce precisa preencher todos os campos para crira um post. Inclusive
+          Você precisa preencher todos os campos para crir um post. Inclusive
           uma imagem.
         </Alert>
       </Snackbar>
