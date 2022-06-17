@@ -13,11 +13,9 @@ function CardArticle(props) {
     }
   }, [props.direction]);
 
-  console.log(minHeight);
-
   return (
     <>
-      <NavLink to="/post">
+      <NavLink to={props.postData[0].docName}>
         <Card
           elevation={elevation}
           sx={{

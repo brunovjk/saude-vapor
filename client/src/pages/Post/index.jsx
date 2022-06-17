@@ -15,6 +15,10 @@ import { StickyContainer, Sticky } from "react-sticky";
 import accountImg from "../../assets/img/accountImg.jpg";
 
 export default function Post() {
+  // let blogId = decodeURI(window.location.pathname.split("/").pop());
+
+  // const postData =  query postId in postCollection
+
   return (
     <>
       {/* AdBanner Mobile tablet*/}

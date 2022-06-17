@@ -42,7 +42,7 @@ function BannerSlider(props) {
         >
           {props.postData.map((data, index) => (
             <SwiperSlide key={index}>
-              <NavLink to="/post">
+              <NavLink to={data.docName}>
                 <Box
                   component="div"
                   sx={{

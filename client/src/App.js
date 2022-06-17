@@ -4,6 +4,7 @@ import { lightTheme, darkTheme } from "./assets/theme";
 import CssBaseline from "@mui/material/CssBaseline";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ContextProvider } from "./context/Context";
 import { Container } from "@mui/material";
 
 import { Navbar, Footer, ScrollToTop, ScrollButton } from "./components";
@@ -22,8 +23,6 @@ import {
   Post,
 } from "./pages";
 
-import { PostdataContextProvider } from "./context/PostdataContext";
-
 export default function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
 
@@ -37,9 +36,9 @@ export default function App() {
           <Navbar isAuth={isAuth} setIsAuth={setIsAuth} checked={checked} />
 
           <ScrollToTop />
-          <PostdataContextProvider>
+          <ContextProvider>
             <Routes>
-              <Route path="/post" element={<Post />} />
+              <Route path="/:postId" element={<Post />} />
               <Route path="/" element={<Home />} />
               <Route path="/sobre" element={<About />} />
               <Route
@@ -61,7 +60,7 @@ export default function App() {
                 element={<Styleguide setChecked={setChecked} />}
               />
             </Routes>
-          </PostdataContextProvider>
+          </ContextProvider>
           <ScrollButton />
           <Footer />
         </Router>

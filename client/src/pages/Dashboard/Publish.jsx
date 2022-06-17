@@ -107,7 +107,7 @@ export default function Publish() {
     } else {
       setShowDatePicker(false);
       setDateToId(
-        `${new Date().getFullYear()} ${new Date().getMonth()} ${new Date().getDate()}`
+        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
       );
       setDate(
         `${new Date().getDate()} 
@@ -195,7 +195,7 @@ export default function Publish() {
       text
     ) {
       try {
-        await Axios.post(`http://localhost:3001/publish/${category}`, {
+        await Axios.post("http://localhost:3001/postPostcollection", {
           docName: docName,
           urlImage: urlImage,
           category: category,
