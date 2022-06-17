@@ -19,9 +19,8 @@ import {
 import EditorContainerComp from "../../components/EditorContainerComp";
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../../context/firebase-config";
-
-import Axios from "axios";
+import { db, storage } from "../../context/firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
 
@@ -76,7 +75,7 @@ export default function Publish() {
 
       try {
         if (!file) return;
-        const storageRef = ref(storage, `/imagesPost/${file.name}`);
+        const storageRef = ref(storage, `/images/Blog/postImages/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on(
@@ -194,16 +193,18 @@ export default function Publish() {
       linkAuthor &&
       text
     ) {
+      const postsCollectionRef = doc(db, "postsBlog", `${docName}`);
+
       try {
-        await Axios.post("http://localhost:3001/postPostcollection", {
-          docName: docName,
-          urlImage: urlImage,
-          category: category,
-          title: title,
-          date: date,
-          author: author,
-          linkAuthor: linkAuthor,
-          text: text,
+        await setDoc(postsCollectionRef, {
+          docName,
+          urlImage,
+          category,
+          title,
+          date,
+          author,
+          linkAuthor,
+          text,
         });
 
         setLoadingPost(false);

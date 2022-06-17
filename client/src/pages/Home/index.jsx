@@ -2,60 +2,89 @@ import React, { useState, useEffect } from "react";
 import SkeletonHome from "./SkeletonHome";
 import DataHome from "./DataHome";
 
-import Axios from "axios";
+import { db } from "../../context/firebase-config";
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+  startAt,
+} from "firebase/firestore";
 
 export default function Home() {
   const [dataExist, setDataExist] = useState(false);
-  const [postCollection, setPostCollection] = useState([]);
+  const [noticiaQueryData, setNoticiaQueryData] = useState([]);
+  const [artigoQueryData, setArtigoQueryData] = useState([]);
 
-  const [hasMore, setHasMore] = useState(true);
-  const [totalItens, setTotalItens] = useState(16);
+  const [infinityScrollNumber, setInfinityScrollNumber] = useState(0);
 
-  const dataBannerSlider = postCollection.slice(0, 3); //query in postnews the first to 3º posts
-  const dataHorizontalCard = postCollection.slice(3, 7); //query in postnews from 4º to 7º posts
+  let months = [
+    "Mes",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "10",
+  ];
 
-  const dataCardFirstPage = postCollection.slice(0, 12); //query in postarticles starting from the date to 24 + X º posts
+  const currentDate = `${new Date().getFullYear()}-${
+    months[new Date().getMonth() + 1]
+  }-${new Date().getDate() + 3}`;
 
-  const [dataCardSecondPage, setDataCardSecondPage] = useState(
-    postCollection.slice(12, 16)
-  ); //query in postarticles the last
+  const getCollection = async () => {
+    try {
+      const qNoticia = query(
+        collection(db, "postsBlog"),
+        where("category", "==", "Noticias"),
+        orderBy("docName", "desc"),
+        limit(7)
+      );
 
-  const fetchMoreData = () => {
-    const dataToFecth = postCollection.slice(totalItens, totalItens + 8);
-    setTotalItens(totalItens + 8);
+      const qArtigos = query(
+        collection(db, "postsBlog"),
+        where("category", "==", "Artigos"),
+        orderBy("docName", "desc"),
+        startAt(currentDate),
+        limit(infinityScrollNumber + 12)
+      );
 
-    const newItens = dataCardSecondPage.concat(dataToFecth);
+      const queryNoticias = await getDocs(qNoticia);
+      const queryNArtigos = await getDocs(qArtigos);
 
-    if (dataToFecth.length === 0) {
-      setHasMore(false);
-    }
+      setNoticiaQueryData(
+        queryNoticias.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+      setArtigoQueryData(
+        queryNArtigos.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
 
-    setDataCardSecondPage(newItens);
-  };
-  // const X start 0, increase by 1 every time fetchMoreData is called.
-
-  useEffect(() => {
-    Axios.get("http://localhost:3001/getPostcollection").then((response) => {
-      setPostCollection(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (postCollection.length > 0) {
       setDataExist(true);
+    } catch (error) {
+      console.log(error);
     }
-  }, [postCollection.length]);
+  };
+
+  useEffect(() => {
+    getCollection();
+  }, [infinityScrollNumber]);
 
   return (
     <>
       {dataExist ? (
         <DataHome
-          dataBannerSlider={dataBannerSlider}
-          dataHorizontalCard={dataHorizontalCard}
-          dataCardFirstPage={dataCardFirstPage}
-          dataCardSecondPage={dataCardSecondPage}
-          fetchMoreData={fetchMoreData}
-          hasMore={hasMore}
+          infinityScrollNumber={infinityScrollNumber}
+          noticiaQueryData={noticiaQueryData}
+          artigoQueryData={artigoQueryData}
+          setInfinityScrollNumber={setInfinityScrollNumber}
         />
       ) : (
         <SkeletonHome />

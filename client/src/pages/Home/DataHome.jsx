@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BannerSlider,
   CardArticle,
@@ -14,15 +14,30 @@ import {
 } from "@mui/material";
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import { NavLink } from "react-router-dom";
 
 export default function DataHome({
-  dataBannerSlider,
-  dataHorizontalCard,
-  dataCardFirstPage,
-  dataCardSecondPage,
-  fetchMoreData,
-  hasMore,
+  noticiaQueryData,
+  artigoQueryData,
+  infinityScrollNumber,
+  setInfinityScrollNumber,
 }) {
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchMoreData = () => {
+    setInfinityScrollNumber(infinityScrollNumber + 12);
+  };
+
+  useEffect(() => {
+    try {
+      if (infinityScrollNumber > 35) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [infinityScrollNumber]);
+
   return (
     <>
       {/* FABSocialMedia */}
@@ -39,13 +54,13 @@ export default function DataHome({
         <FABSocialMedia mt="10vh" mr="2vw" direction="column" />
       </Grid>
       {/* Banners container */}
-      <BannerSlider postData={dataBannerSlider} />
+      <BannerSlider postData={noticiaQueryData.slice(0, 3)} />
       {/* Body */}
       <Container sx={{ my: { xs: "16px", sm: "32px", md: "48px" } }}>
         <Grid container spacing={{ xs: "8px", sm: "16px", md: "32px" }}>
           {/* Cards Noticias container */}
           <Grid container item spacing={{ xs: "16px", sm: "32px", md: "64px" }}>
-            {dataHorizontalCard.map((dataHorizontalCard, index) => {
+            {noticiaQueryData.slice(3, 7).map((dataHorizontalCard, index) => {
               return (
                 <Grid item xs={12} md={6} key={index}>
                   <CardArticle
@@ -87,67 +102,29 @@ export default function DataHome({
               ]}
             />
           </Grid>
-          {/* Cards Primeiros Artigos + AdBanner container */}
-          <Grid container item spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-            {dataCardFirstPage.map((dataCardSecondPage, index) => {
-              return (
-                <Grid item xs={12} sm={6} md={3} key={index}>
-                  <CardArticle
-                    direction="column"
-                    postData={[dataCardSecondPage]}
-                  />
-                </Grid>
-              );
-            })}
-            <Grid item xs={12}>
-              <AdBanner
-                copyCalls={[
-                  {
-                    phrase1: "desconto em",
-                    phrase2: "Vaporizadores",
-                  },
-                  {
-                    phrase1: "as melhores",
-                    phrase2: "Sedas de vidro",
-                  },
-                  {
-                    phrase1: "diversos",
-                    phrase2: "Dichavadores",
-                  },
-                  {
-                    phraseMainCall1: "TUDO ISSO EM",
-                    phraseMainCall2: "loja.SaudeVapor.com",
-                  },
-                  {
-                    phraseButtonCall1: "ULTIMAS",
-                    phraseButtonCall2: "OFERTAS",
-                  },
 
-                  {
-                    img: "https://cdn.awsli.com.br/600x450/824/824608/produto/37752803/e624914227.jpg",
-                    url: "https://loja.saudevapor.com/",
-                  },
-                ]}
-              />
-            </Grid>
-          </Grid>
           {/* Cards Artigos container */}
           <Grid container item>
             <InfiniteScroll
-              dataLength={dataCardSecondPage.length}
+              dataLength={artigoQueryData.length}
               next={fetchMoreData}
               hasMore={hasMore}
               loader={<LinearProgress sx={{ m: "32px" }} />}
               endMessage={
                 <Box sx={{ p: "32px" }}>
                   <Typography variant="body1" style={{ textAlign: "center" }}>
-                    Uau! Você já viu tudo.
+                    Não encontrou oque procura?
+                    <NavLink to="/busca" color="primary">
+                      <Typography variant="h3" color="primary">
+                        Busque aqui!
+                      </Typography>
+                    </NavLink>
                   </Typography>
                 </Box>
               }
             >
               <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-                {dataCardSecondPage.map((singleDataComunCard, index) => {
+                {artigoQueryData.map((singleDataComunCard, index) => {
                   return (
                     <Grid item xs={12} sm={6} md={3} key={index}>
                       <CardArticle
