@@ -32,7 +32,6 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
   const editPost = async () => {
     await updateDoc(doc(db, "postsBlog", blogId), {
       title: editValues.title,
-      docName: editValues.docName,
       category: editValues.category,
       date: editValues.date,
       author: editValues.author,
@@ -78,16 +77,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
               defaultValue={postData.title}
               onChange={handleChangeValues}
             />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="docName"
-              label="DocName (Troque a data no inicio do docName para alterar a ordem de exibição)"
-              type="text"
-              fullWidth
-              defaultValue={postData.docName}
-              onChange={handleChangeValues}
-            />
+
             <Stack
               direction="row"
               justifyContent="flex-start"

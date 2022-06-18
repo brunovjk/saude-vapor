@@ -38,12 +38,12 @@ export default function App() {
           <ScrollToTop />
           <ContextProvider>
             <Routes>
-              <Route path="/:postId" element={<Post />} />
+              <Route path="/:postId" element={<Post isAuth={isAuth} />} />
               <Route path="/" element={<Home />} />
               <Route path="/sobre" element={<About />} />
               <Route
                 path="/minhaconta"
-                element={<Dashboard checked={checked} />}
+                element={<Dashboard checked={checked} isAuth={isAuth} />}
               />
               <Route path="/busca" element={<Search />} />
               <Route path="/contato" element={<Contact />} />

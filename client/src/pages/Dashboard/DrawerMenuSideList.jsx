@@ -5,7 +5,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
 
-export default function DrawerMenuSideList({ setItemSelected }) {
+export default function DrawerMenuSideList({ setItemSelected, isAuth }) {
   const [itemMenuSelected, setItemMenuSelected] = useState("Minha conta");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -42,21 +42,23 @@ export default function DrawerMenuSideList({ setItemSelected }) {
         <MenuItem
           onClick={() => {
             handleClose();
-            setItemSelected(<MyAccount />);
+            setItemSelected(<MyAccount isAuth={isAuth} />);
             setItemMenuSelected("Minha conta");
           }}
         >
           Minha conta
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            setItemSelected(<Publish />);
-            setItemMenuSelected("Publicar");
-          }}
-        >
-          Publicar
-        </MenuItem>
+        {isAuth && (
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              setItemSelected(<Publish />);
+              setItemMenuSelected("Publicar");
+            }}
+          >
+            Publicar
+          </MenuItem>
+        )}
         <MenuItem
           onClick={() => {
             handleClose();

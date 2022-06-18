@@ -8,7 +8,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
 
-export default function MenuSideList({ setItemSelected }) {
+export default function MenuSideList({ setItemSelected, isAuth }) {
   return (
     <List sx={{ height: "100%", my: "16px" }}>
       <Box sx={{ height: "100%" }}>
@@ -26,20 +26,20 @@ export default function MenuSideList({ setItemSelected }) {
             <ListItemText primary="Minha conta" />
           </ListItem>
 
-          {/* {!props.isAuth && ( */}
-
-          <ListItem
-            button
-            disableGutters
-            onClick={() => {
-              setItemSelected(<Publish />);
-            }}
-          >
-            <ListItemIcon>
-              <DriveFileRenameOutlineIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary="Publicar" />
-          </ListItem>
+          {isAuth && (
+            <ListItem
+              button
+              disableGutters
+              onClick={() => {
+                setItemSelected(<Publish />);
+              }}
+            >
+              <ListItemIcon>
+                <DriveFileRenameOutlineIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Publicar" />
+            </ListItem>
+          )}
         </Box>
 
         <Box>

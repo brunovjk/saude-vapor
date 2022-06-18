@@ -12,7 +12,15 @@ import {
 import { AdBanner, FABSocialMedia } from "../../components";
 import { StickyContainer, Sticky } from "react-sticky";
 
-export default function DataPost({ postData, deletePost, handleOpenEdit }) {
+export default function DataPost({
+  postData,
+  handleOpenEdit,
+  setOpenDeleteConfirmation,
+  isAuth,
+}) {
+  const deletePost = () => {
+    setOpenDeleteConfirmation(true);
+  };
   return (
     <>
       {/* AdBanner Mobile tablet*/}
@@ -105,32 +113,34 @@ export default function DataPost({ postData, deletePost, handleOpenEdit }) {
                   sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
                 />
               </Stack>
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                spacing={1}
-              >
-                <Typography
-                  variant="underline1"
-                  color="secondary.text"
-                  component="span"
-                  sx={{ cursor: "pointer" }}
-                  onClick={handleOpenEdit}
+              {isAuth && (
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
                 >
-                  Editar
-                </Typography>
+                  <Typography
+                    variant="underline1"
+                    color="secondary.text"
+                    component="span"
+                    sx={{ cursor: "pointer" }}
+                    onClick={handleOpenEdit}
+                  >
+                    Editar
+                  </Typography>
 
-                <Typography
-                  variant="underline1"
-                  color="error"
-                  component="span"
-                  sx={{ cursor: "pointer" }}
-                  onClick={deletePost}
-                >
-                  Deletar
-                </Typography>
-              </Stack>
+                  <Typography
+                    variant="underline1"
+                    color="error"
+                    component="span"
+                    sx={{ cursor: "pointer" }}
+                    onClick={deletePost}
+                  >
+                    Deletar
+                  </Typography>
+                </Stack>
+              )}
             </Stack>
           </Grid>
 

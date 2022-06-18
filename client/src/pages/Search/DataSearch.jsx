@@ -4,20 +4,17 @@ import {
   Grid,
   Paper,
   // LinearProgress,
-  IconButton,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
 import { CardArticle, AdBanner } from "../../components";
-import SearchIcon from "@mui/icons-material/Search";
 
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function DataSearch({ collectionData }) {
   const [searchField, setSearchField] = useState("");
-  const [searchParam] = useState(["title", "postText"]);
   const [category, setCategory] = useState("");
 
   const handleSearchChange = (event) => {
@@ -27,23 +24,16 @@ export default function DataSearch({ collectionData }) {
     setCategory(event.target.value);
   };
 
-  const postLists = collectionData.filter((postItem) => {
-    return searchParam.some((newPostItem) => {
-      return (
-        postItem[newPostItem]
-          .toString()
-          .toLowerCase()
-          .indexOf(searchField.toLowerCase()) > -1
-      );
-    });
-  });
+  const dataFilteredbyCategory = collectionData.filter((item) =>
+    item.category.includes(category)
+  );
+
+  const dataFiltered = dataFilteredbyCategory.filter((item) =>
+    item.text.includes(searchField)
+  );
 
   // const fetchMoreData = () => {
   //     const newItens = imagesComunCard.concat(imagesComunCardSecondPage);
-
-  //     setTimeout(() => {
-  //     }, 1000);
-  // };
 
   return (
     <Grid
@@ -107,13 +97,6 @@ export default function DataSearch({ collectionData }) {
                 id="busca"
                 label="Busque..."
                 variant="outlined"
-                InputProps={{
-                  endAdornment: (
-                    <IconButton>
-                      <SearchIcon />
-                    </IconButton>
-                  ),
-                }}
                 onChange={handleSearchChange}
               />
             </Grid>
@@ -129,9 +112,9 @@ export default function DataSearch({ collectionData }) {
                   label="Categoria"
                   onChange={handleCategoryChange}
                 >
-                  <MenuItem value={10}>Todos categorias</MenuItem>
-                  <MenuItem value={20}>Noticias</MenuItem>
-                  <MenuItem value={30}>Artigos</MenuItem>
+                  <MenuItem value={""}>Todos categorias</MenuItem>
+                  <MenuItem value={"Noticias"}>Noticias</MenuItem>
+                  <MenuItem value={"Artigos"}>Artigos</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -154,7 +137,7 @@ export default function DataSearch({ collectionData }) {
           }
         > */}
         <Grid container spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
-          {postLists.map((data, index) => {
+          {dataFiltered.map((data, index) => {
             return (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <CardArticle direction="column" postData={[data]} />

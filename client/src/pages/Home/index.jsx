@@ -65,12 +65,17 @@ export default function Home() {
       setArtigoQueryData(
         queryNArtigos.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
-
-      setDataExist(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (noticiaQueryData.length > 0) {
+      setDataExist(true);
+    }
+  }, [noticiaQueryData.length]);
+
   useEffect(() => {
     getCollection();
   }, [infinityScrollNumber]);

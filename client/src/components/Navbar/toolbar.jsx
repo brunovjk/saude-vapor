@@ -326,28 +326,27 @@ export default function ToolbarComponent(props) {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    <MenuItem>
-                      <Avatar
-                        sx={{
-                          bgcolor: "primary.50",
-                        }}
-                      />
-                      Minha conta
-                    </MenuItem>
+                    <NavLink to="/minhaconta">
+                      <MenuItem>
+                        <Avatar
+                          sx={{
+                            bgcolor: "primary.50",
+                          }}
+                        />
+                        Minha conta
+                      </MenuItem>
+                    </NavLink>
 
                     <Divider />
-                    <MenuItem>
-                      <ListItemIcon>
-                        <LocalOfferIcon fontSize="small" color="primary" />
-                      </ListItemIcon>
-                      Meus pedidos
-                    </MenuItem>
-                    <MenuItem>
-                      <ListItemIcon>
-                        <EmailIcon fontSize="small" color="primary" />
-                      </ListItemIcon>
-                      Contato
-                    </MenuItem>
+
+                    <NavLink to="/contato">
+                      <MenuItem>
+                        <ListItemIcon>
+                          <EmailIcon fontSize="small" color="primary" />
+                        </ListItemIcon>
+                        Contato
+                      </MenuItem>
+                    </NavLink>
                     <MenuItem onClick={signUserOut}>
                       <ListItemIcon>
                         <Logout fontSize="small" color="primary" />

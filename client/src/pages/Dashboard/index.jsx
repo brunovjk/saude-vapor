@@ -6,8 +6,10 @@ import MenuSideList from "./MenuSideList";
 import MyAccount from "./MyAccount";
 import DrawerMenuSideList from "./DrawerMenuSideList";
 
-export default function Dashboard() {
-  const [itemSelected, setItemSelected] = useState(<MyAccount />);
+export default function Dashboard({ isAuth }) {
+  const [itemSelected, setItemSelected] = useState(
+    <MyAccount isAuth={isAuth} />
+  );
 
   return (
     <Container>
@@ -67,7 +69,10 @@ export default function Dashboard() {
             md={2}
             sx={{ display: { xs: "block", md: "none" } }}
           >
-            <DrawerMenuSideList setItemSelected={setItemSelected} />
+            <DrawerMenuSideList
+              setItemSelected={setItemSelected}
+              isAuth={isAuth}
+            />
           </Grid>
           {/* Component Menu side list */}
           <Grid
@@ -76,7 +81,7 @@ export default function Dashboard() {
             md={2}
             sx={{ display: { xs: "none", md: "block" } }}
           >
-            <MenuSideList setItemSelected={setItemSelected} />
+            <MenuSideList setItemSelected={setItemSelected} isAuth={isAuth} />
           </Grid>
 
           <Divider

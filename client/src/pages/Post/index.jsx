@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import DataPost from "./DataPost";
 import SkeletonPost from "./SkeletonPost";
 import DialogEdit from "./DialogEdit";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 import { Alert, Snackbar } from "@mui/material";
 
@@ -11,7 +12,7 @@ import { doc, getDoc, deleteDoc } from "firebase/firestore";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Post() {
+export default function Post({ isAuth }) {
   let navigate = useNavigate();
   let blogId = decodeURI(window.location.pathname.split("/").pop());
 
@@ -19,6 +20,7 @@ export default function Post() {
   const [postData, setPostData] = useState([]);
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
 
   useEffect(() => {
     const getPost = async () => {
@@ -72,11 +74,17 @@ export default function Post() {
         blogId={blogId}
         postData={postData}
       />
+      <DeleteConfirmation
+        openDeleteConfirmation={openDeleteConfirmation}
+        setOpenDeleteConfirmation={setOpenDeleteConfirmation}
+        deletePost={deletePost}
+      />
       {dataExist ? (
         <DataPost
           postData={postData}
           handleOpenEdit={handleOpenEdit}
-          deletePost={deletePost}
+          setOpenDeleteConfirmation={setOpenDeleteConfirmation}
+          isAuth={isAuth}
         />
       ) : (
         <SkeletonPost />

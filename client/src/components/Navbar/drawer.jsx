@@ -60,7 +60,7 @@ const DrawerComponent = (props) => {
             <ListItemText primary="Contato" />
           </ListItem>
         </NavLink>
-        {props.isAuth ? (
+        {!props.isAuth ? (
           <NavLink to="/login">
             <ListItem button>
               <ListItemIcon>
