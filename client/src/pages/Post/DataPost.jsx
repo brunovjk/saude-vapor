@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Container,
   Paper,
@@ -11,10 +11,8 @@ import {
 } from "@mui/material";
 import { AdBanner, FABSocialMedia } from "../../components";
 import { StickyContainer, Sticky } from "react-sticky";
-import { db } from "../../context/firebase-config";
-import { getDoc, doc } from "firebase/firestore";
 
-export default function DataPost({ postData }) {
+export default function DataPost({ postData, deletePost, handleOpenEdit }) {
   return (
     <>
       {/* AdBanner Mobile tablet*/}
@@ -68,32 +66,71 @@ export default function DataPost({ postData }) {
             </Typography>
 
             <Stack
-              direction="row"
+              direction={{ xs: "column", sm: "row" }}
               justifyContent="flex-start"
-              alignItems="center"
+              alignItems="flex-start"
               spacing={1}
             >
-              <Typography variant="underline2" color="secondary.text">
-                {postData.date}
-              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+              >
+                <Typography variant="underline2" color="secondary.text">
+                  {postData.date}
+                </Typography>
 
-              <Divider sx={{ width: "12px" }} />
+                <Divider
+                  sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
+                />
 
-              <Typography variant="underline1" color="secondary.text">
-                Autor:
-              </Typography>
+                <Typography variant="underline1" color="secondary.text">
+                  Autor:
+                </Typography>
 
-              <Typography variant="underline1" color="primary">
-                <Link
-                  target="_blank"
-                  rel="noopener"
-                  color="primary"
-                  underline="hover"
-                  href={postData.linkAuthor}
+                <Typography variant="underline1" color="primary">
+                  <Link
+                    target="_blank"
+                    rel="noopener"
+                    color="secondary.40"
+                    underline="none"
+                    href={postData.linkAuthor}
+                  >
+                    {postData.author}
+                  </Link>
+                </Typography>
+
+                <Divider
+                  sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
+                />
+              </Stack>
+              <Stack
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={1}
+              >
+                <Typography
+                  variant="underline1"
+                  color="secondary.text"
+                  component="span"
+                  sx={{ cursor: "pointer" }}
+                  onClick={handleOpenEdit}
                 >
-                  {postData.author}
-                </Link>
-              </Typography>
+                  Editar
+                </Typography>
+
+                <Typography
+                  variant="underline1"
+                  color="error"
+                  component="span"
+                  sx={{ cursor: "pointer" }}
+                  onClick={deletePost}
+                >
+                  Deletar
+                </Typography>
+              </Stack>
             </Stack>
           </Grid>
 
@@ -122,15 +159,16 @@ export default function DataPost({ postData }) {
                 spacing={{ xs: 2, md: 0 }}
               >
                 {/* FABSocialMedia */}
-                <Grid item xs={12} md={0.5}>
+                <Grid item xs={12} md={1}>
                   <FABSocialMedia direction={{ xs: "row", md: "column" }} />
                 </Grid>
                 {/* Text */}
-                <Grid item xs={12} md={8.5}>
+                <Grid item xs={12} md={8}>
                   <Typography
                     variant="body1"
                     color="primary.text"
                     component="div"
+                    sx={{ mt: "-16px" }}
                   >
                     <div
                       dangerouslySetInnerHTML={{

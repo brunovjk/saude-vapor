@@ -26,7 +26,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Publish() {
   let months = [
-    "Mes",
     "Jan",
     "Fev",
     "Mar",
@@ -39,6 +38,20 @@ export default function Publish() {
     "Out",
     "Nov",
     "Dez",
+  ];
+  let monthsNumber = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "10",
   ];
 
   let navigate = useNavigate();
@@ -106,11 +119,13 @@ export default function Publish() {
     } else {
       setShowDatePicker(false);
       setDateToId(
-        `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+        `${new Date().getFullYear()}-${
+          monthsNumber[new Date().getMonth()]
+        }-${new Date().getDate()}`
       );
       setDate(
         `${new Date().getDate()} 
-        ${months[new Date().getMonth() + 1]} 
+        ${months[new Date().getMonth()]} 
         ${new Date().getFullYear()}`
       );
     }

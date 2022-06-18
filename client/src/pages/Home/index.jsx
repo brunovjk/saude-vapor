@@ -20,8 +20,7 @@ export default function Home() {
 
   const [infinityScrollNumber, setInfinityScrollNumber] = useState(0);
 
-  let months = [
-    "Mes",
+  let monthsNumber = [
     "01",
     "02",
     "03",
@@ -33,12 +32,12 @@ export default function Home() {
     "09",
     "10",
     "11",
-    "10",
+    "12",
   ];
 
   const currentDate = `${new Date().getFullYear()}-${
-    months[new Date().getMonth() + 1]
-  }-${new Date().getDate() + 3}`;
+    monthsNumber[new Date().getMonth()]
+  }-${new Date().getDate()}`;
 
   const getCollection = async () => {
     try {
@@ -72,7 +71,6 @@ export default function Home() {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getCollection();
   }, [infinityScrollNumber]);
