@@ -24,17 +24,23 @@ import {
   providerFacebook,
 } from "../../context/firebase-config";
 import { useNavigate } from "react-router-dom";
+import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 export default function Login() {
   let navigate = useNavigate();
-  const { setIsAuth, setCurrentUser } = useContext(Context);
+  const { setIsAuth } = useContext(Context);
 
   const [alertMessage, setAlertMessage] = useState("");
-  const [alertMessageType, setAlertMessageType] = useState("");
+  const [openForgotPassDialog, setOpenForgotPassDialog] = useState(false);
+
   const [editValues, setEditValues] = useState({
     email: "",
     password: "",
   });
+
+  const handleClickOpenForgotPassDialog = () => {
+    setOpenForgotPassDialog(true);
+  };
 
   const handleChangeValues = (value) => {
     setEditValues((prevValues) => ({
@@ -47,24 +53,15 @@ export default function Login() {
     e.preventDefault();
 
     if (editValues.email !== undefined && editValues.password !== undefined) {
-      try {
-        setAlertMessage("");
-        signInWithEmailAndPassword(
-          auth,
-          editValues.email,
-          editValues.password
-        ).then((result) => {
-          setAlertMessage("Login efetuado com sucesso");
-          setAlertMessageType("success");
-          setCurrentUser(result.user);
+      signInWithEmailAndPassword(auth, editValues.email, editValues.password)
+        .then((result) => {
           localStorage.setItem("isAuth", true);
           setIsAuth(true);
           navigate("/");
+        })
+        .catch((error) => {
+          setAlertMessage("Falha no login, confira e-mail e senha.");
         });
-      } catch {
-        setAlertMessage("Falha no login, confira e-mail e senha.");
-        setAlertMessageType("error");
-      }
     }
   };
   const SingInWithGoogle = () => {
@@ -72,13 +69,11 @@ export default function Login() {
       setAlertMessage("");
       signInWithPopup(auth, providerGoogle).then((result) => {
         localStorage.setItem("isAuth", true);
-        setCurrentUser(result.user);
         setIsAuth(true);
         navigate("/");
       });
     } catch {
       setAlertMessage("Falha ao entrar com Google");
-      setAlertMessageType("error");
     }
   };
   const SingInWithFacebook = () => {
@@ -86,14 +81,12 @@ export default function Login() {
       setAlertMessage("");
 
       signInWithPopup(auth, providerFacebook).then((result) => {
-        setCurrentUser(result.user);
         localStorage.setItem("isAuth", true);
         setIsAuth(true);
         navigate("/");
       });
     } catch {
       setAlertMessage("Falha ao entrar com Google");
-      setAlertMessageType("error");
     }
   };
 
@@ -135,7 +128,7 @@ export default function Login() {
               <Grid item>
                 <Box sx={{ height: "48px" }}>
                   {alertMessage && (
-                    <Alert severity={alertMessageType}>{alertMessage}</Alert>
+                    <Alert severity="error">{alertMessage}</Alert>
                   )}
                 </Box>
               </Grid>
@@ -198,6 +191,28 @@ export default function Login() {
                      CADASTRE-SE.
                   </Typography>
                 </NavLink>
+              </Grid>
+              {/* Forgot Password */}
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  componenet="span"
+                  variant="body2"
+                  sx={{
+                    cursor: "pointer",
+                    color: "text.primary",
+                    "&:hover": { color: "primary.40" },
+                  }}
+                  onClick={handleClickOpenForgotPassDialog}
+                >
+                  Esqueceu a senha?
+                </Typography>
               </Grid>
               {/* text */}
               <Grid
@@ -263,6 +278,11 @@ export default function Login() {
             }}
           ></Paper>
         </Grid>
+        {/* Forgot password dialog */}
+        <ForgotPasswordDialog
+          openForgotPassDialog={openForgotPassDialog}
+          setOpenForgotPassDialog={setOpenForgotPassDialog}
+        />
       </Grid>
     </>
   );

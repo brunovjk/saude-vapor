@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Button, Menu, MenuItem, Divider } from "@mui/material";
+import { Button, Menu, MenuItem, Divider, Switch } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
@@ -12,7 +14,8 @@ import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function DrawerMenuSideList({ setItemSelected }) {
-  const { isAuth, setIsAuth } = useContext(Context);
+  const { isAuth, setIsAuth, checked, handleChangeDarkMode } =
+    useContext(Context);
   let navigate = useNavigate();
 
   const [itemMenuSelected, setItemMenuSelected] = useState("Minha conta");
@@ -64,6 +67,7 @@ export default function DrawerMenuSideList({ setItemSelected }) {
         >
           Minha conta
         </MenuItem>
+
         {isAuth && (
           <MenuItem
             onClick={() => {
@@ -75,6 +79,14 @@ export default function DrawerMenuSideList({ setItemSelected }) {
             Publicar
           </MenuItem>
         )}
+        <MenuItem>
+          {checked ? (
+            <DarkModeIcon color="primary" />
+          ) : (
+            <LightModeIcon color="primary" />
+          )}
+          <Switch onChange={handleChangeDarkMode} />
+        </MenuItem>
         <MenuItem
           onClick={() => {
             handleClose();

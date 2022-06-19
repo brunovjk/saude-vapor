@@ -1,9 +1,18 @@
 import React, { useContext } from "react";
-import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Switch,
+} from "@mui/material";
 
 import PersonIcon from "@mui/icons-material/Person";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
 
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
@@ -15,7 +24,8 @@ import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function MenuSideList({ setItemSelected }) {
-  const { isAuth, setIsAuth } = useContext(Context);
+  const { isAuth, setIsAuth, checked, handleChangeDarkMode } =
+    useContext(Context);
   let navigate = useNavigate();
 
   const signUserOut = () => {
@@ -25,6 +35,7 @@ export default function MenuSideList({ setItemSelected }) {
       navigate("/");
     });
   };
+
   return (
     <List sx={{ height: "100%", my: "16px" }}>
       <Box sx={{ height: "100%" }}>
@@ -56,6 +67,19 @@ export default function MenuSideList({ setItemSelected }) {
               <ListItemText primary="Publicar" />
             </ListItem>
           )}
+
+          <ListItem button disableGutters>
+            <ListItemIcon>
+              {checked ? (
+                <DarkModeIcon color="primary" />
+              ) : (
+                <LightModeIcon color="primary" />
+              )}
+            </ListItemIcon>
+            <ListItemText>
+              <Switch onChange={handleChangeDarkMode} />
+            </ListItemText>
+          </ListItem>
         </Box>
 
         <Box>

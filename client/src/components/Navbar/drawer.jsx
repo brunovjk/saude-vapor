@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Drawer,
@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
+  Switch,
 } from "@mui/material";
 
 import LogoLight from "../../assets/img/logo/Logo24-primary-30.svg";
@@ -18,10 +19,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import GridViewIcon from "@mui/icons-material/GridView";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+
+import { Context } from "../../context/Context";
 
 import { NavLink } from "react-router-dom";
 
 const DrawerComponent = (props) => {
+  const { checked, handleChangeDarkMode } = useContext(Context);
+
   const sideList = () => (
     <Box
       sx={{ width: { xs: "14rem", md: "15rem" }, p: { xs: "1rem" } }}
@@ -87,6 +94,19 @@ const DrawerComponent = (props) => {
             <ListItemText primary="Blockchain" />
           </ListItem>
         </NavLink>
+
+        <ListItem button>
+          <ListItemIcon>
+            {checked ? (
+              <DarkModeIcon color="primary" />
+            ) : (
+              <LightModeIcon color="primary" />
+            )}
+          </ListItemIcon>
+          <ListItemText>
+            <Switch onChange={handleChangeDarkMode} />
+          </ListItemText>
+        </ListItem>
       </List>
 
       <Box sx={{ position: "fixed", bottom: 0, pl: "0.5rem" }}>

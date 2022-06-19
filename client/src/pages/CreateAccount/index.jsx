@@ -29,9 +29,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateAccount() {
   let navigate = useNavigate();
-  const { setIsAuth, setCurrentUser } = useContext(Context);
+  const { setIsAuth } = useContext(Context);
   const [alertMessage, setAlertMessage] = useState("");
-  const [alertMessageType, setAlertMessageType] = useState("");
   const [editValues, setEditValues] = useState({
     email: "",
     password: "",
@@ -49,17 +48,14 @@ export default function CreateAccount() {
     e.preventDefault();
     if (editValues.password !== editValues.passwordCheck) {
       setAlertMessage("As senhas não coincidem.");
-      setAlertMessageType("error");
       return;
     }
     if (editValues.password.length < 6) {
       setAlertMessage("A senha deve ter pelo menos 6 caracteres.");
-      setAlertMessageType("error");
       return;
     }
     if (editValues.agreeCheck !== "on") {
       setAlertMessage("Você precisa aceitar os termos.");
-      setAlertMessageType("error");
       return;
     }
 
@@ -71,16 +67,12 @@ export default function CreateAccount() {
           editValues.email,
           editValues.password
         ).then((result) => {
-          setAlertMessage("Conta criada com sucesso");
-          setAlertMessageType("success");
-          setCurrentUser(result.user);
           localStorage.setItem("isAuth", true);
           setIsAuth(true);
           navigate("/");
         });
       } catch {
         setAlertMessage("Não foi possível criar sua conta.");
-        setAlertMessageType("error");
       }
     }
   };
@@ -88,16 +80,12 @@ export default function CreateAccount() {
     try {
       setAlertMessage("");
       signInWithPopup(auth, providerGoogle).then((result) => {
-        setAlertMessage("Conta criada com sucesso");
-        setAlertMessageType("success");
-        setCurrentUser(result.user);
         localStorage.setItem("isAuth", true);
         setIsAuth(true);
         navigate("/");
       });
     } catch {
       setAlertMessage("Falha ao entrar com Gogle");
-      setAlertMessageType("error");
     }
   };
   const SingInWithFacebook = () => {
@@ -105,16 +93,12 @@ export default function CreateAccount() {
       setAlertMessage("");
 
       signInWithPopup(auth, providerFacebook).then((result) => {
-        setAlertMessage("Conta criada com sucesso");
-        setAlertMessageType("success");
-        setCurrentUser(result.user);
         localStorage.setItem("isAuth", true);
         setIsAuth(true);
         navigate("/");
       });
     } catch {
       setAlertMessage("Falha ao entrar com Facebook");
-      setAlertMessageType("error");
     }
   };
 
@@ -156,7 +140,7 @@ export default function CreateAccount() {
               <Grid item>
                 <Box sx={{ height: "48px" }}>
                   {alertMessage && (
-                    <Alert severity={alertMessageType}>{alertMessage}</Alert>
+                    <Alert severity="error">{alertMessage}</Alert>
                   )}
                 </Box>
               </Grid>

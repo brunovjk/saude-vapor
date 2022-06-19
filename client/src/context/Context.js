@@ -4,15 +4,13 @@ export const Context = React.createContext();
 
 export const ContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  const [currentUser, setCurrentUser] = useState();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(localStorage.getItem("themeMode"));
 
-  useEffect(() => {
-    if (currentUser !== undefined) {
-      const currentUserProvider = currentUser.providerData[0].providerId;
-      localStorage.setItem("currentUserProvider", currentUserProvider);
-    }
-  }, [currentUser]);
+  const handleChangeDarkMode = () => {
+    localStorage.setItem("themeMode", !checked);
+
+    setChecked((c) => !c);
+  };
 
   return (
     <Context.Provider
@@ -21,8 +19,7 @@ export const ContextProvider = ({ children }) => {
         setIsAuth,
         checked,
         setChecked,
-        currentUser,
-        setCurrentUser,
+        handleChangeDarkMode,
       }}
     >
       {children}
