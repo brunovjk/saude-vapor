@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 
 import PersonIcon from "@mui/icons-material/Person";
@@ -8,7 +8,23 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
 
-export default function MenuSideList({ setItemSelected, isAuth }) {
+import { signOut } from "firebase/auth";
+import { auth } from "../../context/firebase-config";
+import { Context } from "../../context/Context";
+
+import { useNavigate } from "react-router-dom";
+
+export default function MenuSideList({ setItemSelected }) {
+  const { isAuth, setIsAuth } = useContext(Context);
+  let navigate = useNavigate();
+
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+      navigate("/");
+    });
+  };
   return (
     <List sx={{ height: "100%", my: "16px" }}>
       <Box sx={{ height: "100%" }}>
@@ -43,7 +59,7 @@ export default function MenuSideList({ setItemSelected, isAuth }) {
         </Box>
 
         <Box>
-          <ListItem button disableGutters>
+          <ListItem button disableGutters onClick={signUserOut}>
             <ListItemIcon>
               <ExitToAppIcon color="primary" />
             </ListItemIcon>

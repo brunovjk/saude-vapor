@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   Typography,
   TextField,
@@ -6,6 +6,8 @@ import {
   Divider,
   Button,
   Paper,
+  Alert,
+  Box,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -13,7 +15,88 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 
 import accountImg from "../../assets/img/accountImg.jpg";
 
+import { Context } from "../../context/Context";
+
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  auth,
+  providerGoogle,
+  providerFacebook,
+} from "../../context/firebase-config";
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
+  let navigate = useNavigate();
+  const { setIsAuth, setCurrentUser } = useContext(Context);
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessageType, setAlertMessageType] = useState("");
+  const [editValues, setEditValues] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChangeValues = (value) => {
+    setEditValues((prevValues) => ({
+      ...prevValues,
+      [value.target.id]: value.target.value,
+    }));
+  };
+
+  const signInWithEmailPassword = (e) => {
+    e.preventDefault();
+
+    if (editValues.email !== undefined && editValues.password !== undefined) {
+      try {
+        setAlertMessage("");
+        signInWithEmailAndPassword(
+          auth,
+          editValues.email,
+          editValues.password
+        ).then((result) => {
+          setAlertMessage("Login efetuado com sucesso");
+          setAlertMessageType("success");
+          setCurrentUser(result.user);
+          localStorage.setItem("isAuth", true);
+          setIsAuth(true);
+          navigate("/");
+        });
+      } catch {
+        setAlertMessage("Falha no login, confira e-mail e senha.");
+        setAlertMessageType("error");
+      }
+    }
+  };
+  const SingInWithGoogle = () => {
+    try {
+      setAlertMessage("");
+      signInWithPopup(auth, providerGoogle).then((result) => {
+        localStorage.setItem("isAuth", true);
+        setCurrentUser(result.user);
+        setIsAuth(true);
+        navigate("/");
+      });
+    } catch {
+      setAlertMessage("Falha ao entrar com Google");
+      setAlertMessageType("error");
+    }
+  };
+  const SingInWithFacebook = () => {
+    try {
+      setAlertMessage("");
+
+      signInWithPopup(auth, providerFacebook).then((result) => {
+        setCurrentUser(result.user);
+        localStorage.setItem("isAuth", true);
+        setIsAuth(true);
+        navigate("/");
+      });
+    } catch {
+      setAlertMessage("Falha ao entrar com Google");
+      setAlertMessageType("error");
+    }
+  };
+
   return (
     <>
       <Grid
@@ -26,123 +109,146 @@ export default function Login() {
         }}
       >
         {/* Form */}
-        <Grid
-          container
-          item
-          xs={12}
-          sm={7}
-          md={5}
-          px={{ xs: "16px", sm: "32x", md: "64px" }}
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="stretch"
-          spacing={2}
-        >
-          {/* Page title */}
-          <Grid item>
-            <Typography variant="h1" color="primary.30">
-              Conta SaudeVapor
-            </Typography>
-          </Grid>
-          {/* body */}
-          <Grid item sx={{ mb: { xs: "12px", sm: "24px" } }}>
-            <Typography variant="subtitle" color="text.primary">
-              Uma só conta para toda plataforma SaudeVapor
-            </Typography>
-          </Grid>
-          {/* E-Mail field */}
-          <Grid item>
-            <TextField
-              fullWidth={true}
-              id="E-Mail-field"
-              label="E-Mail"
-              variant="outlined"
-            />
-          </Grid>
-          {/* Senha field */}
-          <Grid item>
-            <TextField
-              fullWidth={true}
-              id="Senha-field"
-              label="Senha"
-              variant="outlined"
-            />
-          </Grid>
-          {/* Login button */}
-          <Grid
-            item
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              mt: "24px",
-            }}
-          >
-            <Button
-              fullWidth={true}
-              sx={{ mx: { xs: "16px", sm: "32px" } }}
-              to="/dashboard"
+        <Grid item xs={12} sm={7} md={5}>
+          <Box component="form" onSubmit={signInWithEmailPassword}>
+            <Grid
+              container
+              px={{ xs: "16px", sm: "32x", md: "64px" }}
+              direction="column"
+              justifyContent="flex-start"
+              alignItems="stretch"
+              spacing={2}
             >
-              ENTRAR
-            </Button>
-          </Grid>
-          {/* Create call */}
-          <Grid
-            item
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="body2" color="text.primary">
-              Não tem conta?
-            </Typography>
-            <NavLink to="/criarconta">
-              <Typography variant="body2" color="primary.30">
-                 CADASTRE-SE.
-              </Typography>
-            </NavLink>
-          </Grid>
-          {/* text */}
-          <Grid
-            item
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Divider sx={{ width: "64px" }} />
-            <Typography
-              variant="underline1"
-              color="text.secondary"
-              sx={{ p: "16px" }}
-            >
-              ou entre com
-            </Typography>
-            <Divider sx={{ width: "64px" }} />
-          </Grid>
-          {/* Create with Google/Facebook */}
-          <Grid
-            container
-            item
-            direction="row"
-            justifyContent="space-evenly"
-            alignItems="center"
-          >
-            <Grid item>
-              <Button variant="outlined" startIcon={<GoogleIcon />}>
-                Google
-              </Button>
+              {/* Page title */}
+              <Grid item>
+                <Typography variant="h1" color="primary.30">
+                  Conta SaudeVapor
+                </Typography>
+              </Grid>
+              {/* body */}
+              <Grid item>
+                <Typography variant="subtitle" color="text.primary">
+                  Uma só conta para toda plataforma SaudeVapor
+                </Typography>
+              </Grid>
+              {/* Alert */}
+              <Grid item>
+                <Box sx={{ height: "48px" }}>
+                  {alertMessage && (
+                    <Alert severity={alertMessageType}>{alertMessage}</Alert>
+                  )}
+                </Box>
+              </Grid>
+              {/* E-Mail field */}
+              <Grid item>
+                <TextField
+                  fullWidth={true}
+                  id="email"
+                  required
+                  type="email"
+                  label="E-Mail"
+                  variant="outlined"
+                  onChange={handleChangeValues}
+                />
+              </Grid>
+              {/* Senha field */}
+              <Grid item>
+                <TextField
+                  fullWidth={true}
+                  id="password"
+                  required
+                  type="password"
+                  label="Senha"
+                  variant="outlined"
+                  onChange={handleChangeValues}
+                />
+              </Grid>
+              {/* Login button */}
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: "24px",
+                }}
+              >
+                <Button
+                  fullWidth={true}
+                  type="submit"
+                  sx={{ mx: { xs: "16px", sm: "32px" } }}
+                >
+                  ENTRAR
+                </Button>
+              </Grid>
+              {/* Create call */}
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body2" color="text.primary">
+                  Não tem conta?
+                </Typography>
+                <NavLink to="/criarconta">
+                  <Typography variant="body2" color="primary.30">
+                     CADASTRE-SE.
+                  </Typography>
+                </NavLink>
+              </Grid>
+              {/* text */}
+              <Grid
+                item
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Divider sx={{ width: "64px" }} />
+                <Typography
+                  variant="underline1"
+                  color="text.secondary"
+                  sx={{ p: "16px" }}
+                >
+                  ou entre com
+                </Typography>
+                <Divider sx={{ width: "64px" }} />
+              </Grid>
+              {/* Create with Google/Facebook */}
+              <Grid
+                container
+                item
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Button
+                    variant="outlined"
+                    startIcon={<GoogleIcon />}
+                    onClick={SingInWithGoogle}
+                  >
+                    Google
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="outlined"
+                    startIcon={<FacebookIcon />}
+                    onClick={SingInWithFacebook}
+                  >
+                    Facebook
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Button variant="outlined" startIcon={<FacebookIcon />}>
-                Facebook
-              </Button>
-            </Grid>
-          </Grid>
+          </Box>
         </Grid>
+
         {/* Image */}
         <Grid container item xs={0} sm={5} md={7}>
           <Paper

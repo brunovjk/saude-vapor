@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { AdBanner } from "../../components";
 import { Container, Box, Grid, Divider } from "@mui/material";
 
 import MenuSideList from "./MenuSideList";
 import MyAccount from "./MyAccount";
 import DrawerMenuSideList from "./DrawerMenuSideList";
+import { Context } from "../../context/Context";
 
-export default function Dashboard({ isAuth }) {
-  const [itemSelected, setItemSelected] = useState(
-    <MyAccount isAuth={isAuth} />
-  );
+export default function Dashboard() {
+  const { isAuth } = useContext(Context);
 
+  const [itemSelected, setItemSelected] = useState(<MyAccount />);
   return (
     <Container>
       <Grid

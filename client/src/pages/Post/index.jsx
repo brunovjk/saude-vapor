@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import DataPost from "./DataPost";
 import SkeletonPost from "./SkeletonPost";
@@ -10,9 +10,13 @@ import { Alert, Snackbar } from "@mui/material";
 import { db } from "../../context/firebase-config";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 
+import { Context } from "../../context/Context";
+
 import { useNavigate } from "react-router-dom";
 
-export default function Post({ isAuth }) {
+export default function Post() {
+  const { isAuth } = useContext(Context);
+
   let navigate = useNavigate();
   let blogId = decodeURI(window.location.pathname.split("/").pop());
 

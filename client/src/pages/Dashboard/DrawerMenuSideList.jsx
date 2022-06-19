@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Menu, MenuItem, Divider } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
 
-export default function DrawerMenuSideList({ setItemSelected, isAuth }) {
+import { signOut } from "firebase/auth";
+import { auth } from "../../context/firebase-config";
+import { Context } from "../../context/Context";
+
+import { useNavigate } from "react-router-dom";
+
+export default function DrawerMenuSideList({ setItemSelected }) {
+  const { isAuth, setIsAuth } = useContext(Context);
+  let navigate = useNavigate();
+
   const [itemMenuSelected, setItemMenuSelected] = useState("Minha conta");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -14,6 +23,13 @@ export default function DrawerMenuSideList({ setItemSelected, isAuth }) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+      navigate("/");
+    });
   };
 
   return (
@@ -62,6 +78,7 @@ export default function DrawerMenuSideList({ setItemSelected, isAuth }) {
         <MenuItem
           onClick={() => {
             handleClose();
+            signUserOut();
           }}
         >
           Sair

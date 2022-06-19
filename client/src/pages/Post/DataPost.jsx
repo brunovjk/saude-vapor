@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Container,
   Paper,
@@ -12,12 +12,15 @@ import {
 import { AdBanner, FABSocialMedia } from "../../components";
 import { StickyContainer, Sticky } from "react-sticky";
 
+import { Context } from "../../context/Context";
+
 export default function DataPost({
   postData,
   handleOpenEdit,
   setOpenDeleteConfirmation,
-  isAuth,
 }) {
+  const { isAuth } = useContext(Context);
+
   const deletePost = () => {
     setOpenDeleteConfirmation(true);
   };

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   Typography,
   IconButton,
@@ -25,14 +25,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Logout from "@mui/icons-material/Logout";
 import EmailIcon from "@mui/icons-material/Email";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
-// import { auth } from "../../assets/firebase-config";
-// import { signOut } from "firebase/auth";
+import { Context } from "../../context/Context";
 
-import { NavLink } from "react-router-dom";
+import { auth } from "../../context/firebase-config";
+import { signOut } from "firebase/auth";
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -48,6 +49,9 @@ function HideOnScroll(props) {
 }
 
 export default function ToolbarComponent(props) {
+  const { isAuth, setIsAuth, checked } = useContext(Context);
+  let navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -58,10 +62,11 @@ export default function ToolbarComponent(props) {
   };
 
   const signUserOut = () => {
-    // signOut(auth).then(() => {
-    //   localStorage.clear();
-    //   props.setIsAuth(false);
-    // });
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+      navigate("/");
+    });
   };
 
   return (
@@ -160,7 +165,7 @@ export default function ToolbarComponent(props) {
                   >
                     <NavLink to="/">
                       <img
-                        src={props.checked ? LogoMobileDark : LogoMobileLight}
+                        src={checked ? LogoMobileDark : LogoMobileLight}
                         alt="Saude Vapor"
                       />
                     </NavLink>
@@ -175,7 +180,7 @@ export default function ToolbarComponent(props) {
                   >
                     <NavLink to="/">
                       <img
-                        src={props.checked ? LogoDesktopDark : LogoDesktopLight}
+                        src={checked ? LogoDesktopDark : LogoDesktopLight}
                         alt="Icon Saude Vapor"
                       />
                     </NavLink>
@@ -220,7 +225,7 @@ export default function ToolbarComponent(props) {
 
                 <Grid item>
                   <Box>
-                    {!props.isAuth ? (
+                    {!isAuth ? (
                       <NavLink to="/login">
                         <Box
                           sx={{

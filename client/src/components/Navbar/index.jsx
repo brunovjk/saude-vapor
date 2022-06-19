@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import DrawerComponent from "./drawer";
 import ToolbarComponent from "./toolbar";
 
-const Navbar = ({ isAuth, setIsAuth, checked }) => {
+import { Context } from "../../context/Context";
+
+const Navbar = () => {
+  const { isAuth, checked } = useContext(Context);
+
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -16,12 +20,7 @@ const Navbar = ({ isAuth, setIsAuth, checked }) => {
 
   return (
     <>
-      <ToolbarComponent
-        openDrawerHandler={openDrawer}
-        isAuth={isAuth}
-        setIsAuth={setIsAuth}
-        checked={checked}
-      />
+      <ToolbarComponent openDrawerHandler={openDrawer} />
       <DrawerComponent
         open={isDrawerOpen}
         toggleDrawerHandler={toggleDrawer}

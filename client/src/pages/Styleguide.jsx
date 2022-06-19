@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Paper, Typography, Box, Switch, Button } from "@mui/material";
 
 import Logo24primary20 from "../assets/img/logo/Logo24-primary-20.svg";
@@ -36,7 +36,10 @@ import AddIcon from "@mui/icons-material/Add";
 import DownloadIcon from "@mui/icons-material/Download";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 
-export default function Styleguide({ setChecked }) {
+import { Context } from "../context/Context";
+
+export default function Styleguide() {
+  const { setChecked } = useContext(Context);
   const handleChange = () => {
     setChecked((c) => !c);
   };
