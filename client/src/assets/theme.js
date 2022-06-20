@@ -82,12 +82,12 @@ export const lightTheme = createTheme({
     h3: {
       fontWeight: 500,
       fontSize: "22px",
-      lineHeight: "28px",
+      lineHeight: "22px",
       letterSpacing: 0,
 
       "@media (min-width:600px)": {
         fontSize: "22px",
-        lineHeight: "28px",
+        lineHeight: "18px",
       },
     },
     menu: {
@@ -196,7 +196,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           height: "40px",
-          borderRadius: "12px",
+          borderRadius: "18px",
           paddingRight: "24px",
           paddingLeft: "24px",
         },
@@ -205,7 +205,7 @@ export const lightTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: "12px",
+          borderRadius: "18px",
         },
       },
     },
@@ -418,7 +418,7 @@ export const darkTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: "12px",
+          borderRadius: "18px",
         },
       },
     },

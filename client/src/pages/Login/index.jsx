@@ -278,6 +278,7 @@ export default function Login() {
             }}
           ></Paper>
         </Grid>
+
         {/* Forgot password dialog */}
         <ForgotPasswordDialog
           openForgotPassDialog={openForgotPassDialog}

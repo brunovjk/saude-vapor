@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export const Context = React.createContext();
 
 export const ContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  const [checked, setChecked] = useState(localStorage.getItem("themeMode"));
+  const [checked, setChecked] = useState(false);
 
   const handleChangeDarkMode = () => {
-    localStorage.setItem("themeMode", !checked);
-
     setChecked((c) => !c);
   };
 

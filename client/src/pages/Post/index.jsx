@@ -36,8 +36,10 @@ export default function Post() {
 
           setPostData(dataDocRef.data());
 
-          if (dataDocRef.data()) {
+          if (dataDocRef.data() !== undefined) {
             setDataExist(true);
+          } else {
+            navigate("/NotFound");
           }
         }
       } catch (error) {
@@ -72,40 +74,43 @@ export default function Post() {
 
   return (
     <>
-      <DialogEdit
-        open={open}
-        setOpen={setOpen}
-        blogId={blogId}
-        postData={postData}
-      />
-      <DeleteConfirmation
-        openDeleteConfirmation={openDeleteConfirmation}
-        setOpenDeleteConfirmation={setOpenDeleteConfirmation}
-        deletePost={deletePost}
-      />
       {dataExist ? (
-        <DataPost
-          postData={postData}
-          handleOpenEdit={handleOpenEdit}
-          setOpenDeleteConfirmation={setOpenDeleteConfirmation}
-          isAuth={isAuth}
-        />
+        <>
+          <DialogEdit
+            open={open}
+            setOpen={setOpen}
+            blogId={blogId}
+            postData={postData}
+          />
+          <DeleteConfirmation
+            openDeleteConfirmation={openDeleteConfirmation}
+            setOpenDeleteConfirmation={setOpenDeleteConfirmation}
+            deletePost={deletePost}
+          />
+
+          <DataPost
+            postData={postData}
+            handleOpenEdit={handleOpenEdit}
+            setOpenDeleteConfirmation={setOpenDeleteConfirmation}
+            isAuth={isAuth}
+          />
+          <Snackbar
+            open={openAlert}
+            autoHideDuration={6000}
+            onClose={handleCloseAlert}
+          >
+            <Alert
+              onClose={handleCloseAlert}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Post deletado com sucesso.
+            </Alert>
+          </Snackbar>
+        </>
       ) : (
         <SkeletonPost />
       )}
-      <Snackbar
-        open={openAlert}
-        autoHideDuration={6000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Post deletado com sucesso.
-        </Alert>
-      </Snackbar>
     </>
   );
 }

@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 function CardArticle(props) {
   const [elevation, setElevation] = useState(3);
   const [minHeight, setMinHeight] = useState("");
+  const linkToPost = "/" + props.postData[0].docName;
 
   useEffect(() => {
     if (props.direction === "column") {
@@ -15,7 +16,7 @@ function CardArticle(props) {
 
   return (
     <>
-      <NavLink to={props.postData[0].docName}>
+      <NavLink to={linkToPost}>
         <Card
           elevation={elevation}
           sx={{

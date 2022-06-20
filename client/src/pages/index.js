@@ -9,3 +9,4 @@ export { default as Styleguide } from "./Styleguide";
 export { default as Dashboard } from "./Dashboard";
 export { default as Blockchain } from "./Blockchain";
 export { default as Post } from "./Post";
+export { default as NotFound } from "./NotFound";

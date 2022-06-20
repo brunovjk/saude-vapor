@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightTheme, darkTheme } from "./assets/theme";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,6 +21,7 @@ import {
   Dashboard,
   Blockchain,
   Post,
+  NotFound,
 } from "./pages";
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
 
             <Route path="/termos" element={<Terms />} />
             <Route path="/styleguide" element={<Styleguide />} />
+            <Route path="/NotFound" element={<NotFound />} />
           </Routes>
           <ScrollButton />
           <Footer />
