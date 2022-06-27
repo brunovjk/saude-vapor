@@ -17,7 +17,7 @@ contract SVGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     {}
 
     function votingDelay() public pure override returns (uint256) {
-        return 0; // 1 block
+        return 1; // 1 block
     }
 
     function votingPeriod() public pure override returns (uint256) {

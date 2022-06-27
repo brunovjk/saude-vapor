@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { BigNumber } = require("bignumber.js");
 
 describe("SVGovernor", function () {
   it("Should create/cast/queue and execute a proposal", async function () {
@@ -20,7 +21,7 @@ describe("SVGovernor", function () {
     expect(svtoken.address); 
     const svTOKENAddress = svtoken.address;  // console.log(`Token Collection address: ${svTOKENAddress}`)   
     const setsvTOKENTx = await svtoken.safeMint( accounts[0].address , "<svg> String Test </svg>");
-    await setsvTOKENTx.wait();
+    await setsvTOKENTx.wait(1);
     expect(await svtoken.totalSupply()).to.equal(1);
 
     //Deploy Governor
@@ -34,46 +35,60 @@ describe("SVGovernor", function () {
     const addressTo = accounts[1].address;
     const stringUri = "<svg> String Test 1 </svg>";
     const transferCalldata = token.interface.encodeFunctionData("safeMint", [addressTo, stringUri]);
+    const description = `Create a NFT to: ${accounts[1].address}, for the: <svg> String Test 1 </svg>`
     const proposeTX = await svgovernor.propose(
       [svTOKENAddress],
       [0],
       [transferCalldata],
-      `Create a NFT to: ${accounts[1].address}, for the: <svg> String Test 1 </svg>`,
+      description,
     )
-    await proposeTX.wait();
-    const data = await proposeTX.wait();
+    await proposeTX.wait(1);
+    const data = await proposeTX.wait(1);
     const proposalId = data.events[0].args.proposalId.toString()
-    const proposalState = await svgovernor.state(proposalId)
-    expect(proposalState);
     // console.log(`${data.events[0].event}: proposalId: ${data.events[0].args.proposalId.toString()}, tokenAddress: ${data.events[0].args.targets.toString()}, amount: ${data.events[0].args[3].toString()}, transferCalldata: ${data.events[0].args.calldatas.toString()}, description: ${data.events[0].args.description}.`)
+
+    // Mine 1 block = votingDelay()
+    await hre.network.provider.send("hardhat_mine");
+    const proposalState = await svgovernor.state(proposalId)
+    expect(proposalState).to.equal(0);
 
     // Cast a Vote
     const voteWay = 1 // for
     const voteTx = await svgovernor.castVote(proposalId, voteWay)
-    await voteTx.wait()
+    await voteTx.wait(1)
     expect(voteTx); 
+    const hasVotedTX = await svgovernor.hasVoted(proposalId , accounts[0].address)
+    const hasVoted = await hasVotedTX
+    expect(await hasVoted).to.equal(true);
+    
+    // TokenAddress, amount and transferCalldata from event
+    expect(await data.events[0].args.targets.toString()).to.equal(svTOKENAddress);
+    expect((new BigNumber(await data.events[0].args[3])).c[0]).to.equal(0);
+    expect(await data.events[0].args.calldatas.toString()).to.equal(transferCalldata);
+    const descriptionHash = ethers.utils.id(data.events[0].args.description);
 
-    // Queue the proposal
-    // const descriptionHash = ethers.utils.id(data.events[0].args.description);
-    // const queueTX = await svgovernor.queue(
-    //   [data.events[0].args.targets.toString()],
-    //   [data.events[0].args[3].toString()],
-    //   [data.events[0].args.calldatas.toString()],
-    //   descriptionHash,
-    // );
-    // await queueTX.wait();
-    // console.log(await queueTX.wait());
+    // // Queue a proposal
+    const queueTX = await svgovernor.queue(
+      [data.events[0].args.targets.toString()],
+      [(new BigNumber(await data.events[0].args[3])).c[0]],
+      [await data.events[0].args.calldatas.toString()],
+      descriptionHash,
+    );
+    await queueTX.wait(1);
+    console.log(await queueTX.wait(1));
 
-    // Execute the Proposal
+    // // Mine 45819 block = votingPeriod() + 1
+    // await hre.network.provider.send("hardhat_mine", ["0xB2FB"]);
+
+    // // Execute the Proposal
     // const executeTX = await svgovernor.execute(
-    //   [proposalId],
-    //   [svTOKENAddress],
-    //   [0],
-    //   [transferCalldata],
-    //   descriptionHash,
+    // [data.events[0].args.targets.toString()],
+    // [(new BigNumber(await data.events[0].args[3])).c[0]],
+    // [await data.events[0].args.calldatas.toString()],
+    // descriptionHash,
     // );
-    // await executeTX.wait();
-    // console.log(await executeTX.wait());
+    // await executeTX.wait(1);
+    // console.log(await executeTX.wait(1));
   });
 
 });
