@@ -12,7 +12,7 @@ contract SVGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     constructor(IVotes _token, TimelockController _timelock)
         Governor("SVGovernor")
         GovernorVotes(_token)
-        GovernorVotesQuorumFraction(51)
+        GovernorVotesQuorumFraction(4)
         GovernorTimelockControl(_timelock)
     {}
 
@@ -21,7 +21,7 @@ contract SVGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 45818; // 1 week
+        return 50; // 50 block
     }
 
     // The following functions are overrides required by Solidity.

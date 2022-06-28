@@ -2,40 +2,42 @@ const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { BigNumber } = require("bignumber.js");
 
-describe("SaudeVapor Governance (SVGovernor, SVToken).", function () {
+describe("SaudeVapor Governance test.", function () {
   it("Should go through the entire Proposal Lifecycle", async function () {
 
-    const accounts = await ethers.getSigners();
+    const [owner, addr1] = await ethers.getSigners();
 
-    //Deploy Token and mint 1 token to owner
+    //Deploy Token Contract, mint 1 token and delegate to owner
+    console.log("---------Deploy Token Contract, mint 1 token and delegate to owner")
     const SVToken = await ethers.getContractFactory("SVToken");
     const svtoken = await SVToken.deploy();    
     await svtoken.deployed();
     expect(svtoken.address); 
-    const setsvTOKENTx = await svtoken.safeMint( accounts[0].address , " String Test ");
+    const setsvTOKENTx = await svtoken.safeMint( owner.address , " String Test ");
     await setsvTOKENTx.wait(1);
     expect(await svtoken.totalSupply()).to.equal(1);
     console.log(`Token Collection address: ${svtoken.address}`)
     console.log(`Total supply: ${await svtoken.totalSupply()}`)
-    console.log("---------------------------------------------------------------")
 
-    //Deploy Timelock    
+    //Deploy Timelock
+    console.log("---------Deploy Timelock Contract")
+   
     const TimeLock = await ethers.getContractFactory("TimeLock");
     const timelock = await TimeLock.deploy(0, [], []);    
     await timelock.deployed();
     expect(timelock.address);     
     console.log(`Timelock address: ${timelock.address}`)  
-    console.log("---------------------------------------------------------------")
 
     //Deploy Governor
+    console.log("---------Deploy Governor Contract")
     const SVGovernor = await ethers.getContractFactory("SVGovernor");
     const svgovernor = await SVGovernor.deploy(svtoken.address, timelock.address);    
     await svgovernor.deployed();
     expect(svgovernor.address);
     console.log(`SVGovernor address: ${svgovernor.address}`)  
-    console.log("---------------------------------------------------------------")
 
     // Setting up contracts for roles
+    console.log("---------Setting up contracts for Timelock roles")
     const proposerRole = await timelock.PROPOSER_ROLE()
     const executorRole = await timelock.EXECUTOR_ROLE()
     const adminRole = await timelock.TIMELOCK_ADMIN_ROLE()  
@@ -43,30 +45,30 @@ describe("SaudeVapor Governance (SVGovernor, SVToken).", function () {
     const proposerole = await proposerTx.wait(1)
     const executorTx = await timelock.grantRole(executorRole, "0x0000000000000000000000000000000000000000")
     const executorole = await executorTx.wait(1)
-    const revokeTx = await timelock.revokeRole(adminRole, accounts[0].address)
+    const revokeTx = await timelock.revokeRole(adminRole, owner.address)
     const revokerole = await revokeTx.wait(1)
     expect(proposerole.events[0].args.account).to.equal(svgovernor.address);
     expect(executorole.events[0].args.account).to.equal("0x0000000000000000000000000000000000000000");
-    expect(revokerole.events[0].args.account).to.equal(accounts[0].address);
+    expect(revokerole.events[0].args.account).to.equal(owner.address);
     console.log(`Proposer role: ${proposerole.events[0].args.account}`)
     console.log(`Executor role: ${executorole.events[0].args.account}`)
     console.log(`Revoke role: ${revokerole.events[0].args.account}`)
-    console.log("---------------------------------------------------------------")
 
     // Transfer ownership
+    console.log("---------Transfer SVToken ownership to Timelock")
     const transferOwnershipTx = await svtoken.transferOwnership(timelock.address)
     const newTokenContractOwner = await transferOwnershipTx.wait(1)
     expect(newTokenContractOwner.events[0].args.newOwner).to.equal(timelock.address);
     console.log(`New SVToken contract ower: ${newTokenContractOwner.events[0].args.newOwner}`)
-    console.log("---------------------------------------------------------------")
 
     //Create a proposal
+    console.log("---------Create a proposal")
     const token = await ethers.getContractAt("SVToken", svtoken.address);    
-    const addressTo = accounts[1].address;
+    const addressTo = addr1.address;
     const stringUri = " String Test 1 ";
     const transferCalldata = token.interface.encodeFunctionData("safeMint", [addressTo, stringUri]);
     const description = `Create a token to: ${addressTo}, for contribuition of: ${stringUri}`
-    const proposeTX = await svgovernor.propose(
+    const proposeTX = await svgovernor.connect(addr1).propose(
       [svtoken.address],
       [0],
       [transferCalldata],
@@ -84,8 +86,22 @@ describe("SaudeVapor Governance (SVGovernor, SVToken).", function () {
       tokenAddress: ${data.events[0].args.targets.toString()},
       amount: ${data.events[0].args[3].toString()},
       transferCalldata: ${data.events[0].args.calldatas.toString()},
-      description: ${data.events[0].args.description}.`)
-    console.log("---------------------------------------------------------------")
+      description: ${data.events[0].args.description},
+      proposer: ${data.events[0].args.proposer},
+      startBlock:  ${data.events[0].args.startBlock.toString()}`)
+
+    // Cast a Vote
+    console.log("---------Cast a Vote")
+    const voteWay = 1 // 0 = Against, 1 = For, 2 = Abstain
+    const voteTx = await svgovernor.castVote(proposalId, voteWay)
+    await voteTx.wait(1)
+    expect(await voteTx.wait(1)); 
+    const hasVoted = await svgovernor.hasVoted(proposalId , owner.address)
+    expect(await hasVoted).to.equal(true);
+    console.log(`AgainstVotes: ${(await svgovernor.proposalVotes(proposalId)).againstVotes.toString()}`)
+    console.log(`ForVotes: ${(await svgovernor.proposalVotes(proposalId)).forVotes.toString()}`)
+    console.log(`AbstainVotes: ${(await svgovernor.proposalVotes(proposalId)).abstainVotes.toString()}`)
+    console.log(`Quorum: ${(await svgovernor.quorum(data.events[0].args.startBlock.toString()))}`)
 
     // TokenAddress, amount and transferCalldata from event
     expect(await data.events[0].args.targets.toString()).to.equal(svtoken.address);
@@ -94,7 +110,9 @@ describe("SaudeVapor Governance (SVGovernor, SVToken).", function () {
     expect(await data.events[0].args.description).to.equal(description);
 
     // Queue a proposal
-    const descriptionHash = ethers.utils.id(await data.events[0].args.description);  
+    console.log("---------Queue a proposal")
+    await hre.network.provider.send("hardhat_mine", ["0xB2FB"]);  // Mine 45819 block = votingPeriod() + 1
+    const descriptionHash = ethers.utils.id(await data.events[0].args.description);
     const queueTX = await svgovernor.queue(
       [data.events[0].args.targets.toString()],
       [(new BigNumber(await data.events[0].args[3])).c[0]],
@@ -102,32 +120,28 @@ describe("SaudeVapor Governance (SVGovernor, SVToken).", function () {
       descriptionHash,
     );
     await queueTX.wait(1);
-    console.log(await queueTX.wait(1));
+    expect((await queueTX.wait(1)).events[1].event).to.equal("ProposalQueued");
+    console.log(`Queue status: ${(await queueTX.wait(1)).events[1].event}`)
 
-    // // Cast a Vote
-    // const voteWay = 1 // 0 = Against, 1 = For, 2 = Abstain
-    // const voteTx = await svgovernor.castVote(proposalId, voteWay)
-    // await voteTx.wait(1)
-    // expect(voteTx); 
-    // const hasVotedTX = await svgovernor.hasVoted(proposalId , accounts[0].address)
-    // const hasVoted = await hasVotedTX
-    // expect(await hasVoted).to.equal(true);
-    // const proposalStateAtertVote = await svgovernor.state(proposalId)
-    // console.log(`Proposal State after vote: ${proposalStateAtertVote}`)
-    // console.log("---------------------------------------------------------------")
+    // Execute the Proposal
+    console.log("---------Execute the Proposal")
+    const executeTX = await svgovernor.execute(
+    [data.events[0].args.targets.toString()],
+    [(new BigNumber(await data.events[0].args[3])).c[0]],
+    [await data.events[0].args.calldatas.toString()],
+    descriptionHash,
+    );
+    await executeTX.wait(1);
+    expect((await executeTX.wait(1)).events[0].event).to.equal("ProposalExecuted");
+    console.log(`Execute status: ${(await executeTX.wait(1)).events[0].event}`)
 
-    // // Mine 45819 block = votingPeriod() + 1
-    // await hre.network.provider.send("hardhat_mine", ["0xB2FB"]);
-
-    // // Execute the Proposal
-    // const executeTX = await svgovernor.execute(
-    // [data.events[0].args.targets.toString()],
-    // [(new BigNumber(await data.events[0].args[3])).c[0]],
-    // [await data.events[0].args.calldatas.toString()],
-    // descriptionHash,
-    // );
-    // await executeTX.wait(1);
-    // console.log(await executeTX.wait(1));
+    // Proposal Conclusion
+    console.log("---------Proposal Conclusion")
+    expect(await svtoken.balanceOf(await data.events[0].args.proposer)).to.equal(1);
+    console.log(`Proposal description: ${description}.`)
+    console.log(`Proposer should have 1 token at SVToken collection.
+      - Proposer: ${await data.events[0].args.proposer},
+      - Balance of Proposer: ${await svtoken.balanceOf(await data.events[0].args.proposer)}.`)
+      console.log("-----------------------------------------------------------------")
   });
-
 });

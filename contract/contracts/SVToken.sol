@@ -32,6 +32,7 @@ contract SVToken is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownabl
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+        delegate(to);
     }
 
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)
