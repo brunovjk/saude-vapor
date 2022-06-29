@@ -8,7 +8,7 @@ describe("SaudeVapor Governance test.", function () {
     const [owner, addr1] = await ethers.getSigners();
 
     //Deploy Token Contract, mint 1 token and delegate to owner
-    console.log("---------Deploy Token Contract, mint 1 token and delegate to owner")
+    console.log("---------Deploy Token Contract, mint 1 token to owner")
     const SVToken = await ethers.getContractFactory("SVToken");
     const svtoken = await SVToken.deploy();    
     await svtoken.deployed();

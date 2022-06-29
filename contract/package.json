@@ -2,10 +2,14 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.6.9",
-    "hardhat": "^2.9.9"
+    "hardhat": "^2.9.9",
+    "solidity-coverage": "^0.7.16",
+    "hardhat-gas-reporter": "^1.0.4",
+    "dotenv": "^10.0.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.6.0",

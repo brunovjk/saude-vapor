@@ -21,7 +21,7 @@ contract SVGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 50; // 50 block
+        return 30; // 50 block
     }
 
     // The following functions are overrides required by Solidity.
