@@ -39,6 +39,7 @@ export default function Home() {
     monthsNumber[new Date().getMonth()]
   }-${new Date().getDate()}`;
 
+  useEffect(() => {
   const getCollection = async () => {
     try {
       const qNoticia = query(
@@ -69,16 +70,14 @@ export default function Home() {
       console.log(error);
     }
   };
+    getCollection();
+  }, [currentDate, infinityScrollNumber]);
 
   useEffect(() => {
     if (noticiaQueryData.length > 0) {
       setDataExist(true);
     }
   }, [noticiaQueryData.length]);
-
-  useEffect(() => {
-    getCollection();
-  }, [infinityScrollNumber]);
 
   return (
     <>

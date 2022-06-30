@@ -48,7 +48,7 @@ export default function Post() {
     };
 
     getPost();
-  }, [blogId]);
+  }, [blogId, navigate]);
 
   const handleOpenEdit = async () => {
     setOpen(true);

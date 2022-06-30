@@ -41,7 +41,7 @@ export default function MyAccount() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [user]);
 
   const onChangeName = (value) => {
     setDisplayName(value.target.value);

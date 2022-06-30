@@ -6,6 +6,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Context } from "./context/Context";
 import { Container } from "@mui/material";
+import { ContractProvider } from "./pages/Blockchain/Context";
 
 import { Navbar, Footer, ScrollToTop, ScrollButton } from "./components";
 
@@ -44,8 +45,9 @@ export default function App() {
             <Route path="/contato" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/criarconta" element={<CreateAccount />} />
-            <Route path="/blockchain" element={<Blockchain />} />
-
+           
+            <Route path="/blockchain" element={<ContractProvider><Blockchain /></ContractProvider>} />
+            
             <Route path="/termos" element={<Terms />} />
             <Route path="/styleguide" element={<Styleguide />} />
             <Route path="/NotFound" element={<NotFound />} />
