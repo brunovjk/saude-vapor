@@ -1,14 +1,6 @@
 const main = async () => {
-  // const vjkNFT = await hre.ethers.getContractFactory("vjkNFT");
-  // const vjknft = await vjkNFT.deploy();
-
-  // await vjknft.deployed();
-
-  // console.log("Contract deployed to:", vjknft.address);
-
   const [owner] = await hre.ethers.getSigners();
-
-  //Deploy Token Contract, mint 1 token and delegate to owner
+  //Deploy Token Contract, mint 1 token to owner
   console.log("---------Deploy Token Contract, mint 1 token to owner")
   const SVToken = await hre.ethers.getContractFactory("SVToken");
   const svtoken = await SVToken.deploy();    
