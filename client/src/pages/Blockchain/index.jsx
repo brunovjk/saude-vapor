@@ -17,7 +17,7 @@ export default function Blockchain() {
       ) : (
         <>
           <SVTokenSection />
-          <SVGovernanceSection />
+         <SVGovernanceSection />
         </>
       )}
     </>

@@ -36,7 +36,7 @@ function CardArticle(props) {
                 component="img"
                 height="100%"
                 src={props.postData[0].urlImage}
-                alt={props.postData[0].urlImage}
+                alt={`${props.postData[0].urlImage}`}
               />
             </Grid>
             <Grid item xs={7}>
@@ -47,6 +47,7 @@ function CardArticle(props) {
                   justifyContent="center"
                   alignItems="flex-start"
                 >
+                  {/* date */}
                   <Grid item>
                     <Typography
                       variant="underline2"
@@ -60,6 +61,7 @@ function CardArticle(props) {
                       {props.postData[0].date}
                     </Typography>
                   </Grid>
+                  {/* category */}
                   <Grid item>
                     <Typography
                       variant="underline2"
@@ -74,7 +76,7 @@ function CardArticle(props) {
                       {props.postData[0].category}
                     </Typography>
                   </Grid>
-
+                  {/* title */}
                   <Grid item>
                     <Typography
                       variant="h3"

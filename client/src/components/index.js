@@ -7,3 +7,5 @@ export { default as AdBanner } from "./AdBanner";
 export { default as FABSocialMedia } from "./FABSocialMedia";
 export { default as ScrollButton } from "./ScrollButton";
 export { default as EditorContainerComp } from "./EditorContainerComp";
+export { default as TokenCard } from "./TokenCard";
+export { default as ProposalCard } from "./ProposalCard";

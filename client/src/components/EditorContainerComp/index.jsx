@@ -23,14 +23,14 @@ export default function EditorContainerComp({ setText }) {
     <Paper
       variant="outlined"
       sx={{
-        p: "12px",
+        p: {xs: "8px", md: "12px"},
         borderRadius: "12px",
         borderColor: "secondary.80",
         // border: "2px solid",
         // borderColor: "primary.40",
       }}
     >
-      <Box minHeight={320}>
+      <Box minHeight={520}>
         <Editor
           editorState={editorState}
           onEditorStateChange={onEditorStateChange}
