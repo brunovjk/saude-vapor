@@ -8,7 +8,7 @@ import ConnectWallet from "./ConnectWallet";
 import SVTokenSection from "./SVToken/SVTokenSection";
 import SVGovernanceSection from "./SVGovernance/SVGovernanceSection/index";
 import TokenInfo from "./SVToken/TokenInfo";
-import ProposeInfo from "./SVGovernance/ProposeInfo";
+import ProposalInfo from "./SVGovernance/ProposalInfo";
 import CollectionInfo from "./SVToken/CollectionInfo";
 
 import { ContractContext} from "./Context";
@@ -37,7 +37,7 @@ export default function Blockchain() {
       <Routes>
         <Route path="/" element={<HomeBlockchain />} />
         <Route path="/TokenInfo/:tokenId" element={<TokenInfo />} />
-        <Route path="/ProposeInfo/:proposaId" element={<ProposeInfo />} />
+        <Route path="/ProposalInfo/:proposaId" element={<ProposalInfo />} />
         <Route path="/CollectionInfo/:collectionId" element={<CollectionInfo />} />
       </Routes>
     </>

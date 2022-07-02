@@ -63,7 +63,7 @@ export default function Hero() {
         </Grid>
       </Grid>
       {/* Ad Banner */}
-      <Grid item mx={{ xs: "16px", sm: "32x", md: "48px" }}>
+      <Grid item mx={{ xs: "16px", sm: "32x" }}>
         <AdBanner
           copyCalls={[
             {

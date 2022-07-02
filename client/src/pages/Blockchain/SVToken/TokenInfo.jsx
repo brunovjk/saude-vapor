@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Container,
   Grid,
   Typography,
   Box,
@@ -49,14 +48,13 @@ export default function TokenInfo() {
         />
       </Box>
       <Divider />
-      <Container>
         <Grid
           container
           direction="column"
           justifyContent="flex-start"
           alignItems="stretch"
           spacing={{ xs: 2, md: 5 }}
-          py={{ xs: "8px", sm: "16px", md: "32px" }}
+          py={{ xs: "16px", md: "32px" }}
         >
           {/* Title */}
           <Grid item>
@@ -150,7 +148,6 @@ export default function TokenInfo() {
             </StickyContainer>
           </Grid>
         </Grid>
-      </Container>
     </>
   );
 }

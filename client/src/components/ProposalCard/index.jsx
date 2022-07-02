@@ -10,7 +10,7 @@ function ProposalCard(props) {
 
   return (
     <>
-      <Link to="/blockchain/ProposeInfo/:proposaId">
+      <Link to="/blockchain/ProposalInfo/:proposaId">
         <Card
           elevation={elevation}
           sx={{

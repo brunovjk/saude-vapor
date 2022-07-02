@@ -9,16 +9,14 @@ import "swiper/css/bundle";
 import LogoIcon40 from "../../assets/img/logo/LogoIcon32-primaryStrore.svg";
 
 export default function AdBanner(props) {
-  const [adWidth, setAdWidth] = useState("100%");
   const [adHeight, setAdHeight] = useState("90px");
   const [adSpacing, setAdSpacing] = useState(2);
   const [adDirection, setAdDirection] = useState("row");
 
   useEffect(() => {
     if (props.vertical) {
-      setAdWidth("250px");
       setAdHeight("480px");
-      setAdSpacing(5);
+      setAdSpacing(4);
       setAdDirection("column");
     }
   }, [props.vertical]);
@@ -27,7 +25,7 @@ export default function AdBanner(props) {
     <>
       <Paper
         variant="outlined"
-        sx={{ width: { xs: "100%", md: adWidth }, overflow: "hidden" }}
+        sx={{ width: { xs: "100%", md: "100%" }, overflow: "hidden" }}
       >
         <Box
           display="flex"
@@ -35,7 +33,7 @@ export default function AdBanner(props) {
           justifyContent="center"
           sx={{
             height: { xs: "280px", sm: "360px", md: adHeight },
-            width: { xs: "100%", md: adWidth },
+            width: { xs: "100%", md: "100%" },
             pt: { xs: "16px", sm: "32px", md: "0" },
             backgroundColor: "secondary.95",
           }}
@@ -63,7 +61,7 @@ export default function AdBanner(props) {
                   direction="row"
                   justifyContent="center"
                   alignItems="center"
-                  sx={{ width: { xs: "150px", sm: "280px" } }}
+                  sx={{ width: { xs: "150px", sm: "250px" } }}
                 >
                   {/* logo */}
                   <Grid item xs={4}>
