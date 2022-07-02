@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, Divider, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../../assets/img/logo/Logo32-white.svg";
 
@@ -36,9 +36,9 @@ export default function Footer() {
                 pl: { sm: "2rem" },
               }}
             >
-              <NavLink to="/">
+              <Link to="/">
                 <img src={Logo} alt="Saude Vapor" />
-              </NavLink>
+              </Link>
             </Box>
           </Grid>
           <Grid item>
@@ -62,32 +62,32 @@ export default function Footer() {
                   alignItems="center"
                 >
                   <Grid item>
-                    <NavLink to="/sobre">
+                    <Link to="/sobre">
                       <Typography variant="menu" color="secondary">
                         Sobre
                       </Typography>
-                    </NavLink>
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <NavLink to="/contato">
+                    <Link to="/contato">
                       <Typography variant="menu" color="secondary">
                         Contato
                       </Typography>
-                    </NavLink>
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <NavLink to="/busca">
+                    <Link to="/busca">
                       <Typography variant="menu" color="secondary">
                         Busca
                       </Typography>
-                    </NavLink>
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <NavLink to="/login">
+                    <Link to="/login">
                       <Typography variant="menu" color="secondary">
                         Login
                       </Typography>
-                    </NavLink>
+                    </Link>
                   </Grid>
                 </Grid>
               </Grid>
@@ -126,11 +126,11 @@ export default function Footer() {
               }}
             >
               <Grid item>
-                <NavLink to="/termos">
+                <Link to="/termos">
                   <Typography variant="underline1" color="secondary">
                     Termos de uso
                   </Typography>
-                </NavLink>
+                </Link>
               </Grid>
               <Grid item>
                 <Typography variant="underline1" color="secondary">

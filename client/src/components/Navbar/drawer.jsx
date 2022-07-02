@@ -24,7 +24,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 import { Context } from "../../context/Context";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const DrawerComponent = (props) => {
   const { checked, handleChangeDarkMode } = useContext(Context);
@@ -35,65 +35,65 @@ const DrawerComponent = (props) => {
       onClick={props.toggleDrawerHandler}
     >
       <Box sx={{ p: "1rem" }}>
-        <NavLink to="/">
+        <Link to="/">
           <img src={props.checked ? LogoDark : LogoLight} alt="Logo" />
-        </NavLink>
+        </Link>
       </Box>
 
       <Divider />
 
       <List>
-        <NavLink to="/sobre">
+        <Link to="/sobre">
           <ListItem button>
             <ListItemIcon>
               <InfoIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Sobre" />
           </ListItem>
-        </NavLink>
-        <NavLink to="/busca">
+        </Link>
+        <Link to="/busca">
           <ListItem button>
             <ListItemIcon>
               <SearchIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Busca" />
           </ListItem>
-        </NavLink>
-        <NavLink to="/contato">
+        </Link>
+        <Link to="/contato">
           <ListItem button>
             <ListItemIcon>
               <EmailIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Contato" />
           </ListItem>
-        </NavLink>
+        </Link>
         {!props.isAuth ? (
-          <NavLink to="/login">
+          <Link to="/login">
             <ListItem button>
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Login" />
             </ListItem>
-          </NavLink>
+          </Link>
         ) : (
-          <NavLink to="/minhaconta">
+          <Link to="/minhaconta">
             <ListItem button>
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
               <ListItemText primary="Minha conta" />
             </ListItem>
-          </NavLink>
+          </Link>
         )}
-        <NavLink to="/blockchain">
+        <Link to="/blockchain">
           <ListItem button>
             <ListItemIcon>
               <GridViewIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Blockchain" />
           </ListItem>
-        </NavLink>
+        </Link>
 
         <ListItem button>
           <ListItemIcon>
@@ -110,14 +110,14 @@ const DrawerComponent = (props) => {
       </List>
 
       <Box sx={{ position: "fixed", bottom: 0, pl: "0.5rem" }}>
-        <NavLink to="/termos">
+        <Link to="/termos">
           <ListItem button disableGutters>
             <ListItemIcon>
               <HistoryEduIcon color="primary" />
             </ListItemIcon>
             <ListItemText primary="Termos de uso" />
           </ListItem>
-        </NavLink>
+        </Link>
       </Box>
     </Box>
   );

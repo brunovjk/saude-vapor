@@ -37,7 +37,6 @@ export default function App() {
 
           <ScrollToTop />
           <Routes>
-            <Route path="/:postId" element={<Post />} />
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/minhaconta" element={<Dashboard />} />
@@ -45,9 +44,8 @@ export default function App() {
             <Route path="/contato" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/criarconta" element={<CreateAccount />} />
-           
-            <Route path="/blockchain" element={<ContractProvider><Blockchain /></ContractProvider>} />
-            
+            <Route path="/post/:postId" element={<Post />} />
+            <Route path="/blockchain/*" element={<ContractProvider><Blockchain /></ContractProvider>} />            
             <Route path="/termos" element={<Terms />} />
             <Route path="/styleguide" element={<Styleguide />} />
             <Route path="/NotFound" element={<NotFound />} />

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, Grid, Skeleton, Chip } from "@mui/material";
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import {shortenAddress} from "../../utils/shortenAddress"
-
-import { NavLink } from "react-router-dom";
 
 function ProposalCard(props) {
   const [elevation, setElevation] = useState(3);
@@ -11,7 +10,7 @@ function ProposalCard(props) {
 
   return (
     <>
-      <NavLink to="{props.tokenId}">
+      <Link to="/blockchain/ProposeInfo/:proposaId">
         <Card
           elevation={elevation}
           sx={{
@@ -55,7 +54,7 @@ function ProposalCard(props) {
                 </Grid>
               </CardContent>
         </Card>
-      </NavLink>
+      </Link>
     </>
   );
 }

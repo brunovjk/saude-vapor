@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Card, CardContent, CardMedia, Grid } from "@mui/material";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CardArticle(props) {
   const [elevation, setElevation] = useState(3);
   const [minHeight, setMinHeight] = useState("");
-  const linkToPost = "/" + props.postData[0].docName;
+  const linkToPost = "/post/" + props.postData[0].docName;
 
   useEffect(() => {
     if (props.direction === "column") {
@@ -16,7 +16,7 @@ function CardArticle(props) {
 
   return (
     <>
-      <NavLink to={linkToPost}>
+      <Link to={linkToPost}>
         <Card
           elevation={elevation}
           sx={{
@@ -97,7 +97,7 @@ function CardArticle(props) {
             </Grid>
           </Grid>
         </Card>
-      </NavLink>
+      </Link>
     </>
   );
 }

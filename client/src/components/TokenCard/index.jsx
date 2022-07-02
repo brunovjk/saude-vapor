@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, Grid, Skeleton } from "@mui/material";
-
-import { NavLink } from "react-router-dom";
 
 function TokenCard(props) {
   const [elevation, setElevation] = useState(3);
 
   return (
     <>
-      <NavLink to="{props.tokenId}">
+      <Link to="/blockchain/TokenInfo/:tokenId">
         <Card
           elevation={elevation}
           sx={{
@@ -54,7 +53,7 @@ function TokenCard(props) {
                 </Grid>
               </CardContent>
         </Card>
-      </NavLink>
+      </Link>
     </>
   );
 }

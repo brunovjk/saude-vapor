@@ -1,25 +1,45 @@
 import React, { useContext } from "react";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 import Hero from "./Hero";
 import ConnectWallet from "./ConnectWallet";
 import SVTokenSection from "./SVToken/SVTokenSection";
 import SVGovernanceSection from "./SVGovernance/SVGovernanceSection/index";
+import TokenInfo from "./SVToken/TokenInfo";
+import ProposeInfo from "./SVGovernance/ProposeInfo";
+import CollectionInfo from "./SVToken/CollectionInfo";
 
 import { ContractContext} from "./Context";
 
 export default function Blockchain() {
   const { currentAccount } = useContext(ContractContext);
 
+  function HomeBlockchain() {
+    return (
+      <>
+        <Hero></Hero>
+        {!currentAccount ? (
+          <ConnectWallet />
+        ) : (
+          <>
+            <SVTokenSection />
+          <SVGovernanceSection />
+          </>
+        )}
+      </>
+    )
+  }
+
   return (
     <>
-      <Hero></Hero>
-      {!currentAccount ? (
-        <ConnectWallet />
-      ) : (
-        <>
-          <SVTokenSection />
-         <SVGovernanceSection />
-        </>
-      )}
+      <Routes>
+        <Route path="/" element={<HomeBlockchain />} />
+        <Route path="/TokenInfo/:tokenId" element={<TokenInfo />} />
+        <Route path="/ProposeInfo/:proposaId" element={<ProposeInfo />} />
+        <Route path="/CollectionInfo/:collectionId" element={<CollectionInfo />} />
+      </Routes>
     </>
   )
 }

@@ -9,3 +9,4 @@ export { default as ScrollButton } from "./ScrollButton";
 export { default as EditorContainerComp } from "./EditorContainerComp";
 export { default as TokenCard } from "./TokenCard";
 export { default as ProposalCard } from "./ProposalCard";
+export { default as ContractDetails } from "./ContractDetails";

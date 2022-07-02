@@ -11,7 +11,7 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
@@ -199,11 +199,11 @@ export default function CreateAccount() {
                 />
                 <Typography variant="underline1" color="text.primary">
                   Li e concordo com os 
-                  <NavLink to="/termos">
+                  <Link to="/termos">
                     <Typography variant="underline1" color="primary.30">
                       Termos de Uso e Política de Privacidade
                     </Typography>
-                  </NavLink>
+                  </Link>
                   .
                 </Typography>
               </Grid>
@@ -236,11 +236,11 @@ export default function CreateAccount() {
                 <Typography variant="body2" color="text.primary">
                   Já tem uma conta?
                 </Typography>
-                <NavLink to="/login">
+                <Link to="/login">
                   <Typography variant="body2" color="primary.30">
                      ENTRE.
                   </Typography>
-                </NavLink>
+                </Link>
               </Grid>
               {/* text */}
               <Grid

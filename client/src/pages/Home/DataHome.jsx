@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 import InfiniteScroll from "react-infinite-scroll-component";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DataHome({
   noticiaQueryData,
@@ -114,11 +114,11 @@ export default function DataHome({
                 <Box sx={{ p: "32px" }}>
                   <Typography variant="body1" style={{ textAlign: "center" }}>
                     Não encontrou oque procura?
-                    <NavLink to="/busca" color="primary">
+                    <Link to="/busca" color="primary">
                       <Typography variant="h3" color="primary">
                         Busque aqui!
                       </Typography>
-                    </NavLink>
+                    </Link>
                   </Typography>
                 </Box>
               }

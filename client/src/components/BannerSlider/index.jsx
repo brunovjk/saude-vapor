@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Autoplay, Pagination } from "swiper";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function BannerSlider(props) {
   const [elevation, setElevation] = useState(3);
@@ -42,7 +42,7 @@ function BannerSlider(props) {
         >
           {props.postData.map((data, index) => (
             <SwiperSlide key={index}>
-              <NavLink to={data.docName}>
+              <Link to={"post/" + data.docName}>
                 <Box
                   component="div"
                   sx={{
@@ -143,7 +143,7 @@ function BannerSlider(props) {
                     </Grid>
                   </Grid>
                 </Box>
-              </NavLink>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

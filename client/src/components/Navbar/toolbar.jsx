@@ -33,7 +33,7 @@ import { Context } from "../../context/Context";
 import { auth } from "../../context/firebase-config";
 import { signOut } from "firebase/auth";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -163,12 +163,12 @@ export default function ToolbarComponent(props) {
                       pb: "0.3rem",
                     }}
                   >
-                    <NavLink to="/">
+                    <Link to="/">
                       <img
                         src={checked ? LogoMobileDark : LogoMobileLight}
                         alt="Saude Vapor"
                       />
-                    </NavLink>
+                    </Link>
                   </Box>
                 </Grid>
                 <Grid item>
@@ -178,12 +178,12 @@ export default function ToolbarComponent(props) {
                       p: "1rem",
                     }}
                   >
-                    <NavLink to="/">
+                    <Link to="/">
                       <img
                         src={checked ? LogoDesktopDark : LogoDesktopLight}
                         alt="Icon Saude Vapor"
                       />
-                    </NavLink>
+                    </Link>
                   </Box>
                 </Grid>
               </Grid>
@@ -200,7 +200,7 @@ export default function ToolbarComponent(props) {
               >
                 <Grid item>
                   <Box>
-                    <NavLink to="/busca">
+                    <Link to="/busca">
                       <Box
                         sx={{
                           display: { xs: "block", sm: "none" },
@@ -219,14 +219,14 @@ export default function ToolbarComponent(props) {
                           <SearchIcon />
                         </IconButton>
                       </Box>
-                    </NavLink>
+                    </Link>
                   </Box>
                 </Grid>
 
                 <Grid item>
                   <Box>
                     {!isAuth ? (
-                      <NavLink to="/login">
+                      <Link to="/login">
                         <Box
                           sx={{
                             display: { xs: "block", sm: "none" },
@@ -245,7 +245,7 @@ export default function ToolbarComponent(props) {
                             <PersonOutlineOutlinedIcon />
                           </IconButton>
                         </Box>
-                      </NavLink>
+                      </Link>
                     ) : (
                       <>
                         <Box
@@ -331,7 +331,7 @@ export default function ToolbarComponent(props) {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    <NavLink to="/minhaconta">
+                    <Link to="/minhaconta">
                       <MenuItem>
                         <Avatar
                           sx={{
@@ -340,18 +340,18 @@ export default function ToolbarComponent(props) {
                         />
                         Minha conta
                       </MenuItem>
-                    </NavLink>
+                    </Link>
 
                     <Divider />
 
-                    <NavLink to="/contato">
+                    <Link to="/contato">
                       <MenuItem>
                         <ListItemIcon>
                           <EmailIcon fontSize="small" color="primary" />
                         </ListItemIcon>
                         Contato
                       </MenuItem>
-                    </NavLink>
+                    </Link>
                     <MenuItem onClick={signUserOut}>
                       <ListItemIcon>
                         <Logout fontSize="small" color="primary" />

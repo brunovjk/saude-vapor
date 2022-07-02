@@ -1,9 +1,10 @@
 import React from 'react'
+import { NavLink } from "react-router-dom";
 import { Typography, Grid } from "@mui/material";
 import { TokenCard } from "../../../components";
-import { NavLink } from 'react-router-dom';
 
 export default function SVTokenSection() {
+
   return (
     <Grid
       container
@@ -11,7 +12,6 @@ export default function SVTokenSection() {
       justifyContent="flex-start"
       alignItems="center"
       p={{ xs: "24px", sm: "32px" , md: "64px"}}
-      spacing={{ xs: "32px", sm: "48px" , md: "64px"}}
     >
       {/* Title and text*/}
       <Grid
@@ -21,12 +21,16 @@ export default function SVTokenSection() {
       justifyContent="flex-start"
       alignItems="center"
       spacing={{ xs: "24px", sm: "32px" , md: "48px"}}
+      mb={{ xs: "32px", sm: "48px" , md: "64px"}}
       >
         <Grid item>
           <Typography variant="h3" color="primary.text">Latest token minted</Typography>
         </Grid>
         <Grid item>
-          <Typography textAlign="center" variant="body1" color="primary.text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet vel at dolor numquam ratione incidunt, reprehenderit non impedit odit magnam laboriosam beatae possimus! Nobis.</Typography>
+          <Typography textAlign="center" variant="body1" color="primary.text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet vel at dolor numquam ratione incidunt, reprehenderit non impedit odit  
+            <Typography component={NavLink} to="/blockchain/CollectionInfo/:collectionId" sx={{ cursor: "pointer" }} color="primary"> non impedit odit magnam laboriosam beatae possimus! Nobis.</Typography>
+             </Typography>          
         </Grid>
       </Grid>
       {/* Cards */}

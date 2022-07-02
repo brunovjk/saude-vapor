@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Grid, Button, Box } from "@mui/material";
 import error404 from "../../assets/img/error404.jpg";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
@@ -40,9 +40,9 @@ export default function NotFound() {
         </Grid>
 
         <Grid item>
-          <NavLink to="/">
+          <Link to="/">
             <Button>Volte a pagina inicial</Button>
-          </NavLink>
+          </Link>
         </Grid>
       </Grid>
 

@@ -9,7 +9,7 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
@@ -186,11 +186,11 @@ export default function Login() {
                 <Typography variant="body2" color="text.primary">
                   Não tem conta?
                 </Typography>
-                <NavLink to="/criarconta">
+                <Link to="/criarconta">
                   <Typography variant="body2" color="primary.30">
                      CADASTRE-SE.
                   </Typography>
-                </NavLink>
+                </Link>
               </Grid>
               {/* Forgot Password */}
               <Grid
