@@ -9,8 +9,19 @@ import {
 } from "@mui/material";
 import { AdBanner, FABSocialMedia } from "../../../components";
 import { StickyContainer, Sticky } from "react-sticky";
+import { useLocation } from "react-router-dom";
 
 export default function TokenInfo() {
+const stateInfo = useLocation().state
+
+if(stateInfo){
+  var addresssenderState = stateInfo.addresssender;
+  var tokenid = stateInfo.tokenid;
+  var date = stateInfo.date;
+  var uriTitle = stateInfo.uriTitle;
+  var uri = stateInfo.uri;
+}
+
   return (
     <>
       {/* AdBanner Mobile tablet*/}
@@ -54,11 +65,17 @@ export default function TokenInfo() {
           justifyContent="flex-start"
           alignItems="stretch"
           spacing={{ xs: 2, md: 5 }}
-          py={{ xs: "16px", md: "32px" }}
+          p={{ xs: "16px", md: "32px" }}
         >
           {/* Title */}
           <Grid item>
-            <Skeleton animation="wave" height={56} width="100%" />
+            {uriTitle? 
+              <Typography variant="h1" color="secondary.text">
+              {uriTitle}
+              </Typography>
+            :
+              <Skeleton animation="wave" height={56} width="100%" />
+            }
 
             <Stack
               direction="row"
@@ -66,7 +83,37 @@ export default function TokenInfo() {
               alignItems="center"
               spacing={1}
             >
-              <Skeleton animation="wave" height={14} width="8%" />
+              {date? 
+                <Typography variant="underline1" color="secondary.text">
+                {date}
+                </Typography>
+              :
+                <Skeleton animation="wave" height={14} width="8%" />
+              }
+
+              <Divider
+                sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
+              />
+
+              <Typography variant="underline1" color="secondary.text">
+              Token ID:
+              </Typography>
+
+              {tokenid? 
+                <Typography 
+                variant="underline1" 
+                color="secondary.text"
+                sx={{
+                  display: "-webkit-box",
+                  overflow: "hidden",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1,
+                }}>
+                {tokenid}
+                </Typography>
+              :
+                <Skeleton animation="wave" height={14} width="15%" />
+              }
 
               <Divider
                 sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
@@ -76,7 +123,21 @@ export default function TokenInfo() {
                 Autor:
               </Typography>
 
-              <Skeleton animation="wave" height={14} width="15%" />
+              {addresssenderState? 
+                <Typography 
+                variant="underline1" 
+                color="secondary.text"
+                sx={{
+                  display: "-webkit-box",
+                  overflow: "hidden",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1,
+                }}>
+                {addresssenderState}
+                </Typography>
+              :
+                <Skeleton animation="wave" height={14} width="25%" />
+              }
             </Stack>
           </Grid>
           {/* Fab Social Media, text and AdBanner */}
@@ -95,11 +156,19 @@ export default function TokenInfo() {
                 </Grid>
                 {/* Text */}
                 <Grid item xs={12} md={8}>
-                  <Skeleton animation="wave" height={22} width="100%" />
-                  <Skeleton animation="wave" height={22} width="100%" />
-                  <Skeleton animation="wave" height={22} width="100%" />
-                  <Skeleton animation="wave" height={22} width="100%" />
-                  <Skeleton animation="wave" height={22} width="100%" />
+                  {uri? 
+                    <Typography variant="underline1" color="secondary.text">
+                    {uri}
+                    </Typography>
+                  :
+                    <>
+                      <Skeleton animation="wave" height={22} width="100%" />
+                      <Skeleton animation="wave" height={22} width="100%" />
+                      <Skeleton animation="wave" height={22} width="100%" />
+                      <Skeleton animation="wave" height={22} width="100%" />
+                      <Skeleton animation="wave" height={22} width="100%" />
+                    </>
+                  }
                 </Grid>
                 {/* Ad Banner Desktop */}
                 <Grid

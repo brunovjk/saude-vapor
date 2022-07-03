@@ -12,6 +12,7 @@ export default function ConnectWallet() {
         justifyContent="space-evenly"
         alignItems="center"
         sx={{height: "320px"}}
+        p={{ xs: "16px", sm: "32x", md: "48px" }}
         >
             <Grid item>
                 <Typography align="center" variant="h2">

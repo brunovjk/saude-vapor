@@ -1,13 +1,26 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, Grid, Skeleton } from "@mui/material";
+import {shortenAddress} from "../../utils/shortenAddress"
 
-function TokenCard(props) {
+function TokenCard({data}) {
   const [elevation, setElevation] = useState(3);
+
+  if(data){
+    var linkToToken = `/blockchain/TokenInfo/:${data.tokenid}`
+    var addresssender = shortenAddress(data.addresssender)
+  }
 
   return (
     <>
-      <Link to="/blockchain/TokenInfo/:tokenId">
+      <Link 
+      to={data ? linkToToken : "/blockchain/TokenInfo/:tokenId"} 
+      state={{
+        addresssender: data.addresssender,
+        tokenid: data.tokenid,
+        uri: data.uri,
+      }}
+      >
         <Card
           elevation={elevation}
           sx={{
@@ -30,24 +43,47 @@ function TokenCard(props) {
                   spacing={2}
                 >
                   {/* tokenId */}
-                  <Grid item xs={6}>
-                    <Typography variant="underline2"  >
-                        <Skeleton height="16px" width="100%" />
-                    </Typography>
-                  </Grid>
-                  {/* language */}
-                  <Grid item xs={6}>
-                    <Typography variant="underline2" >
-                        <Skeleton height="16px" width="100%" />
-                    </Typography>
-                  </Grid>
-                  {/* title */}
                   <Grid item xs={12}>
-                    <Typography variant="h3" color="primary.10" >
-                        <Skeleton height="22px" width="100%" />
-                        <Skeleton height="22px" width="100%" />
-                        <Skeleton height="22px" width="100%" />
-
+                    <Typography variant="underline2" color="secondary.text" 
+                      sx={{
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 1,
+                    }}>
+                    {data ? data.tokenid : <Skeleton height="16px" width="100%" />}                        
+                    </Typography>
+                  </Grid>
+                  {/* Adress sender */}
+                  <Grid item xs={12}>
+                    <Typography variant="underline2" color="secondary.text" 
+                    sx={{
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 1,
+                    }}>
+                        {data ? addresssender : <Skeleton height="16px" width="100%" />}                        
+                    </Typography>
+                  </Grid>
+                  {/* Token URI */}
+                  <Grid item xs={12}>
+                    <Typography 
+                    variant="h3" 
+                    color="primary.text" 
+                    sx={{
+                      display: "-webkit-box",
+                      overflow: "hidden",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 3,
+                    }}>
+                      {data ? data.uri : 
+                        <>
+                          <Skeleton height="22px" width="100%" />
+                          <Skeleton height="22px" width="100%" />
+                          <Skeleton height="22px" width="100%" />
+                        </>
+                      }                        
                     </Typography>
                   </Grid>
                 </Grid>
