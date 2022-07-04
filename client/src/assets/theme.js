@@ -188,6 +188,13 @@ export const lightTheme = createTheme({
     },
   },
   components: {
+    MuiTypography: {
+        styleOverrides: {
+            root: {
+                wordWrap: "break-word"
+            },
+        },
+    },
     MuiButton: {
       defaultProps: {
         color: "primary",
@@ -401,6 +408,13 @@ export const darkTheme = createTheme({
     },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+            wordWrap: "break-word"
+        },
+      },
+    },
     MuiButton: {
       defaultProps: {
         color: "primary",

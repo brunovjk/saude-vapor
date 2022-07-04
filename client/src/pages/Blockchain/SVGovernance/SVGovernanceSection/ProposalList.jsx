@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ContractContext } from "../../Context";
 import {  Grid } from "@mui/material";
 import { ProposalCard  } from "../../../../components";
 
 export default function ProposalList() {
+  const { proposalCollection } = useContext(ContractContext);
+
   return (
     <>
       <Grid  
@@ -12,7 +15,7 @@ export default function ProposalList() {
         alignItems="stretch" 
         spacing={{ xs: "24px", sm: "32px" }}
         >
-          {Array.from(Array(4).keys()).map((data, index) => {
+          {proposalCollection.map((data, index) => {
             return (
               <Grid item xs={12} key={index}>
                 <ProposalCard data={data}/>

@@ -1,22 +1,64 @@
-import React, { useContext } from "react";
-import { ContractContext } from "../Context";
+import React, { useState , useEffect } from "react";
 import { shortenAddress } from "../../../utils/shortenAddress";
 import {
   Grid,
   Paper,
   Box,
   Divider,
-  Stack,
   Skeleton,
-  Typography
+  Typography,
+  Chip
 } from "@mui/material";
 import { AdBanner, ContractDetails, FABSocialMedia } from "../../../components";
+import { useLocation } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 export default function ProposalInfo() {
-  const { currentAccount } = useContext(ContractContext);
+  const stateInfo = useLocation().state
+
+  const  [ proposalId , setProposalId ] = useState( <Skeleton animation="wave" height={14} width="100%" />)
+  const  [ tokenAddress , setTokenAddresst ] = useState()
+  const  [ transferCalldata , setTransferCalldata ] = useState( )
+  const  [ description , setDescription ] = useState()
+  const  [ proposer , setProposer ] = useState(<Skeleton animation="wave" height={14} width="100%" />)
+  const  [ startBlock , setStartBlock ] = useState()
+
+  const [ chipColor, selChipColor ] = useState("success");
+  const [ chiplabel, setChiplabel ] = useState("Success");
+  
+  useEffect(() => {
+  try {
+    if(stateInfo){
+      setProposalId(stateInfo.proposalId)
+      setTokenAddresst(stateInfo.tokenAddress)
+      setTransferCalldata(stateInfo.transferCalldata)
+      setDescription(stateInfo.description)
+      setProposer(stateInfo.proposer)
+      setStartBlock(stateInfo.startBlock)
+    }
+
+    if (stateInfo.proposalState === 0) {
+      selChipColor("success")
+      setChiplabel("Success")
+    } else if (stateInfo.proposalState === 1){
+      selChipColor("error")
+      setChiplabel("Rejected")
+    } else {
+    selChipColor("primary")
+    setChiplabel("Ongoing")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  }, [stateInfo])
+
+  // const transferCalldata = SVToken_Contract.interface.encodeFunctionData("safeMint", [currentAccount, uri]);
+
+
+  console.log(transferCalldata)
+
 
   return (
     <Grid 
@@ -28,168 +70,173 @@ export default function ProposalInfo() {
     spacing={{ xs: "16px", sm: "32px", md: "48px" }}>
 
       {/* Card Proposal/Governance */}
-      <Grid container item xs={12} sm={4}>
-        <Box my={5}  p={2}>
-          <Paper
-            sx={{
-              height: "13rem",
-              width: { xs: "16rem", md: "22rem" },
-              borderRadius: "18px"
-            }}
-            elevation={2}
-            // className="eth-card white-glassmorphism"
-          >
-            <Grid
-              container
-              direction="column"
-              justifyContent="flex-start"
-              alignItems="stretch"
-              sx={{
-                height: "13rem",
-                width: { xs: "16rem", md: "22rem" },
-              }}
-              p={2}
-            >
+        <Grid container item xs={12} sm={4}>
+          <Box>
+            <Paper sx={{ borderRadius: "18px", height: "100%" }} elevation={2} >
               <Grid
                 container
-                item
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                sx={{
-                  flexGrow: 1,
-                }}
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="stretch"
+                sx={{ height: "100%"}} 
+                p={2}
               >
-                <Grid item>
-                  <Box
-                    sx={{
-                      width: "2.5rem",
-                      height: "2.5rem",
-                      borderRadius: "50%",
-                      border: 1,
-                      borderColor: "white",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                {/* SaudeVapor Governance and Icon */}
+                <Grid
+                  container
+                  item
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                  sx={{
+                    flexGrow: 1,
+                  }}
+                >
+                  {/* SaudeVapor Governance */}
+                  <Grid item xs={11}>
+                    <Typography
+                      color="primary.text"
+                      variant="h2"
+                    >
+                      SaudeVapor Governance
+                    </Typography>
+                  </Grid>
+                  {/* Icon */}
+                  <Grid item xs={1}>
                     <InfoOutlinedIcon color="primary" />
-                  </Box>
+                  </Grid>
                 </Grid>
+                {/* Proposal state label */}
+                <Grid item sx={{mt: {xs: "16px", sm: "32px"}}}>
+                  <Typography
+                    color="primary"
+                    variant="underline2"
+                  >
+                    Proposal state:
+                  </Typography>
+                </Grid> 
+                {/* Proposal state */}
                 <Grid item>
-                  <InfoOutlinedIcon color="primary" />
+                  <Typography
+                    color="primary.text"
+                    variant="underline1"
+                    sx={{   
+                      whiteSpace: "unset",
+                      wordBreak: "break-all"}}                    
+                    >                 
+                    <Chip variant="outlined" size="small" color={chipColor} icon={<FiberManualRecordIcon />} label={chiplabel}/>
+                  </Typography>
+                </Grid>
+                {/* Proposal description label */}
+                <Grid item sx={{mt: {xs: "8px", sm: "16px"}}}>
+                  <Typography
+                    color="primary"
+                    variant="underline2"                    
+                  >
+                    Proposal description:
+                  </Typography>
+                </Grid> 
+                {/*  Proposal description */}
+                <Grid item>
+                <Typography
+                    color="primary.text"
+                    variant="underline1"
+                    sx={{   
+                      whiteSpace: "unset",
+                      wordBreak: "break-all"}}                    
+                    >
+                    {description}
+                  </Typography>
+                </Grid>
+                {/* Proposal ID label */}
+                <Grid item sx={{mt: {xs: "8px", sm: "16px"}}}>
+                  <Typography
+                    color="primary"
+                    variant="underline2"
+                  >
+                    Proposal ID:
+                  </Typography>
+                </Grid> 
+                {/* Proposal ID: */}
+                <Grid item>
+                  <Typography
+                    color="primary.text"
+                    variant="underline1"
+                    sx={{   
+                      whiteSpace: "unset",
+                      wordBreak: "break-all"}}                    
+                    >                 
+                    {proposalId}
+                  </Typography>
                 </Grid>
               </Grid>
-              <Grid item>
-                <Typography
-                  color="primary"
-                  fontWeight="300"
-                  sx={{
-                    fontSize: "0.875rem",
-                    lineHeight: "1.25rem",
-                  }}
-                >
-                  {!currentAccount ? (
-                    <>Address</>
-                  ) : (
-                    <>{shortenAddress(currentAccount)}</>
-                  )}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography
-                  color="primary.text"
-                  fontWeight="600"
-                  sx={{
-                    fontSize: "1.125rem",
-                    lineHeight: "1.75rem",
-                  }}
-                  mt={1}
-                >
-                  Ropsten Testnet
-                </Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Box>
-      </Grid>
-      {/* Proposal details */}
-      <Grid container item xs={12} sm={8}>
-        <ContractDetails 
-          title="SVToken Contract Details"
-          data={[
-            {
-              field: "Contract name",
-              info: "SVToken",
-            },
-            {
-              field: "Contract address",
-              info: "0x4CB362dAb257aEF8C80e25B93EaDDA34e471809c",
-            },
-            {
-              field: "Total suply",
-              info: "1",
-            },
-            {
-              field: "Balance Of",
-              info: "1",
-              button: "enviar",
-              buttonFunction: "Put your address to know your balance"
-            },
-            {
-              field: "Token URI",
-              info: "0x4CB362dAb257aEF8C80e25B93EaDDA34e471809c",
-              button: "enviar",
-              buttonFunction: "Put your TokenId to know your the Token URI"
-            },
-            {
-              field: "Total suply",
-              info: "1",
-              button: "enviar",
-              buttonFunction: "Put your address to your balance"
-            }
-          ]}
-        />
-      </Grid>
-      {/* Proposal post */}
-      <Grid container item xs={12}>
-      {/* AdBanner Mobile tablet*/}
-      <Grid item xs={12}>
-        <Box
-          p={{ xs: "8px 16px", sm: "16px 32px", lg: "32px 128px" }}
-          sx={{ display: { xs: "block", md: "none" } }}
-        >
-          <AdBanner
-            copyCalls={[
+            </Paper>
+          </Box>
+        </Grid>
+        {/* Proposal details */}
+        <Grid container item xs={12} sm={8}>
+          <ContractDetails 
+            title="Proposal Details"
+            data={[
               {
-                phrase1: "Controle",
-                phrase2: "sua brisa",
+                field: "ERC721 Token Address",
+                info: `${tokenAddress}`,
               },
               {
-                phrase1: "Reduza",
-                phrase2: "os danos",
+                field: "transferCalldata",
+                info: `${transferCalldata}`,
               },
               {
-                phrase1: "Economize",
-                phrase2: "sua erva",
+                field: "Proposer",
+                info: `${proposer}`,
               },
               {
-                phraseMainCall1: "GOSTOU",
-                phraseMainCall2: "DA IDEIA?",
-              },
-              {
-                phraseButtonCall1: "ADQUIRA JÁ",
-                phraseButtonCall2: "SEU VAPORIZADOR",
-              },
-              {
-                img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                url: "https://loja.saudevapor.com/",
-              },
+                field: "Start Block",
+                info: `${startBlock}`,
+              }
             ]}
           />
-        </Box>
-      </Grid>
-      <Divider />
+        </Grid>
+        {/* Proposal post */}
+        <Grid container item xs={12}>
+        {/* AdBanner Mobile tablet*/}
+        <Grid item xs={12}>
+          <Box
+            p={{ xs: "8px 16px", sm: "16px 32px", lg: "32px 128px" }}
+            sx={{ display: { xs: "block", md: "none" } }}
+          >
+            <AdBanner
+              copyCalls={[
+                {
+                  phrase1: "Controle",
+                  phrase2: "sua brisa",
+                },
+                {
+                  phrase1: "Reduza",
+                  phrase2: "os danos",
+                },
+                {
+                  phrase1: "Economize",
+                  phrase2: "sua erva",
+                },
+                {
+                  phraseMainCall1: "GOSTOU",
+                  phraseMainCall2: "DA IDEIA?",
+                },
+                {
+                  phraseButtonCall1: "ADQUIRA JÁ",
+                  phraseButtonCall2: "SEU VAPORIZADOR",
+                },
+                {
+                  img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
+                  url: "https://loja.saudevapor.com/",
+                },
+              ]}
+            />
+          </Box>
+        </Grid>
+        <Divider />
+        {/* Post */}
         <Grid
           container
           item
@@ -197,41 +244,43 @@ export default function ProposalInfo() {
           justifyContent="flex-start"
           alignItems="stretch"
           spacing={{ xs: 2, md: 5 }}
-          p={{ xs: "8px", sm: "16px", md: "32px" }}
+          py={{ xs: "8px", sm: "16px", md: "32px" }}
         >
-          {/* Title */}
+          {/* Title , date, language, author*/}
           <Grid item>
             <Skeleton animation="wave" height={56} width="100%" />
 
-            <Stack
+            <Grid
+              container
+              item
+              xs={12}
               direction="row"
               justifyContent="flex-start"
               alignItems="center"
-              spacing={1}
+              spacing={2}
             >
-              <Skeleton animation="wave" height={14} width="8%" />
+              <Grid item xs={12} sm={1} display="flex" justifyContent="flex-start" alignItems="center">
+                <Skeleton animation="wave" height={14} width="100%" />
+              </Grid>
 
-              <Divider
-                sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-              />
-
+              <Grid item xs={12} sm={3} display="flex" justifyContent="flex-start" alignItems="center">
               <Typography variant="underline1" color="secondary.text">
-                Autor:
+                Language: 
               </Typography>
 
-              <Skeleton animation="wave" height={14} width="15%" />
+              <Skeleton animation="wave" height={14} width="100%" />
+              </Grid>
 
-              <Divider
-                sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-              />
-
+              <Grid item xs={12} sm={8} display="flex" justifyContent="flex-start" alignItems="center">
               <Typography variant="underline1" color="secondary.text">
-                Language:
+                Autor: 
               </Typography>
 
-              <Skeleton animation="wave" height={14} width="15%" />
-
-            </Stack>
+              <Typography variant="underline1" color="secondary.text">
+                {shortenAddress(`${proposer}`)}
+              </Typography>
+              </Grid>
+            </Grid>
           </Grid>
           {/* Fab Social Media, text and AdBanner */}
           <Grid item>
@@ -241,7 +290,7 @@ export default function ProposalInfo() {
                 direction="row"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                spacing={{ xs: 2, md: 5 }}
+                spacing={{ xs: 2, md: 4 }}
               >
                 {/* FABSocialMedia */}
                 <Grid item xs={12} md={1}>

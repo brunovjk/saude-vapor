@@ -143,6 +143,8 @@ describe("SaudeVapor Governance test.", function () {
       - Balance of Proposer: ${await svtoken.balanceOf(await data.events[0].args.proposer)}.`)
       console.log("-----------------------------------------------------------------")
   });
+
+  
   it("Should not be able to mint Token after transfer ownership", async function () {
 
     const [owner, addr1] = await ethers.getSigners();

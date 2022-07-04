@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState , useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -13,14 +13,33 @@ import { useLocation } from "react-router-dom";
 
 export default function TokenInfo() {
 const stateInfo = useLocation().state
+const  [ addresssender , setAddresssender ] = useState(<Skeleton animation="wave" height={14} width="25%" />)
+const  [ tokenid , setTokenid ] = useState( <Skeleton animation="wave" height={14} width="15%" />)
+const  [ date , setDate ] = useState(<Skeleton animation="wave" height={14} width="8%" />)
+const  [ uriTitle , setUriTitle ] = useState( <Skeleton animation="wave" height={56} width="100%" /> )
+const  [ uri , setUri ] = useState(
+  <>
+  <Skeleton animation="wave" height={22} width="100%" />
+  <Skeleton animation="wave" height={22} width="100%" />
+  <Skeleton animation="wave" height={22} width="100%" />
+  <Skeleton animation="wave" height={22} width="100%" />
+  <Skeleton animation="wave" height={22} width="100%" />
+</>
+)
 
-if(stateInfo){
-  var addresssenderState = stateInfo.addresssender;
-  var tokenid = stateInfo.tokenid;
-  var date = stateInfo.date;
-  var uriTitle = stateInfo.uriTitle;
-  var uri = stateInfo.uri;
+useEffect(() => {
+try {
+  if(stateInfo){
+    setAddresssender(stateInfo.addresssender)
+    setTokenid(stateInfo.tokenid)
+    setDate(stateInfo.date)
+    setUriTitle(stateInfo.uriTitle)
+    setUri(stateInfo.uri)
+  }
+} catch (error) {
+  console.log(error)
 }
+}, [stateInfo])
 
   return (
     <>
@@ -69,13 +88,9 @@ if(stateInfo){
         >
           {/* Title */}
           <Grid item>
-            {uriTitle? 
               <Typography variant="h1" color="secondary.text">
-              {uriTitle}
+                {uriTitle}
               </Typography>
-            :
-              <Skeleton animation="wave" height={56} width="100%" />
-            }
 
             <Stack
               direction="row"
@@ -83,13 +98,9 @@ if(stateInfo){
               alignItems="center"
               spacing={1}
             >
-              {date? 
                 <Typography variant="underline1" color="secondary.text">
                 {date}
                 </Typography>
-              :
-                <Skeleton animation="wave" height={14} width="8%" />
-              }
 
               <Divider
                 sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
@@ -99,7 +110,6 @@ if(stateInfo){
               Token ID:
               </Typography>
 
-              {tokenid? 
                 <Typography 
                 variant="underline1" 
                 color="secondary.text"
@@ -111,9 +121,6 @@ if(stateInfo){
                 }}>
                 {tokenid}
                 </Typography>
-              :
-                <Skeleton animation="wave" height={14} width="15%" />
-              }
 
               <Divider
                 sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
@@ -123,7 +130,6 @@ if(stateInfo){
                 Autor:
               </Typography>
 
-              {addresssenderState? 
                 <Typography 
                 variant="underline1" 
                 color="secondary.text"
@@ -133,11 +139,9 @@ if(stateInfo){
                   WebkitBoxOrient: "vertical",
                   WebkitLineClamp: 1,
                 }}>
-                {addresssenderState}
+                {addresssender}
                 </Typography>
-              :
-                <Skeleton animation="wave" height={14} width="25%" />
-              }
+
             </Stack>
           </Grid>
           {/* Fab Social Media, text and AdBanner */}
@@ -156,19 +160,10 @@ if(stateInfo){
                 </Grid>
                 {/* Text */}
                 <Grid item xs={12} md={8}>
-                  {uri? 
                     <Typography variant="underline1" color="secondary.text">
                     {uri}
                     </Typography>
-                  :
-                    <>
-                      <Skeleton animation="wave" height={22} width="100%" />
-                      <Skeleton animation="wave" height={22} width="100%" />
-                      <Skeleton animation="wave" height={22} width="100%" />
-                      <Skeleton animation="wave" height={22} width="100%" />
-                      <Skeleton animation="wave" height={22} width="100%" />
-                    </>
-                  }
+
                 </Grid>
                 {/* Ad Banner Desktop */}
                 <Grid

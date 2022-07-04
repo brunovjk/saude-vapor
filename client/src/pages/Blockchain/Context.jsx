@@ -3,8 +3,8 @@ import { contractABISVToken, contractAddressSVToken, contractABISVGovernor, cont
 import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
 
-
 const { ethereum } = window;
+
 export const ContractContext = createContext();
 
 const getSVToken_Contract = () => {
@@ -31,32 +31,14 @@ const getSVGovernance_Contract = () => {
 };
 
 export const ContractProvider = ({ children }) => {
-const SVToken_Contract = getSVToken_Contract();
-const SVGovernance_Contract = getSVGovernance_Contract();
+  const SVToken_Contract = getSVToken_Contract();
+  const SVGovernance_Contract = getSVGovernance_Contract();
 
-const [currentAccount, setCurrentAccount] = useState();
-const [tokenCollection, setcollection] = useState([]);
-const [proposalCollection, setProposalCollection] = useState([]);
+  const [currentAccount, setCurrentAccount] = useState();
+  const [tokenCollection, setTokenCollection] = useState([]);
+  const [proposalCollection, setProposalCollection] = useState([]);
 
-const checkIfWalletisConnected = async () => {
-    try {
-      if (!ethereum)
-        return console.log("Please install a Cryptocurrency Software Wallet");
-
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
-      if (accounts.length) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        console.log("No accounts found.");
-      }
-    } catch (error) {
-      console.log(error);
-
-      throw new Error("No ethereum object.");
-    }
-  };
-const connectWallet = async () => {
+  const connectWallet = async () => {
     try {
       if (!ethereum)
         return console.log("Please install a Cryptocurrency Software Wallet");
@@ -73,32 +55,81 @@ const connectWallet = async () => {
       throw new Error("No ethereum object.");
     }
   };
-const getSVToken_Collection = async () => {
-  try {
-    if (!ethereum)
-      return console.log("Please install a Cryptocurrency Software Wallet");
-    const SVToken_Contract = getSVToken_Contract();
-    const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
-    const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
+  const checkIfWalletisConnected = async () => {
+      try {
+        if (!ethereum)
+          return console.log("Please install a Cryptocurrency Software Wallet");
 
-    const collection_array = [];
+        const accounts = await ethereum.request({ method: "eth_accounts" });
 
-    for (var i = 0; i < totalSupply; i++) {
-      collection_array[i] = {
-        tokenid: i,
-        addresssender: await SVToken_Contract.ownerOf(i),
-        uri: await SVToken_Contract.tokenURI(i),
-      };
+        if (accounts.length) {
+          setCurrentAccount(accounts[0]);
+        } else {
+          console.log("No accounts found.");
+        }
+      } catch (error) {
+        console.log(error);
+
+        throw new Error("No ethereum object.");
+      }
+  };
+  const getSVToken_Collection = async () => {
+    try {
+      if (!ethereum)
+        return console.log("Please install a Cryptocurrency Software Wallet");
+      const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
+      const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
+
+      const collection_array = [];
+
+      for (var i = 0; i < totalSupply; i++) {
+        collection_array[i] = {
+          tokenid: i,
+          addresssender: await SVToken_Contract.ownerOf(i),
+          uri: await SVToken_Contract.tokenURI(i),
+        };
+      }
+      setTokenCollection(collection_array);
+    } catch (error) {
+      console.log(error);
     }
-    setcollection(collection_array);
-  } catch (error) {
-    console.log(error);
-  }
-};
+  };
+  const getProposal_Collection = async () => {
+    try {
+      if (!ethereum)
+        return console.log("Please install a Cryptocurrency Software Wallet");
+
+      const filters = await SVGovernance_Contract.filters.ProposalCreated();
+      const logs = await SVGovernance_Contract.queryFilter(filters, 0, "latest");
+      const events = logs.map((log) => SVGovernance_Contract.interface.parseLog(log));
+      
+      const collection_array = [];
+
+      for (var i = 0; i < events.length; i++) {
+        const proposalId = events[i].args.proposalId.toString()
+        const proposalState = await SVGovernance_Contract.state(proposalId)      
+  
+        collection_array[i] = {
+          proposalId: proposalId,
+          proposalState: proposalState,
+          tokenAddress: events[i].args.targets.toString(),
+          transferCalldata: events[i].args.calldatas.toString(),
+          description: events[i].args.description,
+          proposer: events[i].args.proposer,
+          startBlock:  events[i].args.startBlock.toString()
+        };
+      }
+
+      setProposalCollection(collection_array);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     checkIfWalletisConnected();
     getSVToken_Collection();
+    getProposal_Collection();
   }, [currentAccount]);
 
   return (

@@ -35,20 +35,20 @@ export default function ContractDetails(props) {
                 alignItems="center"
                 spacing={{ xs: "16px"}}>
                     <Grid item xs={data.button ? 9 : 12} sm={data.button ? 3 : 4} >
-                      <Tooltip disableHoverListener title={data.buttonFunction} placement="bottom-start" arrow>
-                        <TextField fullWidth disabled={data.button ? false : true} label={data.field} size="small"/>
+                      <Tooltip disableHoverListener title={data.button ? data.buttonFunction : ""} placement="bottom-start" arrow>
+                        <TextField fullWidth={true} disabled={data.button ? false : true} label={data.field} size="small"/>
                       </Tooltip>
                     </Grid>
                     {data.button && (
                     <Grid item xs={3} sm={2}>
-                      <Button fullWidth variant="outlined">{data.button}</Button>
+                      <Button fullWidth={true} variant="outlined">{data.button}</Button>
                     </Grid>
                     )}
                     <Grid item xs={12} sm={data.button ? 7 : 8}>
-                        <TextField fullWidth disabled label={data.info} size="small"/>
+                        <TextField fullWidth={true} disabled label={data.info} size="small"/>
                     </Grid>
                     <Grid item xs={12}>
-                      <Divider fullWidth/>
+                      <Divider/>
                     </Grid>
                 </Grid>
             ))}          
