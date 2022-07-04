@@ -179,7 +179,7 @@ export default function Publish() {
     }
   }, [title, dateToId]);
 
-  // Handling success buttom
+  // Handling upload success buttom
   useEffect(() => {
     if (urlImage) {
       setLoading(false);

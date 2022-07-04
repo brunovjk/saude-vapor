@@ -31,9 +31,12 @@ const getSVGovernance_Contract = () => {
 };
 
 export const ContractProvider = ({ children }) => {
-const [currentAccount, setCurrentAccount] = useState();
-const [collection, setcollection] = useState([]);
+const SVToken_Contract = getSVToken_Contract();
+const SVGovernance_Contract = getSVGovernance_Contract();
 
+const [currentAccount, setCurrentAccount] = useState();
+const [tokenCollection, setcollection] = useState([]);
+const [proposalCollection, setProposalCollection] = useState([]);
 
 const checkIfWalletisConnected = async () => {
     try {
@@ -101,9 +104,12 @@ const getSVToken_Collection = async () => {
   return (
     <ContractContext.Provider
       value={{
-        currentAccount,
-        collection,
         connectWallet,
+        currentAccount,
+        tokenCollection,
+        proposalCollection,
+        SVToken_Contract,
+        SVGovernance_Contract,
       }}
     >
       {children}

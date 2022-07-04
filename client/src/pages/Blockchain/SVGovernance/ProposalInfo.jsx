@@ -220,6 +220,17 @@ export default function ProposalInfo() {
               </Typography>
 
               <Skeleton animation="wave" height={14} width="15%" />
+
+              <Divider
+                sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
+              />
+
+              <Typography variant="underline1" color="secondary.text">
+                Language:
+              </Typography>
+
+              <Skeleton animation="wave" height={14} width="15%" />
+
             </Stack>
           </Grid>
           {/* Fab Social Media, text and AdBanner */}

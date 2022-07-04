@@ -5,7 +5,7 @@ import { Typography, Grid } from "@mui/material";
 import { TokenCard } from "../../../components";
 
 export default function SVTokenSection() {
-  const { collection} = useContext(ContractContext);
+  const { tokenCollection} = useContext(ContractContext);
 
   return (
     <Grid
@@ -37,7 +37,7 @@ export default function SVTokenSection() {
       </Grid>
       {/* Cards */}
       <Grid container item spacing={{ xs: "24px", sm: "32px", md: "48px" }}>
-        {collection.map((data, index) => {
+        {tokenCollection.map((data, index) => {
           return (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <TokenCard data={data}/>

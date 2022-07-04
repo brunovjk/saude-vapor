@@ -61,7 +61,7 @@ describe("SaudeVapor Governance test.", function () {
     console.log(`New SVToken contract ower: ${newTokenContractOwner.events[0].args.newOwner}`)
 
     //Create a proposal
-    console.log("---------Create a proposal")
+    console.log("---------Creating a proposal")
     const token = await ethers.getContractAt("SVToken", svtoken.address);    
     const addressTo = addr1.address;
     const stringUri = " String Test 1 ";
