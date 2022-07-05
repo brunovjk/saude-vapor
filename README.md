@@ -2,4 +2,4 @@
 
 Saude Vapor Blog
 
-Bringing you quality content and news about cannabis, harm reduction and health research.
+Bringing you quality content about cannabis, harm reduction and health research.
