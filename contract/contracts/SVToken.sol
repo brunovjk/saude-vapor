@@ -27,11 +27,11 @@ contract SVToken is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownabl
         _unpause();
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory tokenLanguage, string memory tokenTitle, string memory tokenContent) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+        _setTokenURI(tokenId, string(abi.encodePacked("Timestamp :" , block.timestamp , ", Language: " , tokenLanguage , ", Title :" , tokenTitle  , ", Content: " ,  tokenContent)));
         delegate(to);
     }
 

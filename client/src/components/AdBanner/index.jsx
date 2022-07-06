@@ -46,60 +46,62 @@ export default function AdBanner(props) {
             spacing={{ xs: 2, md: adSpacing }}
           >
             {/* Logo, swiper and call */}
-            <Grid 
+            <Grid
+              container
+              item
+              xs={12}
+              md={6}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={5}
+            >
+              {/* Logo Swiper */}
+              <Grid
                 container
-                item xs={12} md={6}
+                item
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                spacing={5}
-                >
-              {/* Logo Swiper */}
-                <Grid
-                  container
-                  item
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  sx={{ width: { xs: "150px", sm: "250px" } }}
-                >
-                  {/* logo */}
-                  <Grid item xs={4}>
-                    <Box
-                      component="img"
-                      src={LogoIcon40}
-                      sx={{ width: "32px", height: "32px" }}
-                    />
-                  </Grid>
-                  {/* carosel */}
-                  <Grid item xs={8}>
-                    <Box>
-                      <Swiper
-                        slidesPerView={1}
-                        centeredSlides={true}
-                        autoplay={{
-                          delay: 1000,
-                          disableOnInteraction: true,
-                        }}
-                        modules={[Autoplay]}
-                        className="mySwiper"
-                      >
-                        {props.copyCalls.slice(0, 3).map((copyCall, index) => (
-                          <SwiperSlide key={index}>
-                            <Box component="div">
-                              <Typography variant="h2" color="primary.store">
-                                {copyCall.phrase1}
-                              </Typography>
-                              <Typography variant="h2">
-                                {copyCall.phrase2}
-                              </Typography>
-                            </Box>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </Box>
-                  </Grid>
+                sx={{ width: { xs: "150px", sm: "250px" } }}
+              >
+                {/* logo */}
+                <Grid item xs={4}>
+                  <Box
+                    component="img"
+                    src={LogoIcon40}
+                    sx={{ width: "32px", height: "32px" }}
+                  />
                 </Grid>
+                {/* carosel */}
+                <Grid item xs={8}>
+                  <Box>
+                    <Swiper
+                      slidesPerView={1}
+                      centeredSlides={true}
+                      autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: true,
+                      }}
+                      modules={[Autoplay]}
+                      className="mySwiper"
+                    >
+                      {props.copyCalls.slice(0, 3).map((copyCall, index) => (
+                        <SwiperSlide key={index}>
+                          <Box component="div">
+                            <Typography variant="h2" color="primary.store">
+                              {copyCall.phrase1}
+                            </Typography>
+                            <Typography variant="h2">
+                              {copyCall.phrase2}
+                            </Typography>
+                          </Box>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </Box>
+                </Grid>
+              </Grid>
               {/* call */}
               <Grid item>
                 <Box display="grid" alignItems="center" justifyContent="center">
