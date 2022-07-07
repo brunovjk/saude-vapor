@@ -1,5 +1,10 @@
 import React, { useState, useEffect, createContext } from "react";
-import { contractABISVToken, contractAddressSVToken, contractABISVGovernor, contractAddressSVGovernor } from "../../utils/constants";
+import {
+  contractABISVToken,
+  contractAddressSVToken,
+  contractABISVGovernor,
+  contractAddressSVGovernor,
+} from "../../utils/constants";
 import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
 
@@ -48,7 +53,6 @@ export const ContractProvider = ({ children }) => {
       });
 
       setCurrentAccount(accounts[0]);
-
     } catch (error) {
       console.log(error);
 
@@ -56,22 +60,22 @@ export const ContractProvider = ({ children }) => {
     }
   };
   const checkIfWalletisConnected = async () => {
-      try {
-        if (!ethereum)
-          return console.log("Please install a Cryptocurrency Software Wallet");
+    try {
+      if (!ethereum)
+        return console.log("Please install a Cryptocurrency Software Wallet");
 
-        const accounts = await ethereum.request({ method: "eth_accounts" });
+      const accounts = await ethereum.request({ method: "eth_accounts" });
 
-        if (accounts.length) {
-          setCurrentAccount(accounts[0]);
-        } else {
-          console.log("No accounts found.");
-        }
-      } catch (error) {
-        console.log(error);
-
-        throw new Error("No ethereum object.");
+      if (accounts.length) {
+        setCurrentAccount(accounts[0]);
+      } else {
+        console.log("No accounts found.");
       }
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("No ethereum object.");
+    }
   };
   const getSVToken_Collection = async () => {
     try {
@@ -86,7 +90,7 @@ export const ContractProvider = ({ children }) => {
         collection_array[i] = {
           tokenid: i,
           addresssender: await SVToken_Contract.ownerOf(i),
-          uri: await SVToken_Contract.tokenURI(i),
+          uri: JSON.parse(await SVToken_Contract.tokenURI(i)),
         };
       }
       setTokenCollection(collection_array);
@@ -100,15 +104,21 @@ export const ContractProvider = ({ children }) => {
         return console.log("Please install a Cryptocurrency Software Wallet");
 
       const filters = await SVGovernance_Contract.filters.ProposalCreated();
-      const logs = await SVGovernance_Contract.queryFilter(filters, 0, "latest");
-      const events = logs.map((log) => SVGovernance_Contract.interface.parseLog(log));
-      
+      const logs = await SVGovernance_Contract.queryFilter(
+        filters,
+        0,
+        "latest"
+      );
+      const events = logs.map((log) =>
+        SVGovernance_Contract.interface.parseLog(log)
+      );
+
       const collection_array = [];
 
       for (var i = 0; i < events.length; i++) {
-        const proposalId = events[i].args.proposalId.toString()
-        const proposalState = await SVGovernance_Contract.state(proposalId)      
-  
+        const proposalId = events[i].args.proposalId.toString();
+        const proposalState = await SVGovernance_Contract.state(proposalId);
+
         collection_array[i] = {
           proposalId: proposalId,
           proposalState: proposalState,
@@ -116,7 +126,7 @@ export const ContractProvider = ({ children }) => {
           transferCalldata: events[i].args.calldatas.toString(),
           description: events[i].args.description,
           proposer: events[i].args.proposer,
-          startBlock:  events[i].args.startBlock.toString()
+          startBlock: events[i].args.startBlock.toString(),
         };
       }
 

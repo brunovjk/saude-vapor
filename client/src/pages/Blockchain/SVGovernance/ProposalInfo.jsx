@@ -12,46 +12,46 @@ import {
 import { AdBanner, ContractDetails, FABSocialMedia } from "../../../components";
 import { useLocation } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
+import { CastVote } from "./ProposalInfo_EthersFunctions";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 export default function ProposalInfo() {
   const stateInfo = useLocation().state;
 
-  const [proposalId, setProposalId] = useState(
-    <Skeleton animation="wave" height={14} width="100%" />
-  );
-  const [tokenAddress, setTokenAddresst] = useState();
-  const [transferCalldata, setTransferCalldata] = useState();
-  const [description, setDescription] = useState();
-  const [proposer, setProposer] = useState(
-    <Skeleton animation="wave" height={14} width="100%" />
-  );
-  const [startBlock, setStartBlock] = useState();
+  const [proposalEvent, setProposalEvent] = useState({
+    proposalId: <Skeleton animation="wave" height={14} width="100%" />,
+    tokenAddress: "",
+    transferCalldata: "",
+    description: "",
+    proposer: <Skeleton animation="wave" height={14} width="100%" />,
+    startBlock: "",
+  });
 
-  const [chipColor, selChipColor] = useState("success");
-  const [chiplabel, setChiplabel] = useState("Success");
+  const [chipProposalState, setChipProposalState] = useState({
+    color: "success",
+    label: "Success",
+  });
 
   useEffect(() => {
     try {
       if (stateInfo) {
-        setProposalId(stateInfo.proposalId);
-        setTokenAddresst(stateInfo.tokenAddress);
-        setTransferCalldata(stateInfo.transferCalldata);
-        setDescription(stateInfo.description);
-        setProposer(stateInfo.proposer);
-        setStartBlock(stateInfo.startBlock);
+        setProposalEvent({
+          proposalId: stateInfo.proposalId,
+          tokenAddress: stateInfo.tokenAddress,
+          transferCalldata: stateInfo.transferCalldata,
+          description: stateInfo.description,
+          proposer: stateInfo.proposer,
+          startBlock: stateInfo.startBlock,
+        });
       }
 
       if (stateInfo.proposalState === 0) {
-        selChipColor("success");
-        setChiplabel("Success");
+        setChipProposalState({ color: "success", label: "Success" });
       } else if (stateInfo.proposalState === 1) {
-        selChipColor("error");
-        setChiplabel("Rejected");
+        setChipProposalState({ color: "error", label: "Rejected" });
       } else {
-        selChipColor("primary");
-        setChiplabel("Ongoing");
+        setChipProposalState({ color: "primary", label: "Ongoing" });
       }
     } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ export default function ProposalInfo() {
 
   // const transferCalldata = SVToken_Contract.interface.encodeFunctionData("safeMint", [currentAccount, uri]);
 
-  console.log(transferCalldata);
+  // console.log(proposalEvent.transferCalldata);
 
   return (
     <Grid
@@ -141,9 +141,9 @@ export default function ProposalInfo() {
                       <Chip
                         variant="outlined"
                         size="small"
-                        color={chipColor}
+                        color={chipProposalState.color}
                         icon={<FiberManualRecordIcon />}
-                        label={chiplabel}
+                        label={chipProposalState.label}
                       />
                     </Typography>
                   </Grid>
@@ -187,7 +187,7 @@ export default function ProposalInfo() {
                     wordBreak: "break-all",
                   }}
                 >
-                  {description}
+                  {proposalEvent.description}
                 </Typography>
               </Grid>
               {/* Proposal ID label */}
@@ -206,7 +206,7 @@ export default function ProposalInfo() {
                     wordBreak: "break-all",
                   }}
                 >
-                  {proposalId}
+                  {proposalEvent.proposalId}
                 </Typography>
               </Grid>
             </Grid>
@@ -219,20 +219,25 @@ export default function ProposalInfo() {
           title="Proposal Details"
           data={[
             {
-              field: "ERC721 Token Address",
-              info: `${tokenAddress}`,
+              nameFunction: "Proposal Id",
+              inicialContent: `${proposalEvent.proposalId}`,
             },
             {
-              field: "transferCalldata",
-              info: `${transferCalldata}`,
+              nameFunction: "Cast vote",
+              inicialContent: "0 = Against, 1 = For, 2 = Abstain",
+              button: "vote",
+              buttonFunction: CastVote,
+              buttonFunctionDesc: "0 = Against, 1 = For, 2 = Abstain",
+              proposalId: `${proposalEvent.proposalId}`,
+              gasFee: true,
             },
             {
-              field: "Proposer",
-              info: `${proposer}`,
+              nameFunction: "Proposer",
+              inicialContent: `${proposalEvent.proposer}`,
             },
             {
-              field: "Start Block",
-              info: `${startBlock}`,
+              nameFunction: "Start Block",
+              inicialContent: `${proposalEvent.startBlock}`,
             },
           ]}
         />
@@ -338,7 +343,7 @@ export default function ProposalInfo() {
                 </Typography>
 
                 <Typography variant="underline1" color="secondary.text">
-                  {shortenAddress(`${proposer}`)}
+                  {shortenAddress(`${proposalEvent.proposer}`)}
                 </Typography>
               </Grid>
             </Grid>

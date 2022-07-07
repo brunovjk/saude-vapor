@@ -82,12 +82,12 @@ export const lightTheme = createTheme({
     h3: {
       fontWeight: 500,
       fontSize: "22px",
-      lineHeight: "22px",
+      lineHeight: "26px",
       letterSpacing: 0,
 
       "@media (min-width:600px)": {
         fontSize: "22px",
-        lineHeight: "18px",
+        lineHeight: "26px",
       },
     },
     menu: {
@@ -189,11 +189,11 @@ export const lightTheme = createTheme({
   },
   components: {
     MuiTypography: {
-        styleOverrides: {
-            root: {
-                wordWrap: "break-word"
-            },
+      styleOverrides: {
+        root: {
+          wordWrap: "break-word",
         },
+      },
     },
     MuiButton: {
       defaultProps: {
@@ -302,12 +302,12 @@ export const darkTheme = createTheme({
     h3: {
       fontWeight: 500,
       fontSize: "22px",
-      lineHeight: "28px",
+      lineHeight: "26px",
       letterSpacing: 0,
 
       "@media (min-width:600px)": {
         fontSize: "22px",
-        lineHeight: "28px",
+        lineHeight: "26px",
       },
     },
     menu: {
@@ -411,7 +411,7 @@ export const darkTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-            wordWrap: "break-word"
+          wordWrap: "break-word",
         },
       },
     },

@@ -10,6 +10,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 /// @custom:security-contact bruno@saudevapor.com
 contract SVToken is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownable, ERC721Burnable, EIP712, ERC721Votes {
@@ -31,7 +32,7 @@ contract SVToken is ERC721, ERC721Enumerable, ERC721URIStorage, Pausable, Ownabl
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, string(abi.encodePacked("Timestamp :" , block.timestamp , ", Language: " , tokenLanguage , ", Title :" , tokenTitle  , ", Content: " ,  tokenContent)));
+        _setTokenURI(tokenId, string(abi.encodePacked('{"Language":"',tokenLanguage,'", "Title":"',tokenTitle,'", "Content":"',tokenContent,'"}')));
         delegate(to);
     }
 
