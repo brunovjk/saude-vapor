@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Grid,
   TextField,
@@ -9,10 +9,11 @@ import {
 } from "@mui/material";
 
 export default function ContractDetails(props) {
-  const [inputFunction, setInputFunction] = useState(null);
-
-  const handleChangeValues = (value) => {
-    setInputFunction(value.target.value);
+  const handleChangeValues = (values) => {
+    props.setInputFunction((prevValues) => ({
+      ...prevValues,
+      [values.target.id]: values.target.value,
+    }));
   };
 
   return (
@@ -36,46 +37,51 @@ export default function ContractDetails(props) {
             </Typography>
           </Grid>
           {props.data.map((data, index) => (
-            <Grid
-              container
-              item
-              key={index}
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              spacing="16px"
-            >
-              <Grid item>
-                <Typography variant="body1" color="primary.text">
-                  {data.nameFunction}:
-                </Typography>
-              </Grid>
-              {data.button && (
+              <Grid
+                container
+                item
+                key={index}
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing="16px"
+                component="form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  data.buttonFunction();
+                }}
+              >
                 <Grid item>
-                  <Button
-                    variant={data.gasFee ? "contained" : "outlined"}
-                    onClick={() => {
-                      data.buttonFunction(data.proposalId, inputFunction);
-                    }}
-                  >
-                    {data.button}
-                  </Button>
+                  <Typography variant="body1" color="primary.text">
+                    {data.nameFunction}:
+                  </Typography>
                 </Grid>
-              )}
-              <Grid item xs>
-                <TextField
-                  fullWidth={true}
-                  disabled={data.button ? false : true}
-                  label={data.inicialContent}
-                  size="small"
-                  id="inputFunction"
-                  onChange={handleChangeValues}
-                />
+                {data.button && (
+                  <Grid item>
+                    <Button
+                    type="submit"
+                      variant={data.gasFee ? "contained" : "outlined"}
+                    >
+                      {data.button}
+                    </Button>
+                  </Grid>
+                )}
+                <Grid item xs>
+                  <TextField
+                    type="number"
+                    required={data.button ? true : false}
+                    fullWidth={true}
+                    disabled={data.button ? false : true}
+                    label={data.inicialContent}
+                    size="small"
+                    id={data.nameFunction.replace(/\s/g, "").toLowerCase()}
+                    onChange={handleChangeValues}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Divider />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Divider />
-              </Grid>
-            </Grid>
           ))}
         </Grid>
       </Paper>

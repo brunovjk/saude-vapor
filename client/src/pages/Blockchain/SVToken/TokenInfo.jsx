@@ -94,56 +94,62 @@ export default function TokenInfo() {
           </Typography>
 
           <Stack
-            direction="row"
+            direction={{ xs: "column", sm: "row" }}
             justifyContent="flex-start"
-            alignItems="center"
+            alignItems={{ xs: "flex-start", sm: "center" }}
             spacing={1}
           >
             <Typography variant="underline1" color="secondary.text">
               {language}
             </Typography>
 
-            <Divider
-              sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-            />
-
-            <Typography variant="underline1" color="secondary.text">
-              Token ID:
-            </Typography>
-
-            <Typography
-              variant="underline1"
-              color="secondary.text"
-              sx={{
-                display: "-webkit-box",
-                overflow: "hidden",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 1,
-              }}
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={1}
             >
-              {tokenid}
-            </Typography>
+              <Typography variant="underline1" color="secondary.text">
+                Token ID:
+              </Typography>
 
-            <Divider
-              sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-            />
+              <Typography
+                variant="underline1"
+                color="secondary.text"
+                sx={{
+                  display: "-webkit-box",
+                  overflow: "hidden",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1,
+                }}
+              >
+                {tokenid}
+              </Typography>
+            </Stack>
 
-            <Typography variant="underline1" color="secondary.text">
-              Autor:
-            </Typography>
-
-            <Typography
-              variant="underline1"
-              color="secondary.text"
-              sx={{
-                display: "-webkit-box",
-                overflow: "hidden",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 1,
-              }}
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={1}
             >
-              {addresssender}
-            </Typography>
+              <Typography variant="underline1" color="secondary.text">
+                Autor:
+              </Typography>
+
+              <Typography
+                variant="underline1"
+                color="secondary.text"
+                sx={{
+                  display: "-webkit-box",
+                  overflow: "hidden",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 1,
+                }}
+              >
+                {addresssender}
+              </Typography>
+            </Stack>
           </Stack>
         </Grid>
         {/* Fab Social Media, text and AdBanner */}

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { ContractContext } from "../Context";
 import { Grid, Paper, Pagination, Typography } from "@mui/material";
-import { AdBanner, ContractDetails, TokenCard } from "../../../components";
+import { AdBanner, TokenCard } from "../../../components";
+import  ContractDetailsSVToken  from "./ContractDetailsSVToken";
 import accountImg from "../../../assets/img/accountImg.jpg";
 
 export default function CollectionInfo() {
   const { tokenCollection } = useContext(ContractContext);
-
+ 
   return (
     <Grid
       container
@@ -28,45 +29,11 @@ export default function CollectionInfo() {
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-        ></Paper>
+        />
       </Grid>
       {/* Collection details */}
       <Grid container item xs={12} sm={8}>
-        <ContractDetails
-          title="SVToken Contract Details"
-          data={[
-            {
-              field: "Contract name",
-              info: "SVToken",
-            },
-            {
-              field: "Contract address",
-              info: "0x4CB362dAb257aEF8C80e25B93EaDDA34e471809c",
-            },
-            {
-              field: "Total suply",
-              info: "1",
-            },
-            {
-              field: "Balance Of",
-              info: "1",
-              button: "enviar",
-              buttonFunction: "Put your address to know your balance",
-            },
-            {
-              field: "Token URI",
-              info: "0x4CB362dAb257aEF8C80e25B93EaDDA34e471809c",
-              button: "enviar",
-              buttonFunction: "Put your TokenId to know your the Token URI",
-            },
-            {
-              field: "Total suply",
-              info: "1",
-              button: "enviar",
-              buttonFunction: "Put your address to your balance",
-            },
-          ]}
-        />
+        <ContractDetailsSVToken/>
       </Grid>
       {/* AdBanner container */}
       <Grid item xs={12} sx={{ my: { xs: "16px", sm: "48px" } }}>

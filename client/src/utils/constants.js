@@ -3,10 +3,10 @@ import abiSVGovernor from "./SVGovernor.json";
 
 export const contractABISVToken = abiSVToken.abi;
 export const contractAddressSVToken =
-  "0x42a024dC73a7892BA00f6fdb0604D1996233dBFC";
+  "0xE130239632d7167C9D6Fa1330942EEFDC335C874";
 
 export const contractABISVGovernor = abiSVGovernor.abi;
 export const contractAddressSVGovernor =
-  "0x701411873C89F04864b042c6a7b8E4c385006ad3";
+  "0x5ca5eFeb3Bd0bB4D682B9b8010A0F323386c5722";
 
-// export const contractAddressTimeLock = "0x60f4D7Be0c236B6f8f369a6Fa0762D6002C8c3aA";
+// export const contractAddressTimeLock = "0x34f3577285A61d491d4A321f6f35cBB6f951b5DA";

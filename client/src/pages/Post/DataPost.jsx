@@ -83,38 +83,37 @@ export default function DataPost({
               spacing={1}
             >
               <Stack
-                direction="row"
+                direction={{ xs: "column", sm: "row" }}
                 justifyContent="flex-start"
-                alignItems="center"
+                alignItems={{ xs: "flex-start", sm: "center" }}
                 spacing={1}
               >
                 <Typography variant="underline2" color="secondary.text">
                   {postData.date}
                 </Typography>
 
-                <Divider
-                  sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-                />
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Typography variant="underline1" color="secondary.text">
+                    Autor:
+                  </Typography>
 
-                <Typography variant="underline1" color="secondary.text">
-                  Autor:
-                </Typography>
-
-                <Typography variant="underline1" color="primary">
-                  <Link
-                    target="_blank"
-                    rel="noopener"
-                    color="secondary.40"
-                    underline="none"
-                    href={postData.linkAuthor}
-                  >
-                    {postData.author}
-                  </Link>
-                </Typography>
-
-                <Divider
-                  sx={{ width: "12px", display: { xs: "none", sm: "block" } }}
-                />
+                  <Typography variant="underline1" color="primary">
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      color="secondary.40"
+                      underline="none"
+                      href={postData.linkAuthor}
+                    >
+                      {postData.author}
+                    </Link>
+                  </Typography>
+                </Stack>
               </Stack>
               {isAuth && (
                 <Stack

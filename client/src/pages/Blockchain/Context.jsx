@@ -13,26 +13,44 @@ const { ethereum } = window;
 export const ContractContext = createContext();
 
 const getSVToken_Contract = () => {
-  const provider = new ethers.providers.Web3Provider(ethereum);
-  const signer = provider.getSigner(0);
+  try {
+    if (!ethereum)
+      return console.log("Please install a Cryptocurrency Software Wallet");
 
-  const SVToken_Contract = new ethers.Contract(
-    contractAddressSVToken,
-    contractABISVToken,
-    signer
-  );
-  return SVToken_Contract;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner(0);
+
+    const SVToken_Contract = new ethers.Contract(
+      contractAddressSVToken,
+      contractABISVToken,
+      signer
+    );
+    return SVToken_Contract;
+  } catch (error) {
+    console.log(error);
+
+    throw new Error("No ethereum object.");
+  }
 };
 const getSVGovernance_Contract = () => {
-  const provider = new ethers.providers.Web3Provider(ethereum);
-  const signer = provider.getSigner(0);
+  try {
+    if (!ethereum)
+      return console.log("Please install a Cryptocurrency Software Wallet");
 
-  const getSVGovernance_Contract = new ethers.Contract(
-    contractAddressSVGovernor,
-    contractABISVGovernor,
-    signer
-  );
-  return getSVGovernance_Contract;
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner(0);
+
+    const getSVGovernance_Contract = new ethers.Contract(
+      contractAddressSVGovernor,
+      contractABISVGovernor,
+      signer
+    );
+    return getSVGovernance_Contract;
+  } catch (error) {
+    console.log(error);
+
+    throw new Error("No ethereum object.");
+  }
 };
 
 export const ContractProvider = ({ children }) => {
