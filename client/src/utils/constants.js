@@ -9,4 +9,4 @@ export const contractABISVGovernor = abiSVGovernor.abi;
 export const contractAddressSVGovernor =
   "0x5ca5eFeb3Bd0bB4D682B9b8010A0F323386c5722";
 
-// export const contractAddressTimeLock = "0x34f3577285A61d491d4A321f6f35cBB6f951b5DA";
+export const contractAddressTimeLock = "0x34f3577285A61d491d4A321f6f35cBB6f951b5DA";

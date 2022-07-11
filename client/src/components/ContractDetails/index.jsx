@@ -69,9 +69,8 @@ export default function ContractDetails(props) {
                 <Grid item xs>
                   <TextField
                     type="number"
-                    required={data.button ? true : false}
                     fullWidth={true}
-                    disabled={data.button ? false : true}
+                    disabled={data.disableInput}
                     label={data.inicialContent}
                     size="small"
                     id={data.nameFunction.replace(/\s/g, "").toLowerCase()}

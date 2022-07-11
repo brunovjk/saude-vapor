@@ -10,3 +10,4 @@ export { default as EditorContainerComp } from "./EditorContainerComp";
 export { default as TokenCard } from "./TokenCard";
 export { default as ProposalCard } from "./ProposalCard";
 export { default as ContractDetails } from "./ContractDetails";
+export { default as ScrollToSection } from "./ScrollToSection";

@@ -43,11 +43,11 @@ function ProposalCard({data}) {
         selChipColor("success")
         setChiplabel("Success")
       } else if (data.proposalState === 1){
-        selChipColor("error")
-        setChiplabel("Rejected")
+        selChipColor("primary")
+        setChiplabel("Ongoing")
       } else {
-      selChipColor("primary")
-      setChiplabel("Ongoing")
+      selChipColor("error")
+      setChiplabel("Rejected")
     }
 
     } catch (error) {

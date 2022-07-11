@@ -4,6 +4,7 @@ import {
   contractAddressSVToken,
   contractABISVGovernor,
   contractAddressSVGovernor,
+  contractAddressTimeLock
 } from "../../utils/constants";
 import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
@@ -136,10 +137,14 @@ export const ContractProvider = ({ children }) => {
       for (var i = 0; i < events.length; i++) {
         const proposalId = events[i].args.proposalId.toString();
         const proposalState = await SVGovernance_Contract.state(proposalId);
+        const proposalSnapshot = await SVGovernance_Contract.proposalSnapshot(proposalId);
+        const proposalDeadline = await SVGovernance_Contract.proposalDeadline(proposalId);
 
         collection_array[i] = {
           proposalId: proposalId,
           proposalState: proposalState,
+          proposalSnapshot: proposalSnapshot,
+          proposalDeadline: proposalDeadline,
           tokenAddress: events[i].args.targets.toString(),
           transferCalldata: events[i].args.calldatas.toString(),
           description: events[i].args.description,
@@ -169,6 +174,9 @@ export const ContractProvider = ({ children }) => {
         proposalCollection,
         SVToken_Contract,
         SVGovernance_Contract,
+        contractAddressSVGovernor,
+        contractAddressSVToken,
+        contractAddressTimeLock,
       }}
     >
       {children}

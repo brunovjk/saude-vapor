@@ -9,10 +9,10 @@ import {
   Typography,
   Chip,
 } from "@mui/material";
-import { AdBanner, ContractDetails, FABSocialMedia } from "../../../components";
+import { AdBanner, FABSocialMedia } from "../../../components";
+import  ContractDetailsSVGovernance  from "./ContractDetailsSVGovernance";
 import { useLocation } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
-import { CastVote } from "./ProposalInfo_EthersFunctions";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
@@ -49,9 +49,9 @@ export default function ProposalInfo() {
       if (stateInfo.proposalState === 0) {
         setChipProposalState({ color: "success", label: "Success" });
       } else if (stateInfo.proposalState === 1) {
-        setChipProposalState({ color: "error", label: "Rejected" });
-      } else {
         setChipProposalState({ color: "primary", label: "Ongoing" });
+      } else {
+        setChipProposalState({ color: "error", label: "Rejected" });
       }
     } catch (error) {
       console.log(error);
@@ -215,32 +215,7 @@ export default function ProposalInfo() {
       </Grid>
       {/* Proposal details */}
       <Grid container item xs={12} sm={8}>
-        <ContractDetails
-          title="Proposal Details"
-          data={[
-            {
-              nameFunction: "Proposal Id",
-              inicialContent: `${proposalEvent.proposalId}`,
-            },
-            {
-              nameFunction: "Cast vote",
-              inicialContent: "0 = Against, 1 = For, 2 = Abstain",
-              button: "vote",
-              buttonFunction: CastVote,
-              buttonFunctionDesc: "0 = Against, 1 = For, 2 = Abstain",
-              proposalId: `${proposalEvent.proposalId}`,
-              gasFee: true,
-            },
-            {
-              nameFunction: "Proposer",
-              inicialContent: `${proposalEvent.proposer}`,
-            },
-            {
-              nameFunction: "Start Block",
-              inicialContent: `${proposalEvent.startBlock}`,
-            },
-          ]}
-        />
+        <ContractDetailsSVGovernance proposalEvent={proposalEvent}/>
       </Grid>
       {/* Proposal post */}
       <Grid container item xs={12}>

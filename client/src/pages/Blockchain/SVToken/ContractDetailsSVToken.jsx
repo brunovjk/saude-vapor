@@ -8,27 +8,27 @@ export default function ContractDetailsSVToken() {
 
   const [inputFunction, setInputFunction] = useState([]);
 
-  const [symbolName, setSymbolName] = useState();
-  const [totalSupply, setTotalSupply] = useState();
-  const [balanceOf, setBalanceOf] = useState();
-  const [getVotes, setGetVotes] = useState();
+  const [collectionInfo, setCollectionInfo] = useState({});
 
   const getCollectionInfo = async () => {
     try {
       const symbol = await SVToken_Contract.symbol();
       const name = await SVToken_Contract.name();
-      setSymbolName(`${symbol}, ${name}`);
       const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
       const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
-      setTotalSupply(totalSupply);
       const balanceOfBigNumber = await SVToken_Contract.balanceOf(
         currentAccount
       );
       const balanceOf = BigNumber(balanceOfBigNumber._hex).c[0];
-      setBalanceOf(balanceOf);
       const getVotesBigNumber = await SVToken_Contract.getVotes(currentAccount);
       const getVotes = BigNumber(getVotesBigNumber._hex).c[0];
-      setGetVotes(getVotes);
+
+      setCollectionInfo({
+        symbolName: `${symbol}, ${name}`,
+        totalSupply: totalSupply,
+        balanceOf: balanceOf,
+        getVotes: getVotes,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -36,9 +36,9 @@ export default function ContractDetailsSVToken() {
 
   const burnTokenId = async () => {
     try {
-      const tokenId = `${inputFunction.burntoken}`
+      const tokenId = `${inputFunction.burntoken}`;
       const burnTokenId = await SVToken_Contract.burn(tokenId);
-      await burnTokenId.wait(1); // const data = await burnTokenId.wait(1); 
+      await burnTokenId.wait(1); // const data = await burnTokenId.wait(1);
       // console.log(data.events);
     } catch (error) {
       console.log(error);
@@ -57,11 +57,11 @@ export default function ContractDetailsSVToken() {
       data={[
         {
           nameFunction: "Symbol and Name",
-          inicialContent: symbolName,
+          inicialContent: collectionInfo.symbolName,
         },
         {
           nameFunction: "Total supply",
-          inicialContent: totalSupply,
+          inicialContent: collectionInfo.totalSupply,
         },
         {
           nameFunction: "Current Account",
@@ -69,30 +69,20 @@ export default function ContractDetailsSVToken() {
         },
         {
           nameFunction: "Your balance",
-          inicialContent: balanceOf,
+          inicialContent: collectionInfo.balanceOf,
         },
         {
           nameFunction: "Voting power",
-          inicialContent: getVotes,
+          inicialContent: collectionInfo.getVotes,
         },
         {
           nameFunction: "Burn Token",
           button: "burn",
           buttonFunction: burnTokenId,
-          inicialContent: "Insert a valid Token ID",
+          inicialContent: "Insert a valid Token ID", //Label
           gasFee: true,
         },
       ]}
     />
   );
 }
-
-// {
-//   nameFunction: "Symbol and Name",
-//   inicialContent: `${symbol}, ${name}`,
-//   button: "vote",
-//   buttonFunction: CastVote,
-//   buttonFunctionDesc: "0 = Against, 1 = For, 2 = Abstain",
-//   params: `${proposalEvent.proposalId}`,
-//   gasFee: true,
-// },
