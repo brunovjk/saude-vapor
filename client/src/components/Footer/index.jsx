@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Grid, Divider, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Grid, Divider, Typography, Link } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 import Logo from "../../assets/img/logo/Logo32-white.svg";
 
@@ -36,9 +36,9 @@ export default function Footer() {
                 pl: { sm: "2rem" },
               }}
             >
-              <Link to="/">
+              <NavLink to="/">
                 <img src={Logo} alt="Saude Vapor" />
-              </Link>
+              </NavLink>
             </Box>
           </Grid>
           <Grid item>
@@ -62,32 +62,32 @@ export default function Footer() {
                   alignItems="center"
                 >
                   <Grid item>
-                    <Link to="/sobre">
+                    <NavLink to="/sobre">
                       <Typography variant="menu" color="secondary">
                         Sobre
                       </Typography>
-                    </Link>
+                    </NavLink>
                   </Grid>
                   <Grid item>
-                    <Link to="/contato">
+                    <NavLink to="/contato">
                       <Typography variant="menu" color="secondary">
                         Contato
                       </Typography>
-                    </Link>
+                    </NavLink>
                   </Grid>
                   <Grid item>
-                    <Link to="/busca">
+                    <NavLink to="/busca">
                       <Typography variant="menu" color="secondary">
                         Busca
                       </Typography>
-                    </Link>
+                    </NavLink>
                   </Grid>
                   <Grid item>
-                    <Link to="/login">
+                    <NavLink to="/login">
                       <Typography variant="menu" color="secondary">
                         Login
                       </Typography>
-                    </Link>
+                    </NavLink>
                   </Grid>
                 </Grid>
               </Grid>
@@ -100,13 +100,34 @@ export default function Footer() {
                   spacing={4}
                 >
                   <Grid item>
-                    <FacebookIcon color="secondary" />
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      underline="none"
+                      href="https://www.facebook.com/SaudeVapor"
+                    >
+                      <FacebookIcon color="secondary" />
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <TwitterIcon color="secondary" />
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      underline="none"
+                      href="https://twitter.com/SaudeVapor"
+                    >
+                      <TwitterIcon color="secondary" />
+                    </Link>
                   </Grid>
                   <Grid item>
-                    <InstagramIcon color="secondary" />
+                    <Link
+                      target="_blank"
+                      rel="noopener"
+                      underline="none"
+                      href="https://www.instagram.com/saudevapor/"
+                    >
+                      <InstagramIcon color="secondary" />
+                    </Link>
                   </Grid>
                 </Grid>
               </Grid>
@@ -126,11 +147,11 @@ export default function Footer() {
               }}
             >
               <Grid item>
-                <Link to="/termos">
+                <NavLink to="/termos">
                   <Typography variant="underline1" color="secondary">
                     Termos de uso
                   </Typography>
-                </Link>
+                </NavLink>
               </Grid>
               <Grid item>
                 <Typography variant="underline1" color="secondary">

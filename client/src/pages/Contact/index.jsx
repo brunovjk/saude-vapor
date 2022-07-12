@@ -7,6 +7,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Link,
 } from "@mui/material";
 
 import accountImg from "../../assets/img/accountImg.jpg";
@@ -69,15 +70,36 @@ export default function Contact() {
               p={{ xs: "16px 32px", sm: "0px" }}
               sx={{ width: { xs: "100%", sm: "48px" } }}
             >
-              <IconButton>
-                <FacebookIcon color="primary" />
-              </IconButton>
-              <IconButton>
-                <TwitterIcon color="primary" />
-              </IconButton>
-              <IconButton>
-                <InstagramIcon color="primary" />
-              </IconButton>
+              <Link
+                target="_blank"
+                rel="noopener"
+                underline="none"
+                href="https://www.facebook.com/SaudeVapor"
+              >
+                <IconButton>
+                  <FacebookIcon color="primary" />
+                </IconButton>
+              </Link>
+              <Link
+                target="_blank"
+                rel="noopener"
+                underline="none"
+                href="https://twitter.com/SaudeVapor"
+              >
+                <IconButton>
+                  <TwitterIcon color="primary" />
+                </IconButton>
+              </Link>
+              <Link
+                target="_blank"
+                rel="noopener"
+                underline="none"
+                href="https://www.instagram.com/saudevapor/"
+              >
+                <IconButton>
+                  <InstagramIcon color="primary" />
+                </IconButton>
+              </Link>
             </Grid>
             {/* Text */}
             <Grid
