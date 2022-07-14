@@ -4,7 +4,7 @@ import {
   contractAddressSVToken,
   contractABISVGovernor,
   contractAddressSVGovernor,
-  contractAddressTimeLock
+  contractAddressTimeLock,
 } from "../../utils/constants";
 import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
@@ -78,92 +78,97 @@ export const ContractProvider = ({ children }) => {
       throw new Error("No ethereum object.");
     }
   };
-  const checkIfWalletisConnected = async () => {
-    try {
-      if (!ethereum)
-        return console.log("Please install a Cryptocurrency Software Wallet");
-
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-
-      if (accounts.length) {
-        setCurrentAccount(accounts[0]);
-      } else {
-        console.log("No accounts found.");
-      }
-    } catch (error) {
-      console.log(error);
-
-      throw new Error("No ethereum object.");
-    }
-  };
-  const getSVToken_Collection = async () => {
-    try {
-      if (!ethereum)
-        return console.log("Please install a Cryptocurrency Software Wallet");
-      const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
-      const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
-
-      const collection_array = [];
-
-      for (var i = 0; i < totalSupply; i++) {
-        collection_array[i] = {
-          tokenid: i,
-          addresssender: await SVToken_Contract.ownerOf(i),
-          uri: JSON.parse(await SVToken_Contract.tokenURI(i)),
-        };
-      }
-      setTokenCollection(collection_array);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getProposal_Collection = async () => {
-    try {
-      if (!ethereum)
-        return console.log("Please install a Cryptocurrency Software Wallet");
-
-      const filters = await SVGovernance_Contract.filters.ProposalCreated();
-      const logs = await SVGovernance_Contract.queryFilter(
-        filters,
-        0,
-        "latest"
-      );
-      const events = logs.map((log) =>
-        SVGovernance_Contract.interface.parseLog(log)
-      );
-
-      const collection_array = [];
-
-      for (var i = 0; i < events.length; i++) {
-        const proposalId = events[i].args.proposalId.toString();
-        const proposalState = await SVGovernance_Contract.state(proposalId);
-        const proposalSnapshot = await SVGovernance_Contract.proposalSnapshot(proposalId);
-        const proposalDeadline = await SVGovernance_Contract.proposalDeadline(proposalId);
-
-        collection_array[i] = {
-          proposalId: proposalId,
-          proposalState: proposalState,
-          proposalSnapshot: proposalSnapshot,
-          proposalDeadline: proposalDeadline,
-          tokenAddress: events[i].args.targets.toString(),
-          transferCalldata: events[i].args.calldatas.toString(),
-          description: events[i].args.description,
-          proposer: events[i].args.proposer,
-          startBlock: events[i].args.startBlock.toString(),
-        };
-      }
-
-      setProposalCollection(collection_array);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const checkIfWalletisConnected = async () => {
+      try {
+        if (!ethereum)
+          return console.log("Please install a Cryptocurrency Software Wallet");
+
+        const accounts = await ethereum.request({ method: "eth_accounts" });
+
+        if (accounts.length) {
+          setCurrentAccount(accounts[0]);
+        } else {
+          console.log("No accounts found.");
+        }
+      } catch (error) {
+        console.log(error);
+
+        throw new Error("No ethereum object.");
+      }
+    };
+    const getSVToken_Collection = async () => {
+      try {
+        if (!ethereum)
+          return console.log("Please install a Cryptocurrency Software Wallet");
+        const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
+        const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
+
+        const collection_array = [];
+
+        for (var i = 0; i < totalSupply; i++) {
+          collection_array[i] = {
+            tokenid: i,
+            addresssender: await SVToken_Contract.ownerOf(i),
+            uri: JSON.parse(await SVToken_Contract.tokenURI(i)),
+          };
+        }
+        setTokenCollection(collection_array);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const getProposal_Collection = async () => {
+      try {
+        if (!ethereum)
+          return console.log("Please install a Cryptocurrency Software Wallet");
+
+        const filters = await SVGovernance_Contract.filters.ProposalCreated();
+        const logs = await SVGovernance_Contract.queryFilter(
+          filters,
+          0,
+          "latest"
+        );
+        const events = logs.map((log) =>
+          SVGovernance_Contract.interface.parseLog(log)
+        );
+
+        const collection_array = [];
+
+        for (var i = 0; i < events.length; i++) {
+          const proposalId = events[i].args.proposalId.toString();
+          const proposalState = await SVGovernance_Contract.state(proposalId);
+          const proposalSnapshot = await SVGovernance_Contract.proposalSnapshot(
+            proposalId
+          );
+          const proposalDeadline = await SVGovernance_Contract.proposalDeadline(
+            proposalId
+          );
+
+          collection_array[i] = {
+            proposalId: proposalId,
+            proposalState: proposalState,
+            proposalSnapshot: proposalSnapshot,
+            proposalDeadline: proposalDeadline,
+            tokenAddress: events[i].args.targets.toString(),
+            transferCalldata: events[i].args.calldatas.toString(),
+            description: events[i].args.description,
+            proposer: events[i].args.proposer,
+            startBlock: events[i].args.startBlock.toString(),
+          };
+        }
+
+        setProposalCollection(collection_array);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     checkIfWalletisConnected();
     getSVToken_Collection();
     getProposal_Collection();
-  }, [currentAccount]);
+  }, [currentAccount, SVGovernance_Contract, SVToken_Contract]);
 
   return (
     <ContractContext.Provider

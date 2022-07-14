@@ -1,0 +1,19 @@
+{
+  "AdBanner": {
+    "phrase1-1": "Control",
+    "phrase2-1": "the breeze",
+    "phrase1-2": "Reduce",
+    "phrase2-2": "damage",
+    "phrase1-3": "Save ",
+    "phrase2-3": "your weed",
+    "phraseMainCall1": "LIKE",
+    "phraseMainCall2": "THE IDEA?",
+    "phraseButtonCall1": "BUY IT NOW",
+    "phraseButtonCall2": "YOUR VAPORIZER"
+  },
+  "about": "About",
+  "select_language": "Select Language",
+  "hello_welcome_to_react": "Hello, Welcome to React",
+  "this_is_an_example": "This is an example",
+  "please_enter_name": "Please enter your name"
+}

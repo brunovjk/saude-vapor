@@ -5,7 +5,6 @@ import hero1 from "../../assets/img/hero1.png";
 import hero2 from "../../assets/img/hero2.png";
 
 export default function Hero() {
-
   return (
     <Grid
       container
@@ -55,7 +54,6 @@ export default function Hero() {
               typesetting industry.
             </Typography>
           </Grid>
-
         </Grid>
         {/* Image */}
         <Grid container item xs={12} md={8}>
@@ -64,34 +62,7 @@ export default function Hero() {
       </Grid>
       {/* Ad Banner */}
       <Grid item mx={{ xs: "16px", sm: "32x" }}>
-        <AdBanner
-          copyCalls={[
-            {
-              phrase1: "Controle",
-              phrase2: "sua brisa",
-            },
-            {
-              phrase1: "Reduza",
-              phrase2: "os danos",
-            },
-            {
-              phrase1: "Economize",
-              phrase2: "sua erva",
-            },
-            {
-              phraseMainCall1: "GOSTOU",
-              phraseMainCall2: "DA IDEIA?",
-            },
-            {
-              phraseButtonCall1: "ADQUIRA JÁ",
-              phraseButtonCall2: "SEU VAPORIZADOR",
-            },
-            {
-              img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-              url: "https://loja.saudevapor.com/",
-            },
-          ]}
-        />
+        <AdBanner />
       </Grid>
       {/* Section 1 */}
       <Grid

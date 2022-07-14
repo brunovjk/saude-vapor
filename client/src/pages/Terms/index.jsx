@@ -17,34 +17,7 @@ export default function Terms() {
         {/* AdBanner Mobile tablet */}
         <Grid item xs={12} md={4} sx={{ display: { xs: "block", md: "none" } }}>
           <Box>
-            <AdBanner
-              copyCalls={[
-                {
-                  phrase1: "Controle",
-                  phrase2: "sua brisa",
-                },
-                {
-                  phrase1: "Reduza",
-                  phrase2: "os danos",
-                },
-                {
-                  phrase1: "Economize",
-                  phrase2: "sua erva",
-                },
-                {
-                  phraseMainCall1: "GOSTOU",
-                  phraseMainCall2: "DA IDEIA?",
-                },
-                {
-                  phraseButtonCall1: "ADQUIRA JÁ",
-                  phraseButtonCall2: "SEU VAPORIZADOR",
-                },
-                {
-                  img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                  url: "https://loja.saudevapor.com/",
-                },
-              ]}
-            />
+            <AdBanner />
           </Box>
         </Grid>
         {/* Terms */}
@@ -141,35 +114,7 @@ export default function Terms() {
           <Sticky>
             {({ style }) => (
               <Box style={style} py="32px">
-                <AdBanner
-                  vertical={true}
-                  copyCalls={[
-                    {
-                      phrase1: "Controle",
-                      phrase2: "sua brisa",
-                    },
-                    {
-                      phrase1: "Reduza",
-                      phrase2: "os danos",
-                    },
-                    {
-                      phrase1: "Economize",
-                      phrase2: "sua erva",
-                    },
-                    {
-                      phraseMainCall1: "GOSTOU",
-                      phraseMainCall2: "DA IDEIA?",
-                    },
-                    {
-                      phraseButtonCall1: "ADQUIRA JÁ",
-                      phraseButtonCall2: "SEU VAPORIZADOR",
-                    },
-                    {
-                      img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                      url: "https://loja.saudevapor.com/",
-                    },
-                  ]}
-                />
+                <AdBanner vertical={true} />
               </Box>
             )}
           </Sticky>

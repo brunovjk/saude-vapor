@@ -10,7 +10,7 @@ import {
   Chip,
 } from "@mui/material";
 import { AdBanner, FABSocialMedia } from "../../../components";
-import  ContractDetailsSVGovernance  from "./ContractDetailsSVGovernance";
+import ContractDetailsSVGovernance from "./ContractDetailsSVGovernance";
 import { useLocation } from "react-router-dom";
 import { StickyContainer, Sticky } from "react-sticky";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -215,7 +215,7 @@ export default function ProposalInfo() {
       </Grid>
       {/* Proposal details */}
       <Grid container item xs={12} sm={8}>
-        <ContractDetailsSVGovernance proposalEvent={proposalEvent}/>
+        <ContractDetailsSVGovernance proposalEvent={proposalEvent} />
       </Grid>
       {/* Proposal post */}
       <Grid container item xs={12}>
@@ -225,34 +225,7 @@ export default function ProposalInfo() {
             p={{ xs: "8px 16px", sm: "16px 32px", lg: "32px 128px" }}
             sx={{ display: { xs: "block", md: "none" } }}
           >
-            <AdBanner
-              copyCalls={[
-                {
-                  phrase1: "Controle",
-                  phrase2: "sua brisa",
-                },
-                {
-                  phrase1: "Reduza",
-                  phrase2: "os danos",
-                },
-                {
-                  phrase1: "Economize",
-                  phrase2: "sua erva",
-                },
-                {
-                  phraseMainCall1: "GOSTOU",
-                  phraseMainCall2: "DA IDEIA?",
-                },
-                {
-                  phraseButtonCall1: "ADQUIRA JÁ",
-                  phraseButtonCall2: "SEU VAPORIZADOR",
-                },
-                {
-                  img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                  url: "https://loja.saudevapor.com/",
-                },
-              ]}
-            />
+            <AdBanner />
           </Box>
         </Grid>
         <Divider />

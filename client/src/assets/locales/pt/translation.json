@@ -1,0 +1,19 @@
+{
+  "AdBanner": {
+    "phrase1-1": "Controle",
+    "phrase2-1": "sua brisa",
+    "phrase1-2": "Reduza",
+    "phrase2-2": "os danos",
+    "phrase1-3": "Economize",
+    "phrase2-3": "sua erva",
+    "phraseMainCall1": "GOSTOU",
+    "phraseMainCall2": "DA IDEIA?",
+    "phraseButtonCall1": "ADQUIRA JÁ",
+    "phraseButtonCall2": "SEU VAPORIZADOR"
+  },
+  "about": "Sobre",
+  "select_language": "Seleciona Idioma",
+  "hello_welcome_to_react": "Ola,  Bemvindo ao React",
+  "this_is_an_example": "Exemplo",
+  "please_enter_name": "Coloque nome"
+}

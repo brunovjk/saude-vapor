@@ -1,5 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Button, Menu, MenuItem, Divider, Switch } from "@mui/material";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Divider,
+  Switch,
+  Typography,
+} from "@mui/material";
+import LanguageSelect from "../../components/LanguageSelect";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -65,7 +73,7 @@ export default function DrawerMenuSideList({ setItemSelected }) {
             setItemMenuSelected("Minha conta");
           }}
         >
-          Minha conta
+          <Typography variant="menu">Minha conta</Typography>
         </MenuItem>
 
         {isAuth && (
@@ -76,9 +84,14 @@ export default function DrawerMenuSideList({ setItemSelected }) {
               setItemMenuSelected("Publicar");
             }}
           >
-            Publicar
+            <Typography variant="menu">Publicar</Typography>
           </MenuItem>
         )}
+
+        <MenuItem>
+          <LanguageSelect />
+        </MenuItem>
+
         <MenuItem>
           {checked ? (
             <DarkModeIcon color="primary" />
@@ -87,13 +100,14 @@ export default function DrawerMenuSideList({ setItemSelected }) {
           )}
           <Switch onChange={handleChangeDarkMode} />
         </MenuItem>
+
         <MenuItem
           onClick={() => {
             handleClose();
             signUserOut();
           }}
         >
-          Sair
+          <Typography variant="menu">Sair</Typography>
         </MenuItem>
       </Menu>
       <Divider />

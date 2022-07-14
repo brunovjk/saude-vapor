@@ -10,30 +10,6 @@ export default function ContractDetailsSVToken() {
 
   const [collectionInfo, setCollectionInfo] = useState({});
 
-  const getCollectionInfo = async () => {
-    try {
-      const symbol = await SVToken_Contract.symbol();
-      const name = await SVToken_Contract.name();
-      const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
-      const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
-      const balanceOfBigNumber = await SVToken_Contract.balanceOf(
-        currentAccount
-      );
-      const balanceOf = BigNumber(balanceOfBigNumber._hex).c[0];
-      const getVotesBigNumber = await SVToken_Contract.getVotes(currentAccount);
-      const getVotes = BigNumber(getVotesBigNumber._hex).c[0];
-
-      setCollectionInfo({
-        symbolName: `${symbol}, ${name}`,
-        totalSupply: totalSupply,
-        balanceOf: balanceOf,
-        getVotes: getVotes,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const burnTokenId = async () => {
     try {
       const tokenId = `${inputFunction.burntoken}`;
@@ -46,8 +22,33 @@ export default function ContractDetailsSVToken() {
   };
 
   useEffect(() => {
+    const getCollectionInfo = async () => {
+      try {
+        const symbol = await SVToken_Contract.symbol();
+        const name = await SVToken_Contract.name();
+        const totalSupplyBigNumber = await SVToken_Contract.totalSupply();
+        const totalSupply = BigNumber(totalSupplyBigNumber._hex).c[0];
+        const balanceOfBigNumber = await SVToken_Contract.balanceOf(
+          currentAccount
+        );
+        const balanceOf = BigNumber(balanceOfBigNumber._hex).c[0];
+        const getVotesBigNumber = await SVToken_Contract.getVotes(
+          currentAccount
+        );
+        const getVotes = BigNumber(getVotesBigNumber._hex).c[0];
+
+        setCollectionInfo({
+          symbolName: `${symbol}, ${name}`,
+          totalSupply: totalSupply,
+          balanceOf: balanceOf,
+          getVotes: getVotes,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getCollectionInfo();
-  }, [currentAccount]);
+  }, [currentAccount, SVToken_Contract]);
 
   return (
     <ContractDetails

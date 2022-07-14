@@ -180,34 +180,7 @@ export default function About() {
       </Grid>
       {/* Ad Banner */}
       <Grid item m={{ xs: "16px", sm: "32x", md: "48px" }}>
-        <AdBanner
-          copyCalls={[
-            {
-              phrase1: "Controle",
-              phrase2: "sua brisa",
-            },
-            {
-              phrase1: "Reduza",
-              phrase2: "os danos",
-            },
-            {
-              phrase1: "Economize",
-              phrase2: "sua erva",
-            },
-            {
-              phraseMainCall1: "GOSTOU",
-              phraseMainCall2: "DA IDEIA?",
-            },
-            {
-              phraseButtonCall1: "ADQUIRA JÁ",
-              phraseButtonCall2: "SEU VAPORIZADOR",
-            },
-            {
-              img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-              url: "https://loja.saudevapor.com/",
-            },
-          ]}
-        />
+        <AdBanner />
       </Grid>
     </Grid>
   );

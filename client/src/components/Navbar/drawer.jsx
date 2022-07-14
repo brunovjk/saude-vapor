@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { Context } from "../../context/Context";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Drawer,
@@ -9,6 +11,7 @@ import {
   Divider,
   Switch,
 } from "@mui/material";
+import LanguageSelect from "../LanguageSelect";
 
 import LogoLight from "../../assets/img/logo/Logo24-primary-30.svg";
 import LogoDark from "../../assets/img/logo/Logo24-primary-80.svg";
@@ -21,20 +24,17 @@ import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import GridViewIcon from "@mui/icons-material/GridView";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-
-import { Context } from "../../context/Context";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import { Link } from "react-router-dom";
 
 const DrawerComponent = (props) => {
   const { checked, handleChangeDarkMode } = useContext(Context);
+  const { t } = useTranslation();
 
   const sideList = () => (
-    <Box
-      sx={{ width: { xs: "14rem", md: "15rem" }, p: { xs: "1rem" } }}
-      onClick={props.toggleDrawerHandler}
-    >
-      <Box sx={{ p: "1rem" }}>
+    <Box>
+      <Box sx={{ width: { xs: "14rem", md: "15rem" }, p: { xs: "2rem" } }}>
         <Link to="/">
           <img src={props.checked ? LogoDark : LogoLight} alt="Logo" />
         </Link>
@@ -44,15 +44,15 @@ const DrawerComponent = (props) => {
 
       <List>
         <Link to="/sobre">
-          <ListItem button>
+          <ListItem button onClick={props.toggleDrawerHandler}>
             <ListItemIcon>
               <InfoIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Sobre" />
+            <ListItemText primary={t("about")} />
           </ListItem>
         </Link>
         <Link to="/busca">
-          <ListItem button>
+          <ListItem button onClick={props.toggleDrawerHandler}>
             <ListItemIcon>
               <SearchIcon color="primary" />
             </ListItemIcon>
@@ -60,7 +60,7 @@ const DrawerComponent = (props) => {
           </ListItem>
         </Link>
         <Link to="/contato">
-          <ListItem button>
+          <ListItem button onClick={props.toggleDrawerHandler}>
             <ListItemIcon>
               <EmailIcon color="primary" />
             </ListItemIcon>
@@ -69,7 +69,7 @@ const DrawerComponent = (props) => {
         </Link>
         {!props.isAuth ? (
           <Link to="/login">
-            <ListItem button>
+            <ListItem button onClick={props.toggleDrawerHandler}>
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
@@ -78,7 +78,7 @@ const DrawerComponent = (props) => {
           </Link>
         ) : (
           <Link to="/minhaconta">
-            <ListItem button>
+            <ListItem button onClick={props.toggleDrawerHandler}>
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
@@ -87,7 +87,7 @@ const DrawerComponent = (props) => {
           </Link>
         )}
         <Link to="/blockchain">
-          <ListItem button>
+          <ListItem button onClick={props.toggleDrawerHandler}>
             <ListItemIcon>
               <GridViewIcon color="primary" />
             </ListItemIcon>
@@ -96,6 +96,15 @@ const DrawerComponent = (props) => {
         </Link>
 
         <ListItem button>
+          <ListItemIcon>
+            <LanguageIcon color="primary" />
+          </ListItemIcon>
+          <ListItemText>
+            <LanguageSelect onClickProps={props.toggleDrawerHandler} />
+          </ListItemText>
+        </ListItem>
+
+        <ListItem button onClick={props.toggleDrawerHandler}>
           <ListItemIcon>
             {checked ? (
               <DarkModeIcon color="primary" />
@@ -111,7 +120,7 @@ const DrawerComponent = (props) => {
 
       <Box sx={{ position: "fixed", bottom: 0, pl: "0.5rem" }}>
         <Link to="/termos">
-          <ListItem button disableGutters>
+          <ListItem button disableGutters onClick={props.toggleDrawerHandler}>
             <ListItemIcon>
               <HistoryEduIcon color="primary" />
             </ListItemIcon>

@@ -7,12 +7,14 @@ import {
   ListItemText,
   Switch,
 } from "@mui/material";
+import LanguageSelect from "../../components/LanguageSelect";
 
 import PersonIcon from "@mui/icons-material/Person";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import MyAccount from "./MyAccount";
 import Publish from "./Publish";
@@ -67,6 +69,15 @@ export default function MenuSideList({ setItemSelected }) {
               <ListItemText primary="Publicar" />
             </ListItem>
           )}
+
+          <ListItem button disableGutters>
+            <ListItemIcon>
+              <LanguageIcon color="primary" />
+            </ListItemIcon>
+            <ListItemText>
+              <LanguageSelect />
+            </ListItemText>
+          </ListItem>
 
           <ListItem button disableGutters>
             <ListItemIcon>

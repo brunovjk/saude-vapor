@@ -12,47 +12,6 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
 
   const [proposalInfo, setproposalInfo] = useState({});
 
-  const getproposalInfo = async () => {
-    try {
-      const proposalId = proposalEvent.proposalId;
-      const blockNumber = proposalEvent.startBlock;
-
-      const votingDelayBigNumber = await SVGovernance_Contract.votingDelay();
-      const votingDelay = BigNumber(votingDelayBigNumber._hex).c[0];
-
-      const votingPeriodBigNumber = await SVGovernance_Contract.votingPeriod();
-      const votingPeriod = BigNumber(votingPeriodBigNumber._hex).c[0];
-
-      const proposalDeadlineBigNumber =
-        await SVGovernance_Contract.proposalDeadline(proposalId);
-      const proposalDeadline = BigNumber(proposalDeadlineBigNumber._hex).c[0];
-
-      const quorumBigNumber = await SVGovernance_Contract.quorum(blockNumber);
-      const quorum = BigNumber(quorumBigNumber._hex).c[0];
-
-      const proposalVotesEvent = await SVGovernance_Contract.proposalVotes(
-        proposalId
-      );
-      const abstainVotes = BigNumber(proposalVotesEvent.abstainVotes._hex).c[0];
-      const againstVotes = BigNumber(proposalVotesEvent.againstVotes._hex).c[0];
-      const forVotes = BigNumber(proposalVotesEvent.forVotes._hex).c[0];
-      const proposalVotes = `Abstain: ${abstainVotes}, Against: ${againstVotes}, For: ${forVotes}`;
-
-      const hasVoted = await SVGovernance_Contract.hasVoted(
-        proposalId,
-        currentAccount
-      );
-
-      setproposalInfo({
-        votingConfig: `Voting delay: ${votingDelay}, Voting period: ${votingPeriod}. In Blocks`,
-        proposalConfig: `Proposal deadline: ${proposalDeadline}, Quorum: ${quorum}`,
-        proposalVotes: proposalVotes,
-        hasVoted: `${hasVoted}`,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const castVote = async () => {
     try {
       const vote = inputFunction.castvote;
@@ -97,8 +56,57 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
   };
 
   useEffect(() => {
+    const getproposalInfo = async () => {
+      try {
+        const proposalId = proposalEvent.proposalId;
+        const blockNumber = proposalEvent.startBlock;
+
+        const votingDelayBigNumber = await SVGovernance_Contract.votingDelay();
+        const votingDelay = BigNumber(votingDelayBigNumber._hex).c[0];
+
+        const votingPeriodBigNumber =
+          await SVGovernance_Contract.votingPeriod();
+        const votingPeriod = BigNumber(votingPeriodBigNumber._hex).c[0];
+
+        const proposalDeadlineBigNumber =
+          await SVGovernance_Contract.proposalDeadline(proposalId);
+        const proposalDeadline = BigNumber(proposalDeadlineBigNumber._hex).c[0];
+
+        const quorumBigNumber = await SVGovernance_Contract.quorum(blockNumber);
+        const quorum = BigNumber(quorumBigNumber._hex).c[0];
+
+        const proposalVotesEvent = await SVGovernance_Contract.proposalVotes(
+          proposalId
+        );
+        const abstainVotes = BigNumber(proposalVotesEvent.abstainVotes._hex)
+          .c[0];
+        const againstVotes = BigNumber(proposalVotesEvent.againstVotes._hex)
+          .c[0];
+        const forVotes = BigNumber(proposalVotesEvent.forVotes._hex).c[0];
+        const proposalVotes = `Abstain: ${abstainVotes}, Against: ${againstVotes}, For: ${forVotes}`;
+
+        const hasVoted = await SVGovernance_Contract.hasVoted(
+          proposalId,
+          currentAccount
+        );
+
+        setproposalInfo({
+          votingConfig: `Voting delay: ${votingDelay}, Voting period: ${votingPeriod}. In Blocks`,
+          proposalConfig: `Proposal deadline: ${proposalDeadline}, Quorum: ${quorum}`,
+          proposalVotes: proposalVotes,
+          hasVoted: `${hasVoted}`,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getproposalInfo();
-  }, [currentAccount]);
+  }, [
+    currentAccount,
+    SVGovernance_Contract,
+    proposalEvent.proposalId,
+    proposalEvent.startBlock,
+  ]);
 
   return (
     <ContractDetails

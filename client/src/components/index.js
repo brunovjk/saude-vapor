@@ -11,3 +11,4 @@ export { default as TokenCard } from "./TokenCard";
 export { default as ProposalCard } from "./ProposalCard";
 export { default as ContractDetails } from "./ContractDetails";
 export { default as ScrollToSection } from "./ScrollToSection";
+export { default as LanguageSelect } from "./LanguageSelect";

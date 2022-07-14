@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   Divider,
 } from "@mui/material";
+import LanguageSelect from "../LanguageSelect";
 
 import LogoMobileLight from "../../assets/img/logo/Logo24-primary-30.svg";
 import LogoDesktopLight from "../../assets/img/logo/Logo32-primary-30.svg";
@@ -25,6 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Logout from "@mui/icons-material/Logout";
 import EmailIcon from "@mui/icons-material/Email";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 
@@ -301,7 +303,6 @@ export default function ToolbarComponent(props) {
                     id="account-menu"
                     open={open}
                     onClose={handleClose}
-                    onClick={handleClose}
                     PaperProps={{
                       elevation: 0,
                       sx: {
@@ -332,31 +333,39 @@ export default function ToolbarComponent(props) {
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
                     <Link to="/minhaconta">
-                      <MenuItem>
+                      <MenuItem onClick={handleClose}>
                         <Avatar
                           sx={{
                             bgcolor: "primary.50",
                           }}
                         />
-                        Minha conta
+                        <Typography variant="menu">Minha conta</Typography>
                       </MenuItem>
                     </Link>
 
-                    <Divider />
+                    <Divider sx={{ py: "4px" }} />
+
+                    <MenuItem>
+                      <ListItemIcon>
+                        <LanguageIcon fontSize="small" color="primary" />
+                      </ListItemIcon>
+                      <LanguageSelect onClickProps={handleClose} small={true} />
+                    </MenuItem>
 
                     <Link to="/contato">
-                      <MenuItem>
+                      <MenuItem onClick={handleClose}>
                         <ListItemIcon>
                           <EmailIcon fontSize="small" color="primary" />
                         </ListItemIcon>
-                        Contato
+                        <Typography variant="menu">Contato</Typography>
                       </MenuItem>
                     </Link>
+
                     <MenuItem onClick={signUserOut}>
                       <ListItemIcon>
                         <Logout fontSize="small" color="primary" />
                       </ListItemIcon>
-                      Sair
+                      <Typography variant="menu">Sair</Typography>
                     </MenuItem>
                   </Menu>
                 </Grid>
