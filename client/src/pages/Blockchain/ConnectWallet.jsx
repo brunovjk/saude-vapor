@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { ContractContext} from "./Context";
+import { useTranslation } from "react-i18next";
+
 import { Typography, Grid, Button } from "@mui/material";
 
 export default function ConnectWallet() {
     const { connectWallet } = useContext(ContractContext);
+    const { t } = useTranslation();
 
     return (
         <Grid
@@ -16,11 +19,11 @@ export default function ConnectWallet() {
         >
             <Grid item>
                 <Typography align="center" variant="h2">
-                Please Connect to your Wallet to see the Latest Collections
+                {t("Blockchain.connectWallet.text")}
                 </Typography>
             </Grid>
             <Grid item>
-                <Button onClick={connectWallet}>Connect</Button>
+                <Button onClick={connectWallet}>{t("Blockchain.connectWallet.button")}</Button>
             </Grid>
 
         </Grid>

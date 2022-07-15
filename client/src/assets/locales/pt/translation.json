@@ -1,4 +1,9 @@
 {
+  "SocialMediaLinks": {
+    "facebook": "https://www.facebook.com/SaudeVapor",
+    "twitter": "https://twitter.com/SaudeVapor",
+    "instagram": "https://www.instagram.com/saudevapor"
+  },
   "AdBanner": {
     "phrase1-1": "Controle",
     "phrase2-1": "sua brisa",
@@ -11,9 +16,75 @@
     "phraseButtonCall1": "ADQUIRA JÁ",
     "phraseButtonCall2": "SEU VAPORIZADOR"
   },
-  "about": "Sobre",
-  "select_language": "Seleciona Idioma",
-  "hello_welcome_to_react": "Ola,  Bemvindo ao React",
-  "this_is_an_example": "Exemplo",
-  "please_enter_name": "Coloque nome"
+  "Footer": {
+    "menu": {
+      "about": "Sobre",
+      "contact": "Contato",
+      "search": "Busca",
+      "login": "Login"
+    },
+    "terms": "Termos de uso",
+    "copyright": "© 2021 SaudeVapor. Todos direitos reservados."
+  },
+  "LanguageSelect": {
+    "select-language": "Seleciona Idioma"
+  },
+  "Navbar": {
+    "drawer": {
+      "menu": {
+        "about": "Sobre",
+        "search": "Busca",
+        "contact": "Contato",
+        "myAccount": "Minha conta",
+        "blockchain": "Blockchain",
+        "terms": "Termos"
+      }
+    },
+    "toolbar": {
+      "menu": "Menu",
+      "tolltipAccountConfig": "Configurações da conta",
+      "myAccount": "Minha conta",
+      "contact": "Contato",
+      "logout": "Sair"
+    }
+  },
+  "ProposalCard": {
+    "success": "Successo",
+    "ongoing": "Em progresso",
+    "rejected": "Rejeitada",
+    "proposer": "Proponente: "
+  },
+  "TokenCard": {
+    "tokenId": "Token ID: ",
+    "owner": "Proprietário: "
+  },
+  "About": {
+    "heroSection": {
+      "title": "Missão",
+      "text": "Fornecer informação possibilitando a conscientização dos mais diversos uso da cannabis (industrial, fins medicinais, uso responsável, etc), a fins de ampliar a discussão sobre o tema."
+    },
+    "section1": {
+      "title": "Visão",
+      "text": "A informação e educação como ferramenta básica para a desconstrução, desmistificação de preconceitos, estigmas, tabus, sobre os mais diversos usos da planta em nossa cultura e suas representações sociais."
+    },
+    "section2": {
+      "title": "Valores",
+      "text1": "Desconstrução e construção de ideias e conceitos através de conteúdo verificado e confiável;",
+      "text2": "Compreensão do planta cannabis numa concepção bio-psico-social;",
+      "text3": "Despertar e propiciar pensamento crítico sobre o tema e espaço para diálogos e discussões sobre o mundo canábico."
+    }
+  },
+  "Blockchain": {
+    "heroSection": {
+      "text": "Estamos comprometidos com a inovação contínua na publicação de pesquisas para melhor atender às necessidades de nossas comunidades, garantindo a integridade da pesquisa que publicamos e defendendo os benefícios da pesquisa aberta para todos."
+    },
+    "section1": {
+      "title": "Dados na chain",
+      "text": "Nossa política de dados abertos visa esclarecer o status legal (direitos autorais) dos dados publicados em nossos periódicos de acesso aberto e maximizar o potencial de reutilização da ciência publicada, como mineração de dados e texto. Para que a sociedade obtenha todos os benefícios dos dados científicos, eles precisam estar disponíveis de forma que possam ser reutilizados, examinados e construídos com o mínimo de barreiras – de acordo com os Princípios de Panton para Dados Abertos na Ciência."
+    },
+    "connectWallet": {
+      "text": "Conecte-se sua carteira para ver as últimas coleções",
+      "button": "Conectar"
+    }
+  }
 }

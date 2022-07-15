@@ -1,19 +1,90 @@
 {
+  "SocialMediaLinks": {
+    "facebook": "https://www.facebook.com/SaudeVapor",
+    "twitter": "https://twitter.com/SaudeVapor",
+    "instagram": "https://www.instagram.com/saudevapor"
+  },
   "AdBanner": {
     "phrase1-1": "Control",
     "phrase2-1": "the breeze",
     "phrase1-2": "Reduce",
     "phrase2-2": "damage",
-    "phrase1-3": "Save ",
+    "phrase1-3": "Save",
     "phrase2-3": "your weed",
-    "phraseMainCall1": "LIKE",
-    "phraseMainCall2": "THE IDEA?",
-    "phraseButtonCall1": "BUY IT NOW",
-    "phraseButtonCall2": "YOUR VAPORIZER"
+    "phraseMainCall1": "LIKED",
+    "phraseMainCall2": "OF THE IDEA?",
+    "phraseButtonCall1": "BUY YOUR",
+    "phraseButtonCall2": "VAPORIZER NOW"
   },
-  "about": "About",
-  "select_language": "Select Language",
-  "hello_welcome_to_react": "Hello, Welcome to React",
-  "this_is_an_example": "This is an example",
-  "please_enter_name": "Please enter your name"
+  "Footer": {
+    "menu": {
+      "about": "About",
+      "contact": "Contact",
+      "search": "Search",
+      "login": "Login"
+    },
+    "terms": "Terms of service",
+    "copyright": "© 2021 SaudeVapor. All rights reserved."
+  },
+  "LanguageSelect": {
+    "select-language": "Select Language"
+  },
+  "Navbar": {
+    "drawer": {
+      "menu": {
+        "about": "About",
+        "search": "Search",
+        "contact": "Contact",
+        "myAccount": "My account",
+        "blockchain": "Blockchain",
+        "terms": "Terms"
+      }
+    },
+    "toolbar": {
+      "menu": "Menu",
+      "tolltipAccountConfig": "Account configurations",
+      "myAccount": "My account",
+      "contact": "Contact",
+      "logout": "Logout"
+    }
+  },
+  "ProposalCard": {
+    "success": "Successo",
+    "ongoing": "Ongoing",
+    "rejected": "Rejected",
+    "proposer": "Proposer: "
+  },
+  "TokenCard": {
+    "tokenId": "Token ID: ",
+    "owner": "Owner: "
+  },
+  "About": {
+    "heroSection": {
+      "title": "Mission",
+      "text": "Provide information enabling awareness of the most diverse uses of cannabis (industrial, medicinal purposes, responsible use, etc.), in order to broaden the discussion on the topic."
+    },
+    "section1": {
+      "title": "Vision",
+      "text": "Information and education as a basic tool for the deconstruction, demystification of prejudices, stigmas, taboos, about the most diverse uses of the plant in our culture and its social representations."
+    },
+    "section2": {
+      "title": "Values",
+      "text1": "Deconstruction and construction of ideas and concepts through verified and reliable content;",
+      "text2": "Understanding the cannabis plant in a bio-psycho-social conception;",
+      "text3": "Awakening and providing critical thinking on the topic and space for dialogues and discussions about the cannabis world."
+    }
+  },
+  "Blockchain": {
+    "heroSection": {
+      "text": "We are committed to continual innovation in research publishing to better support the needs of our communities, ensuring the integrity of the research we publish and championing the benefits of open research for all."
+    },
+    "section1": {
+      "title": "Data on chain",
+      "text": "Our Open Data policy aims to clarify the legal (copyright) status of data published in our open access journals and to maximize the potential for reuse of published science, such as data and text mining. For society to gain the full benefit from scientific data, it needs to be available such that it can be reused, scrutinized and built upon with the minimum of barriers - in accordance with the Panton Principles for Open Data in Science."
+    },
+    "connectWallet": {
+      "text": "Please connect your wallet to see the latest collections",
+      "button": "Connect"
+    }
+  }
 }

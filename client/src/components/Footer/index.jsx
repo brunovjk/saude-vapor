@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Grid, Divider, Typography, Link } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import Logo from "../../assets/img/logo/Logo32-white.svg";
 
@@ -9,6 +10,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <>
       <Box component="div" bgcolor="primary.60" mt="3rem">
@@ -37,7 +39,7 @@ export default function Footer() {
               }}
             >
               <NavLink to="/">
-                <img src={Logo} alt="Saude Vapor" />
+                <img src={Logo} alt="SaudeVapor" />
               </NavLink>
             </Box>
           </Grid>
@@ -64,28 +66,28 @@ export default function Footer() {
                   <Grid item>
                     <NavLink to="/sobre">
                       <Typography variant="menu" color="secondary">
-                        Sobre
+                        {t("Footer.menu.about")}
                       </Typography>
                     </NavLink>
                   </Grid>
                   <Grid item>
                     <NavLink to="/contato">
                       <Typography variant="menu" color="secondary">
-                        Contato
+                        {t("Footer.menu.contact")}
                       </Typography>
                     </NavLink>
                   </Grid>
                   <Grid item>
                     <NavLink to="/busca">
                       <Typography variant="menu" color="secondary">
-                        Busca
+                        {t("Footer.menu.search")}
                       </Typography>
                     </NavLink>
                   </Grid>
                   <Grid item>
                     <NavLink to="/login">
                       <Typography variant="menu" color="secondary">
-                        Login
+                        {t("Footer.menu.login")}
                       </Typography>
                     </NavLink>
                   </Grid>
@@ -104,7 +106,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener"
                       underline="none"
-                      href="https://www.facebook.com/SaudeVapor"
+                      href={t("SocialMediaLinks.facebook")}
                     >
                       <FacebookIcon color="secondary" />
                     </Link>
@@ -114,7 +116,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener"
                       underline="none"
-                      href="https://twitter.com/SaudeVapor"
+                      href={t("SocialMediaLinks.twitter")}
                     >
                       <TwitterIcon color="secondary" />
                     </Link>
@@ -124,7 +126,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener"
                       underline="none"
-                      href="https://www.instagram.com/saudevapor/"
+                      href={t("SocialMediaLinks.instagram")}
                     >
                       <InstagramIcon color="secondary" />
                     </Link>
@@ -149,13 +151,13 @@ export default function Footer() {
               <Grid item>
                 <NavLink to="/termos">
                   <Typography variant="underline1" color="secondary">
-                    Termos de uso
+                    {t("Footer.terms")}
                   </Typography>
                 </NavLink>
               </Grid>
               <Grid item>
                 <Typography variant="underline1" color="secondary">
-                  © 2022 SaudeVapor. Todos direitos reservados.
+                  {t("Footer.copyright")}
                 </Typography>
               </Grid>
             </Grid>

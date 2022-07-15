@@ -48,7 +48,7 @@ const DrawerComponent = (props) => {
             <ListItemIcon>
               <InfoIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary={t("about")} />
+            <ListItemText primary={t("Navbar.drawer.menu.about")} />
           </ListItem>
         </Link>
         <Link to="/busca">
@@ -56,7 +56,7 @@ const DrawerComponent = (props) => {
             <ListItemIcon>
               <SearchIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Busca" />
+            <ListItemText primary={t("Navbar.drawer.menu.search")} />
           </ListItem>
         </Link>
         <Link to="/contato">
@@ -64,7 +64,7 @@ const DrawerComponent = (props) => {
             <ListItemIcon>
               <EmailIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Contato" />
+            <ListItemText primary={t("Navbar.drawer.menu.contact")} />
           </ListItem>
         </Link>
         {!props.isAuth ? (
@@ -73,7 +73,7 @@ const DrawerComponent = (props) => {
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary="Login" />
+              <ListItemText primary={t("Navbar.drawer.menu.login")} />
             </ListItem>
           </Link>
         ) : (
@@ -82,7 +82,7 @@ const DrawerComponent = (props) => {
               <ListItemIcon>
                 <PersonIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary="Minha conta" />
+              <ListItemText primary={t("Navbar.drawer.menu.myAccount")} />
             </ListItem>
           </Link>
         )}
@@ -91,7 +91,7 @@ const DrawerComponent = (props) => {
             <ListItemIcon>
               <GridViewIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Blockchain" />
+            <ListItemText primary={t("Navbar.drawer.menu.blockchain")} />
           </ListItem>
         </Link>
 
@@ -124,7 +124,7 @@ const DrawerComponent = (props) => {
             <ListItemIcon>
               <HistoryEduIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Termos de uso" />
+            <ListItemText primary={t("Navbar.drawer.menu.terms")} />
           </ListItem>
         </Link>
       </Box>

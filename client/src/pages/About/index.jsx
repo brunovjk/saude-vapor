@@ -1,11 +1,13 @@
 import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { AdBanner } from "../../components";
 import hero1 from "../../assets/img/hero1.png";
 import hero2 from "../../assets/img/hero2.png";
 import hero3 from "../../assets/img/hero3.png";
 
 export default function About() {
+  const { t } = useTranslation();
   return (
     <Grid
       container
@@ -39,26 +41,17 @@ export default function About() {
         >
           <Grid item xs={12}>
             <Typography variant="h3" color="primary.30">
-              Saude Vapor
+              SaudeVapor
             </Typography>
           </Grid>
           <Grid item xs={12} mt={{ xs: "16px", sm: "32px", md: "64px" }}>
             <Typography variant="h1" color="text.primary">
-              Lorem Ipsum is a dummy text
+              {t("About.heroSection.title")}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry.
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry.
+          <Grid item xs={12} mt={{ xs: "8px", sm: "16px", md: "32px" }}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("About.heroSection.text")}
             </Typography>
           </Grid>
         </Grid>
@@ -101,23 +94,14 @@ export default function About() {
           p={{ xs: "16px", sm: "32x", md: "48px" }}
           spacing={3}
         >
-          <Grid item xs={12}>
+          <Grid item xs={10}>
             <Typography variant="h1" color="text.primary">
-              Lorem Ipsum is a dummy text
+              {t("About.section1.title")}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+          <Grid item xs={10}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("About.section1.text")}
             </Typography>
           </Grid>
         </Grid>
@@ -145,23 +129,24 @@ export default function About() {
           p={{ xs: "16px", sm: "32x", md: "48px" }}
           spacing={3}
         >
-          <Grid item xs={12}>
+          <Grid item xs={10}>
             <Typography variant="h1" color="text.primary">
-              Lorem Ipsum is a dummy text
+              {t("About.section2.title")}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+          <Grid item xs={10}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("About.section2.text1")}
+            </Typography>
+          </Grid>
+          <Grid item xs={10}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("About.section2.text2")}
+            </Typography>
+          </Grid>
+          <Grid item xs={10}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("About.section2.text3")}
             </Typography>
           </Grid>
         </Grid>

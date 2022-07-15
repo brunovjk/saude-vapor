@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Button,
   Dialog,
@@ -11,12 +11,15 @@ import { db } from "../../context/firebase-config";
 import { doc, deleteDoc } from "firebase/firestore";
 import { AlertComponent } from "../../components";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 export default function DeleteConfirmation({
   blogId,
   openDeleteConfirmation,
   setOpenDeleteConfirmation,
 }) {
+  const { selectedLanguage } = useContext(Context);
+
   let navigate = useNavigate();
   const [alertComponent, setAlertComponent] = useState({
     openAlert: false,
@@ -26,7 +29,9 @@ export default function DeleteConfirmation({
 
   const deletePost = async () => {
     try {
-      await deleteDoc(doc(db, "postsBlog", blogId));
+      await deleteDoc(
+        doc(db, "postsBlog", `${selectedLanguage}`, "posts", blogId)
+      );
       setAlertComponent({
         openAlert: true,
         severity: "success",

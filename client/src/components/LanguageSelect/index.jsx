@@ -50,7 +50,7 @@ const LanguageSelect = ({ onClickProps }) => {
       >
         <div>
           <List>
-            <ListSubheader>{t("select_language")}</ListSubheader>
+            <ListSubheader>{t("LanguageSelect.select-language")}</ListSubheader>
             {Object.keys(languageMap)?.map((item) => (
               <ListItem
                 button
@@ -59,7 +59,7 @@ const LanguageSelect = ({ onClickProps }) => {
                   i18next.changeLanguage(item);
                   setMenuAnchor(null);
                   onClickProps();
-                  window.location.reload(false);
+                  // window.location.reload(false);
                 }}
               >
                 {languageMap[item].label}

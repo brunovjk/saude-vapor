@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Typography, Card, CardContent, Grid, Skeleton } from "@mui/material";
 import { shortenAddress } from "../../utils/shortenAddress";
 
 function TokenCard({ data }) {
+  const { t } = useTranslation();
   const [elevation, setElevation] = useState(3);
 
   if (data) {
@@ -56,7 +58,7 @@ function TokenCard({ data }) {
                     WebkitLineClamp: 1,
                   }}
                 >
-                  Token ID:{" "}
+                  {t("TokenCard.tokenId")}
                   {data ? (
                     data.tokenid
                   ) : (
@@ -76,7 +78,7 @@ function TokenCard({ data }) {
                     WebkitLineClamp: 1,
                   }}
                 >
-                  Owner:{" "}
+                  {t("TokenCard.owner")}
                   {data ? (
                     addresssender
                   ) : (

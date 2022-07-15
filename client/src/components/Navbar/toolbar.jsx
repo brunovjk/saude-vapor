@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Typography,
   IconButton,
@@ -51,6 +52,7 @@ function HideOnScroll(props) {
 }
 
 export default function ToolbarComponent(props) {
+  const { t } = useTranslation();
   const { isAuth, setIsAuth, checked } = useContext(Context);
   let navigate = useNavigate();
 
@@ -139,7 +141,9 @@ export default function ToolbarComponent(props) {
                             onClick={props.openDrawerHandler}
                             color="primary"
                           >
-                            <Typography variant="button">Menu</Typography>
+                            <Typography variant="button">
+                              {t("Navbar.toolbar.menu")}
+                            </Typography>
                           </IconButton>
                         </Box>
                       </Grid>
@@ -183,7 +187,7 @@ export default function ToolbarComponent(props) {
                     <Link to="/">
                       <img
                         src={checked ? LogoDesktopDark : LogoDesktopLight}
-                        alt="Icon Saude Vapor"
+                        alt="Icon SaudeVapor"
                       />
                     </Link>
                   </Box>
@@ -255,7 +259,9 @@ export default function ToolbarComponent(props) {
                             display: { xs: "block", sm: "none" },
                           }}
                         >
-                          <Tooltip title="Configurações da conta">
+                          <Tooltip
+                            title={t("Navbar.toolbar.tolltipAccountConfig")}
+                          >
                             <IconButton
                               color="primary"
                               size="small"
@@ -339,7 +345,9 @@ export default function ToolbarComponent(props) {
                             bgcolor: "primary.50",
                           }}
                         />
-                        <Typography variant="menu">Minha conta</Typography>
+                        <Typography variant="menu">
+                          {t("Navbar.toolbar.myAccount")}
+                        </Typography>
                       </MenuItem>
                     </Link>
 
@@ -357,7 +365,9 @@ export default function ToolbarComponent(props) {
                         <ListItemIcon>
                           <EmailIcon fontSize="small" color="primary" />
                         </ListItemIcon>
-                        <Typography variant="menu">Contato</Typography>
+                        <Typography variant="menu">
+                          {t("Navbar.toolbar.contact")}
+                        </Typography>
                       </MenuItem>
                     </Link>
 
@@ -365,7 +375,9 @@ export default function ToolbarComponent(props) {
                       <ListItemIcon>
                         <Logout fontSize="small" color="primary" />
                       </ListItemIcon>
-                      <Typography variant="menu">Sair</Typography>
+                      <Typography variant="menu">
+                        {t("Navbar.toolbar.logout")}
+                      </Typography>
                     </MenuItem>
                   </Menu>
                 </Grid>

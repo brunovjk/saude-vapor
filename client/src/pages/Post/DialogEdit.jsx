@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   TextField,
@@ -12,8 +12,11 @@ import {
 import { db } from "../../context/firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
 import { AlertComponent } from "../../components";
+import { Context } from "../../context/Context";
 
 export default function DialogEdit({ open, setOpen, blogId, postData }) {
+  const { selectedLanguage } = useContext(Context);
+
   const [editValues, setEditValues] = useState(postData);
   const [alertComponent, setAlertComponent] = useState({
     openAlert: false,
@@ -34,15 +37,18 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
 
   const editPost = async () => {
     try {
-      await updateDoc(doc(db, "postsBlog", blogId), {
-        title: editValues.title,
-        category: editValues.category,
-        date: editValues.date,
-        author: editValues.author,
-        linkAuthor: editValues.linkAuthor,
-        urlImage: editValues.urlImage,
-        text: editValues.text,
-      });
+      await updateDoc(
+        doc(db, "postsBlog", `${selectedLanguage}`, "posts", blogId),
+        {
+          title: editValues.title,
+          category: editValues.category,
+          date: editValues.date,
+          author: editValues.author,
+          linkAuthor: editValues.linkAuthor,
+          urlImage: editValues.urlImage,
+          text: editValues.text,
+        }
+      );
       handleClose();
       setAlertComponent({
         openAlert: true,

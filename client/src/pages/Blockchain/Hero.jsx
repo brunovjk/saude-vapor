@@ -1,10 +1,12 @@
 import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
 import { AdBanner } from "../../components";
+import { useTranslation } from "react-i18next";
 import hero1 from "../../assets/img/hero1.png";
 import hero2 from "../../assets/img/hero2.png";
 
 export default function Hero() {
+  const { t } = useTranslation();
   return (
     <Grid
       container
@@ -39,19 +41,12 @@ export default function Hero() {
         >
           <Grid item xs={12}>
             <Typography variant="h3" color="primary.30">
-              Saude Vapor
+              SaudeVapor
             </Typography>
           </Grid>
-          <Grid item xs={12} mt={{ xs: "16px", sm: "32px", md: "64px" }}>
-            <Typography variant="h1" color="text.primary">
-              Lorem Ipsum is a dummy text
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body2" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry.
+          <Grid item xs={12} my={{ xs: "16px", sm: "32px", lg: "86px" }}>
+            <Typography variant="subtitle" color="text.secondary">
+              {t("Blockchain.heroSection.text")}
             </Typography>
           </Grid>
         </Grid>
@@ -100,21 +95,12 @@ export default function Hero() {
         >
           <Grid item xs={12}>
             <Typography variant="h1" color="text.primary">
-              Lorem Ipsum is a dummy text
+              {t("Blockchain.section1.title")}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+              {t("Blockchain.section1.text")}
             </Typography>
           </Grid>
         </Grid>
