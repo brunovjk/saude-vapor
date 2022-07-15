@@ -12,10 +12,8 @@ import {
   Typography,
   Skeleton,
   Box,
-  Snackbar,
-  Alert,
 } from "@mui/material";
-import { EditorContainerComp } from "../../../../components";
+import { EditorContainerComp, AlertComponent } from "../../../../components";
 
 export default function ProposalEditor() {
   let months = [
@@ -41,20 +39,17 @@ export default function ProposalEditor() {
 
   const [loadingPropose, setLoadingPropose] = useState(false);
   const [successPropose, setSuccessPropose] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
 
   const handleChangeTitle = (event) => {
     setUriTitle(event.target.value);
   };
   const handleChangeLanguage = (event) => {
     setLanguage(event.target.value);
-  };
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenAlert(false);
   };
 
   const handlePropose = async (event) => {
@@ -84,24 +79,29 @@ export default function ProposalEditor() {
           description
         );
         await proposeTX.wait(1);
-        const data = await proposeTX.wait(1);
-
-        console.log(data);
 
         setLoadingPropose(false);
         setSuccessPropose(true);
+        setAlertComponent({
+          openAlert: true,
+          severity: "success",
+          message: "Proposta criada com sucesso.",
+        });
 
         setTimeout(() => {
-          // Propose sended, refresh page
+          window.location.reload(false);
           setSuccessPropose(false);
         }, 2000);
       } catch (err) {
         console.log(err);
       }
     } else {
-      setAlertMessage("Nao foi possivel ciar sua proposta.");
       setLoadingPropose(false);
-      setOpenAlert(true);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Nao foi possivel ciar sua proposta.",
+      });
     }
   };
 
@@ -200,19 +200,10 @@ export default function ProposalEditor() {
             </Grid>
           </Grid>
           {/* Alert */}
-          <Snackbar
-            open={openAlert}
-            autoHideDuration={6000}
-            onClose={handleClose}
-          >
-            <Alert
-              onClose={handleClose}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              {alertMessage}
-            </Alert>
-          </Snackbar>
+          <AlertComponent
+            alertComponent={alertComponent}
+            setAlertComponent={setAlertComponent}
+          />
         </Paper>
       </Box>
     </>

@@ -6,13 +6,12 @@ import {
   Button,
   Typography,
   TextField,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 import { Context } from "../../context/Context";
 import DeleteDialog from "./DeleteDialog";
 import { auth } from "../../context/firebase-config";
 import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
+import { AlertComponent } from "../../components";
 
 export default function MyAccount() {
   const { isAuth } = useContext(Context);
@@ -26,8 +25,11 @@ export default function MyAccount() {
   const [emailButtonState, setEmailButtonState] = useState(true);
   const [passwordButtonState, setPasswordButtonState] = useState(true);
 
-  const [successAlert, setSuccessAlert] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
 
   const user = auth.currentUser;
 
@@ -49,10 +51,11 @@ export default function MyAccount() {
 
   const nameButton = () => {
     if (providerId !== "password") {
-      setSuccessMessage(
-        `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`
-      );
-      setSuccessAlert(true);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+      });
       return;
     } else {
       try {
@@ -64,16 +67,21 @@ export default function MyAccount() {
           })
             .then(() => {
               setNameButtonState(true);
-              setSuccessMessage("Nome alterado com sucesso");
-              setSuccessAlert(true);
+              setAlertComponent({
+                openAlert: true,
+                severity: "success",
+                message: "Nome alterado com sucesso.",
+              });
             })
             .catch((error) => {
-              console.log(error);
+              setAlertComponent({
+                openAlert: true,
+                severity: "error",
+                message: "Não foi possível alterar o nome.",
+              });
             });
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 
@@ -83,10 +91,11 @@ export default function MyAccount() {
 
   const emailButton = () => {
     if (providerId !== "password") {
-      setSuccessMessage(
-        `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`
-      );
-      setSuccessAlert(true);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+      });
       return;
     } else {
       try {
@@ -96,16 +105,21 @@ export default function MyAccount() {
           updateEmail(auth.currentUser, email)
             .then(() => {
               setEmailButtonState(true);
-              setSuccessMessage("E-mail alterado com sucesso");
-              setSuccessAlert(true);
+              setAlertComponent({
+                openAlert: true,
+                severity: "success",
+                message: "E-mail alterado com sucesso",
+              });
             })
             .catch((error) => {
-              console.log(error);
+              setAlertComponent({
+                openAlert: true,
+                severity: "error",
+                message: "Não foi possível alterar o email.",
+              });
             });
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
   };
 
@@ -115,10 +129,11 @@ export default function MyAccount() {
 
   const passwordButton = () => {
     if (providerId !== "password") {
-      setSuccessMessage(
-        `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`
-      );
-      setSuccessAlert(true);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+      });
       return;
     } else {
       try {
@@ -128,24 +143,22 @@ export default function MyAccount() {
           updatePassword(auth.currentUser, password)
             .then(() => {
               setPasswordButtonState(true);
-              setSuccessMessage("Senha alterado com sucesso");
-              setSuccessAlert(true);
+              setAlertComponent({
+                openAlert: true,
+                severity: "success",
+                message: "Senha alterado com sucesso.",
+              });
             })
             .catch((error) => {
-              console.log(error);
+              setAlertComponent({
+                openAlert: true,
+                severity: "error",
+                message: "Não foi possível alterar sua senha.",
+              });
             });
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
-  };
-
-  const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSuccessAlert(false);
   };
 
   return (
@@ -295,19 +308,10 @@ export default function MyAccount() {
         setOpenDeleteDialog={setOpenDeleteDialog}
       />
       {/* Alert */}
-      <Snackbar
-        open={successAlert}
-        autoHideDuration={6000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          {successMessage}
-        </Alert>
-      </Snackbar>
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
     </>
   );
 }

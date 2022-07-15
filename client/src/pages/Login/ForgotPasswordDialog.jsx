@@ -8,31 +8,24 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Alert,
-  Snackbar,
 } from "@mui/material";
 import { auth } from "../../context/firebase-config";
 import { sendPasswordResetEmail } from "firebase/auth";
+import { AlertComponent } from "../../components";
 
 export default function FormDialog({
   openForgotPassDialog,
   setOpenForgotPassDialog,
 }) {
   const [email, setEmail] = useState("");
-  const [typeAlert, setTypeAlert] = useState();
-  const [alertMessage, setAlertMessage] = useState(false);
-
-  const [errorMessage, setErrorMessage] = useState("");
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
 
   const handleEmailChange = (value) => {
     setEmail(value.target.value);
-  };
-
-  const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setAlertMessage(false);
   };
 
   const handleClose = () => {
@@ -44,15 +37,22 @@ export default function FormDialog({
 
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        setTypeAlert("success");
-        setErrorMessage("Email enviado com successo.");
-        setAlertMessage(true);
-        handleClose();
+        setAlertComponent({
+          openAlert: true,
+          severity: "success",
+          message: "Email enviado com sucesso.",
+        });
+        setTimeout(() => {
+          handleClose();
+        }, 1000);
       })
       .catch((error) => {
-        setTypeAlert("error");
-        setErrorMessage("Email não cadastrado em nossa base de dados");
-        setAlertMessage(true);
+        setAlertComponent({
+          openAlert: true,
+          severity: "error",
+          message: "Email não cadastrado em nossa base de dados.",
+        });
+
         handleClose();
       });
   };
@@ -86,19 +86,10 @@ export default function FormDialog({
       </Dialog>
 
       {/* Alert */}
-      <Snackbar
-        open={alertMessage}
-        autoHideDuration={6000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity={typeAlert}
-          sx={{ width: "100%" }}
-        >
-          {errorMessage}
-        </Alert>
-      </Snackbar>
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
     </>
   );
 }

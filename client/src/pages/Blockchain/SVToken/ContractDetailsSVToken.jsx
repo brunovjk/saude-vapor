@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ContractContext } from "../Context";
-import { ContractDetails } from "../../../components";
+import { ContractDetails, AlertComponent } from "../../../components";
 import BigNumber from "bignumber.js";
 
 export default function ContractDetailsSVToken() {
@@ -9,15 +9,28 @@ export default function ContractDetailsSVToken() {
   const [inputFunction, setInputFunction] = useState([]);
 
   const [collectionInfo, setCollectionInfo] = useState({});
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
 
   const burnTokenId = async () => {
     try {
       const tokenId = `${inputFunction.burntoken}`;
       const burnTokenId = await SVToken_Contract.burn(tokenId);
       await burnTokenId.wait(1); // const data = await burnTokenId.wait(1);
-      // console.log(data.events);
+      setAlertComponent({
+        openAlert: true,
+        severity: "success",
+        message: "Token queimado com sucesso.",
+      });
     } catch (error) {
-      console.log(error);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Error ao queimar token.",
+      });
     }
   };
 
@@ -51,39 +64,45 @@ export default function ContractDetailsSVToken() {
   }, [currentAccount, SVToken_Contract]);
 
   return (
-    <ContractDetails
-      title="SVToken Contract Details"
-      inputFunction={inputFunction}
-      setInputFunction={setInputFunction}
-      data={[
-        {
-          nameFunction: "Symbol and Name",
-          inicialContent: collectionInfo.symbolName,
-        },
-        {
-          nameFunction: "Total supply",
-          inicialContent: collectionInfo.totalSupply,
-        },
-        {
-          nameFunction: "Current Account",
-          inicialContent: currentAccount,
-        },
-        {
-          nameFunction: "Your balance",
-          inicialContent: collectionInfo.balanceOf,
-        },
-        {
-          nameFunction: "Voting power",
-          inicialContent: collectionInfo.getVotes,
-        },
-        {
-          nameFunction: "Burn Token",
-          button: "burn",
-          buttonFunction: burnTokenId,
-          inicialContent: "Insert a valid Token ID", //Label
-          gasFee: true,
-        },
-      ]}
-    />
+    <>
+      <ContractDetails
+        title="SVToken Contract Details"
+        inputFunction={inputFunction}
+        setInputFunction={setInputFunction}
+        data={[
+          {
+            nameFunction: "Symbol and Name",
+            inicialContent: collectionInfo.symbolName,
+          },
+          {
+            nameFunction: "Total supply",
+            inicialContent: collectionInfo.totalSupply,
+          },
+          {
+            nameFunction: "Current Account",
+            inicialContent: currentAccount,
+          },
+          {
+            nameFunction: "Your balance",
+            inicialContent: collectionInfo.balanceOf,
+          },
+          {
+            nameFunction: "Voting power",
+            inicialContent: collectionInfo.getVotes,
+          },
+          {
+            nameFunction: "Burn Token",
+            button: "burn",
+            buttonFunction: burnTokenId,
+            inicialContent: "Insert a valid Token ID", //Label
+            gasFee: true,
+          },
+        ]}
+      />
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
+    </>
   );
 }

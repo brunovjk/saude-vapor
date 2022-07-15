@@ -12,11 +12,9 @@ import {
   CircularProgress,
   Skeleton,
   CardMedia,
-  Snackbar,
-  Alert,
 } from "@mui/material";
 
-import EditorContainerComp from "../../components/EditorContainerComp";
+import { EditorContainerComp, AlertComponent } from "../../components";
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../../context/firebase-config";
@@ -73,8 +71,11 @@ export default function Publish() {
   const [success, setSuccess] = useState(false);
   const [loadingPost, setLoadingPost] = useState(false);
   const [successPost, setSuccessPost] = useState(false);
-  const [open, setOpen] = useState(false);
-
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
   const handleChangeImage = (event) => {
     if (event.target.files[0]) {
       setStateDisabled(false);
@@ -154,14 +155,6 @@ export default function Publish() {
     setLinkAuthor(event.target.value);
   };
 
-  // handleClose Alert
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
   //Handle docName
   useEffect(() => {
     if (title && dateToId) {
@@ -235,7 +228,12 @@ export default function Publish() {
       }
     } else {
       setLoadingPost(false);
-      setOpen(true);
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message:
+          "Você precisa preencher todos os campos para crir um post. Inclusive uma imagem.",
+      });
     }
 
     // Finish uploading post
@@ -451,12 +449,10 @@ export default function Publish() {
         </Grid>
       </Grid>
       {/* Alert */}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Você precisa preencher todos os campos para crir um post. Inclusive
-          uma imagem.
-        </Alert>
-      </Snackbar>
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
     </Box>
   );
 }

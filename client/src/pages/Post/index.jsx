@@ -5,10 +5,8 @@ import SkeletonPost from "./SkeletonPost";
 import DialogEdit from "./DialogEdit";
 import DeleteConfirmation from "./DeleteConfirmation";
 
-import { Alert, Snackbar } from "@mui/material";
-
 import { db } from "../../context/firebase-config";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 import { Context } from "../../context/Context";
 
@@ -23,7 +21,6 @@ export default function Post() {
   const [dataExist, setDataExist] = useState(false);
   const [postData, setPostData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
 
   useEffect(() => {
@@ -54,24 +51,6 @@ export default function Post() {
     setOpen(true);
   };
 
-  const deletePost = async () => {
-    try {
-      await deleteDoc(doc(db, "postsBlog", blogId));
-      setOpenAlert(true);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // handleClose Alert
-  const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenAlert(false);
-  };
-
   return (
     <>
       {dataExist ? (
@@ -83,9 +62,9 @@ export default function Post() {
             postData={postData}
           />
           <DeleteConfirmation
+            blogId={blogId}
             openDeleteConfirmation={openDeleteConfirmation}
             setOpenDeleteConfirmation={setOpenDeleteConfirmation}
-            deletePost={deletePost}
           />
 
           <DataPost
@@ -94,19 +73,6 @@ export default function Post() {
             setOpenDeleteConfirmation={setOpenDeleteConfirmation}
             isAuth={isAuth}
           />
-          <Snackbar
-            open={openAlert}
-            autoHideDuration={6000}
-            onClose={handleCloseAlert}
-          >
-            <Alert
-              onClose={handleCloseAlert}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-              Post deletado com sucesso.
-            </Alert>
-          </Snackbar>
         </>
       ) : (
         <SkeletonPost />

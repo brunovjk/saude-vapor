@@ -12,3 +12,4 @@ export { default as ProposalCard } from "./ProposalCard";
 export { default as ContractDetails } from "./ContractDetails";
 export { default as ScrollToSection } from "./ScrollToSection";
 export { default as LanguageSelect } from "./LanguageSelect";
+export { default as AlertComponent } from "./AlertComponent";

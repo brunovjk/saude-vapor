@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ContractContext } from "../Context";
-import { ContractDetails } from "../../../components";
+import { ContractDetails, AlertComponent } from "../../../components";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 
@@ -12,6 +12,12 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
 
   const [proposalInfo, setproposalInfo] = useState({});
 
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
+
   const castVote = async () => {
     try {
       const vote = inputFunction.castvote;
@@ -22,7 +28,18 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
 
       const castVote = await SVGovernance_Contract.castVote(proposalId, vote);
       await castVote.wait(1);
-    } catch (error) {}
+      setAlertComponent({
+        openAlert: true,
+        severity: "success",
+        message: "Voto computado com sucesso.",
+      });
+    } catch (error) {
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Erro ao computar voto.",
+      });
+    }
   };
   const queue = async () => {
     try {
@@ -37,7 +54,18 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
         descriptionHash
       );
       await queue.wait(1);
-    } catch (error) {}
+      setAlertComponent({
+        openAlert: true,
+        severity: "success",
+        message: "Proposta enfileirada com sucesso.",
+      });
+    } catch (error) {
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Erro ao enfileirar proposta.",
+      });
+    }
   };
   const execute = async () => {
     try {
@@ -52,7 +80,18 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
         descriptionHash
       );
       await execute.wait(1);
-    } catch (error) {}
+      setAlertComponent({
+        openAlert: true,
+        severity: "success",
+        message: "Proposta executada com sucesso.",
+      });
+    } catch (error) {
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Erro ao executar proposta.",
+      });
+    }
   };
 
   useEffect(() => {
@@ -109,60 +148,67 @@ export default function ContractDetailsSVGovernance({ proposalEvent }) {
   ]);
 
   return (
-    <ContractDetails
-      title="SVToken Contract Details"
-      inputFunction={inputFunction}
-      setInputFunction={setInputFunction}
-      data={[
-        {
-          nameFunction: "Cast vote",
-          button: "vote",
-          buttonFunction: castVote,
-          inicialContent: "0 = Against, 1 = For, 2 = Abstain",
-          gasFee: true,
-        },
-        {
-          nameFunction: "Queue proposal",
-          button: "queue",
-          buttonFunction: queue,
-          inicialContent: "Queue a valid proposal that has enoght Quorum ",
-          gasFee: true,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Execute proposal",
-          button: "execute",
-          buttonFunction: execute,
-          inicialContent: "Execute a valid proposal that has enoght Quorum ",
-          gasFee: true,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Voting config",
-          inicialContent: proposalInfo.votingConfig,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Proposal config",
-          inicialContent: proposalInfo.proposalConfig,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Proposal votes",
-          inicialContent: proposalInfo.proposalVotes,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Current account",
-          inicialContent: currentAccount,
-          disableInput: true,
-        },
-        {
-          nameFunction: "Has voted",
-          inicialContent: proposalInfo.hasVoted,
-          disableInput: true,
-        },
-      ]}
-    />
+    <>
+      <ContractDetails
+        title="SVToken Contract Details"
+        inputFunction={inputFunction}
+        setInputFunction={setInputFunction}
+        data={[
+          {
+            nameFunction: "Cast vote",
+            button: "vote",
+            buttonFunction: castVote,
+            inicialContent: "0 = Against, 1 = For, 2 = Abstain",
+            gasFee: true,
+          },
+          {
+            nameFunction: "Queue proposal",
+            button: "queue",
+            buttonFunction: queue,
+            inicialContent: "Queue a valid proposal that has enoght Quorum ",
+            gasFee: true,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Execute proposal",
+            button: "execute",
+            buttonFunction: execute,
+            inicialContent: "Execute a valid proposal that has enoght Quorum ",
+            gasFee: true,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Voting config",
+            inicialContent: proposalInfo.votingConfig,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Proposal config",
+            inicialContent: proposalInfo.proposalConfig,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Proposal votes",
+            inicialContent: proposalInfo.proposalVotes,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Current account",
+            inicialContent: currentAccount,
+            disableInput: true,
+          },
+          {
+            nameFunction: "Has voted",
+            inicialContent: proposalInfo.hasVoted,
+            disableInput: true,
+          },
+        ]}
+      />
+      {/* Alert */}
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
+    </>
   );
 }

@@ -7,16 +7,19 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Alert,
-  Snackbar,
 } from "@mui/material";
 
 import { db } from "../../context/firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
+import { AlertComponent } from "../../components";
 
 export default function DialogEdit({ open, setOpen, blogId, postData }) {
   const [editValues, setEditValues] = useState(postData);
-  const [openAlert, setOpenAlert] = useState(false);
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
 
   useEffect(() => {
     setEditValues(postData);
@@ -30,30 +33,36 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
   };
 
   const editPost = async () => {
-    await updateDoc(doc(db, "postsBlog", blogId), {
-      title: editValues.title,
-      category: editValues.category,
-      date: editValues.date,
-      author: editValues.author,
-      linkAuthor: editValues.linkAuthor,
-      urlImage: editValues.urlImage,
-      text: editValues.text,
-    });
-    handleClose();
-    setOpenAlert(true);
-    window.location.reload(false);
+    try {
+      await updateDoc(doc(db, "postsBlog", blogId), {
+        title: editValues.title,
+        category: editValues.category,
+        date: editValues.date,
+        author: editValues.author,
+        linkAuthor: editValues.linkAuthor,
+        urlImage: editValues.urlImage,
+        text: editValues.text,
+      });
+      handleClose();
+      setAlertComponent({
+        openAlert: true,
+        severity: "success",
+        message: "Post editado com sucesso.",
+      });
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 1000);
+    } catch (error) {
+      setAlertComponent({
+        openAlert: true,
+        severity: "error",
+        message: "Você não tem permissão para editar este post.",
+      });
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  // handleClose Alert
-  const handleCloseAlert = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenAlert(false);
   };
 
   return (
@@ -156,19 +165,10 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
         </DialogActions>
       </Dialog>
       {/* Alert */}
-      <Snackbar
-        open={openAlert}
-        autoHideDuration={6000}
-        onClose={handleCloseAlert}
-      >
-        <Alert
-          onClose={handleCloseAlert}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Post editado com sucesso.
-        </Alert>
-      </Snackbar>
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
     </>
   );
 }

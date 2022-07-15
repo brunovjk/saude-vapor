@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -14,8 +14,14 @@ import accountImg from "../../assets/img/accountImg.jpg";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { AlertComponent } from "../../components";
 
 export default function Contact() {
+  const [alertComponent, setAlertComponent] = useState({
+    openAlert: false,
+    severity: "success",
+    message: "",
+  });
   return (
     <Container>
       <Grid
@@ -161,12 +167,26 @@ export default function Contact() {
               alignItems: "center",
             }}
           >
-            <Button fullWidth={true} sx={{ m: { xs: "16px", sm: "32px" } }}>
+            <Button
+              fullWidth={true}
+              sx={{ m: { xs: "16px", sm: "32px" } }}
+              onClick={() => {
+                setAlertComponent({
+                  openAlert: true,
+                  severity: "success",
+                  message: "Mensagem enviada com sucesso.",
+                });
+              }}
+            >
               Enviar
             </Button>
           </Grid>
         </Grid>
       </Grid>
+      <AlertComponent
+        alertComponent={alertComponent}
+        setAlertComponent={setAlertComponent}
+      />
     </Container>
   );
 }
