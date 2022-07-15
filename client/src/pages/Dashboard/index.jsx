@@ -21,7 +21,7 @@ export default function Dashboard() {
       >
         {/* AdBanner */}
         <Grid item xs={12}>
-          <Box p={{ xs: "8px 16px", sm: "16px 32px", lg: "32px 128px" }}>
+          <Box p={{ xs: "8px 16px", sm: "16px 32px", lg: "32px 48px" }}>
             <AdBanner />
           </Box>
         </Grid>

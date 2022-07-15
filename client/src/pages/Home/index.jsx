@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SkeletonHome from "./SkeletonHome";
 import DataHome from "./DataHome";
 
@@ -6,14 +6,17 @@ import { db } from "../../context/firebase-config";
 import {
   collection,
   query,
-  where,
   orderBy,
   limit,
   getDocs,
   startAt,
+  where,
 } from "firebase/firestore";
+import { Context } from "../../context/Context";
 
 export default function Home() {
+  const { selectedLanguage } = useContext(Context);
+
   const [dataExist, setDataExist] = useState(false);
   const [noticiaQueryData, setNoticiaQueryData] = useState([]);
   const [artigoQueryData, setArtigoQueryData] = useState([]);
@@ -40,38 +43,38 @@ export default function Home() {
   }-${new Date().getDate()}`;
 
   useEffect(() => {
-  const getCollection = async () => {
-    try {
-      const qNoticia = query(
-        collection(db, "postsBlog"),
-        where("category", "==", "Noticias"),
-        orderBy("docName", "desc"),
-        limit(7)
-      );
+    const getCollection = async () => {
+      try {
+        const qNoticia = query(
+          collection(db, "postsBlog", `${selectedLanguage}`, "posts"),
+          where("category", "==", "news"),
+          orderBy("docName", "desc"),
+          limit(7)
+        );
 
-      const qArtigos = query(
-        collection(db, "postsBlog"),
-        where("category", "==", "Artigos"),
-        orderBy("docName", "desc"),
-        startAt(currentDate),
-        limit(infinityScrollNumber + 12)
-      );
+        const qArtigos = query(
+          collection(db, "postsBlog", `${selectedLanguage}`, "posts"),
+          where("category", "==", "articles"),
+          orderBy("docName", "desc"),
+          startAt(currentDate),
+          limit(infinityScrollNumber + 12)
+        );
 
-      const queryNoticias = await getDocs(qNoticia);
-      const queryNArtigos = await getDocs(qArtigos);
+        const queryNoticias = await getDocs(qNoticia);
+        const queryNArtigos = await getDocs(qArtigos);
 
-      setNoticiaQueryData(
-        queryNoticias.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-      setArtigoQueryData(
-        queryNArtigos.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        setNoticiaQueryData(
+          queryNoticias.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+        setArtigoQueryData(
+          queryNArtigos.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getCollection();
-  }, [currentDate, infinityScrollNumber]);
+  }, [currentDate, infinityScrollNumber, selectedLanguage]);
 
   useEffect(() => {
     if (noticiaQueryData.length > 0) {

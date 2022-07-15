@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   Grid,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 
 import { EditorContainerComp, AlertComponent } from "../../components";
+import { Context } from "../../context/Context";
 
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../../context/firebase-config";
@@ -53,10 +54,13 @@ export default function Publish() {
   ];
 
   let navigate = useNavigate();
+  const { selectedLanguage } = useContext(Context);
+
   const [urlImage, setUrlImage] = useState("");
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(null);
+  const [lang, setLang] = useState(selectedLanguage);
   const [docName, setDocName] = useState("");
   const [author, setAuthor] = useState("");
   const [linkAuthor, setLinkAuthor] = useState("NULL");
@@ -115,7 +119,7 @@ export default function Publish() {
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
-    if (event.target.value === "Artigos") {
+    if (event.target.value === "articles") {
       setShowDatePicker(true);
     } else {
       setShowDatePicker(false);
@@ -147,6 +151,9 @@ export default function Publish() {
       } ${event.target.value.slice(0, 4)} `;
       setDate(dateFormated);
     }
+  };
+  const handleChangeLang = (event) => {
+    setLang(event.target.value);
   };
   const handleChangeAuthor = (event) => {
     setAuthor(event.target.value);
@@ -197,11 +204,13 @@ export default function Publish() {
       category &&
       title &&
       date &&
+      lang &&
       author &&
       linkAuthor &&
       text
     ) {
-      const postsCollectionRef = doc(db, "postsBlog", `${docName}`);
+      const collectionRefLanguage = `postsBlog/${lang}/posts`;
+      const postsCollectionRef = doc(db, collectionRefLanguage, `${docName}`);
 
       try {
         await setDoc(postsCollectionRef, {
@@ -210,6 +219,7 @@ export default function Publish() {
           category,
           title,
           date,
+          lang,
           author,
           linkAuthor,
           text,
@@ -224,7 +234,11 @@ export default function Publish() {
           navigate("/");
         }, 2000);
       } catch (err) {
-        console.log(err);
+        setAlertComponent({
+          openAlert: true,
+          severity: "error",
+          message: "Você nao tem permissao para criar post, entre em contato.",
+        });
       }
     } else {
       setLoadingPost(false);
@@ -335,7 +349,7 @@ export default function Publish() {
           spacing={2}
         >
           {/* Handle category */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={4} md={3}>
             <FormControl required fullWidth={true}>
               <InputLabel name="category-select-label">Categoria</InputLabel>
               <Select
@@ -345,13 +359,13 @@ export default function Publish() {
                 label="Categoria"
                 onChange={handleChangeCategory}
               >
-                <MenuItem value={"Noticias"}>Noticias</MenuItem>
-                <MenuItem value={"Artigos"}>Artigos</MenuItem>
+                <MenuItem value={"news"}>Noticias</MenuItem>
+                <MenuItem value={"articles"}>Artigos</MenuItem>
               </Select>
             </FormControl>
           </Grid>
           {/* Handle date */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={4} md={3}>
             {showDatePicker && (
               <TextField
                 required
@@ -363,96 +377,112 @@ export default function Publish() {
               />
             )}
           </Grid>
-        </Grid>
-        {/* Select Author and LinkAuthor */}
-        <Grid
-          container
-          item
-          xs={12}
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          spacing={2}
-        >
-          {/* Handle author */}
-          <Grid item xs={12} sm={6}>
+          {/* Handle lang */}
+          <Grid item xs={12} sm={4} md={3}>
+            <FormControl required fullWidth={true}>
+              <InputLabel name="lang-select-label">Idioma</InputLabel>
+              <Select
+                labelId="lang-select-label"
+                name="lang"
+                value={lang}
+                label="Idioma"
+                onChange={handleChangeLang}
+              >
+                <MenuItem value={"en"}>en</MenuItem>
+                <MenuItem value={"pt-BR"}>pt-BR</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          {/* Select Author and LinkAuthor */}
+          <Grid
+            container
+            item
+            xs={12}
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={2}
+          >
+            {/* Handle author */}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth={true}
+                name="author"
+                label="Autor"
+                variant="outlined"
+                onChange={handleChangeAuthor}
+              />
+            </Grid>
+            {/* Handle link author */}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth={true}
+                type="url"
+                name="link-author"
+                label="Link de referência ao Autor"
+                variant="outlined"
+                onChange={handleChangeLinkAuthor}
+              />
+            </Grid>
+          </Grid>
+          {/* Title */}
+          <Grid item xs={12}>
             <TextField
               required
               fullWidth={true}
-              name="author"
-              label="Autor"
+              name="title"
+              label="Titulo"
               variant="outlined"
-              onChange={handleChangeAuthor}
+              onChange={handleChangeTitle}
             />
           </Grid>
-          {/* Handle link author */}
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth={true}
-              type="url"
-              name="link-author"
-              label="Link de referência ao Autor"
-              variant="outlined"
-              onChange={handleChangeLinkAuthor}
-            />
+          {/* Text area */}
+          <Grid item xs={12}>
+            <EditorContainerComp setText={setText} />
           </Grid>
-        </Grid>
-        {/* Title */}
-        <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth={true}
-            name="title"
-            label="Titulo"
-            variant="outlined"
-            onChange={handleChangeTitle}
-          />
-        </Grid>
-        {/* Text area */}
-        <Grid item xs={12}>
-          <EditorContainerComp setText={setText} />
-        </Grid>
-        {/* Button */}
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              m: 1,
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              type="submit"
-              variant={successPost ? "outlined" : "contained"}
-              color={successPost ? "success" : "primary"}
-              disabled={loadingPost}
-              sx={{ minWidth: "180px" }}
+          {/* Button */}
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                m: 1,
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              {successPost ? "Post Criado" : "Enviar post"}
-            </Button>
-            {loadingPost && (
-              <CircularProgress
-                size={24}
-                sx={{
-                  color: "primary",
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  marginTop: "-12px",
-                  marginLeft: "-12px",
-                }}
-              />
-            )}
-          </Box>
+              <Button
+                type="submit"
+                variant={successPost ? "outlined" : "contained"}
+                color={successPost ? "success" : "primary"}
+                disabled={loadingPost}
+                sx={{ minWidth: "180px" }}
+              >
+                {successPost ? "Post Criado" : "Enviar post"}
+              </Button>
+              {loadingPost && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    color: "primary",
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    marginTop: "-12px",
+                    marginLeft: "-12px",
+                  }}
+                />
+              )}
+            </Box>
+          </Grid>
         </Grid>
+        {/* Alert */}
+        <AlertComponent
+          alertComponent={alertComponent}
+          setAlertComponent={setAlertComponent}
+        />
       </Grid>
-      {/* Alert */}
-      <AlertComponent
-        alertComponent={alertComponent}
-        setAlertComponent={setAlertComponent}
-      />
     </Box>
   );
 }

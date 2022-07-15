@@ -16,7 +16,7 @@ const languageMap = {
 };
 
 const LanguageSelect = ({ onClickProps }) => {
-  const selected = localStorage.getItem("i18nextLng") || "en";
+  const selectedLanguage = localStorage.getItem("i18nextLng") || "en";
   const { t } = useTranslation();
 
   const [menuAnchor, setMenuAnchor] = React.useState(null);
@@ -30,7 +30,9 @@ const LanguageSelect = ({ onClickProps }) => {
         alignItems="center"
         onClick={({ currentTarget }) => setMenuAnchor(currentTarget)}
       >
-        <Typography variant="menu">{languageMap[selected].label}</Typography>
+        <Typography variant="menu">
+          {languageMap[selectedLanguage].label}
+        </Typography>
         <ArrowDropDownIcon />
       </Typography>
       <Popover
@@ -57,6 +59,7 @@ const LanguageSelect = ({ onClickProps }) => {
                   i18next.changeLanguage(item);
                   setMenuAnchor(null);
                   onClickProps();
+                  window.location.reload(false);
                 }}
               >
                 {languageMap[item].label}

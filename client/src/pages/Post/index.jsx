@@ -13,7 +13,7 @@ import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function Post() {
-  const { isAuth } = useContext(Context);
+  const { isAuth, selectedLanguage } = useContext(Context);
 
   let navigate = useNavigate();
   let blogId = decodeURI(window.location.pathname.split("/").pop());
@@ -27,7 +27,7 @@ export default function Post() {
     const getPost = async () => {
       try {
         if (blogId) {
-          const docRef = doc(db, "postsBlog", blogId);
+          const docRef = doc(db, `postsBlog/${selectedLanguage}/posts`, blogId);
 
           const dataDocRef = await getDoc(docRef);
 
@@ -36,7 +36,7 @@ export default function Post() {
           if (dataDocRef.data() !== undefined) {
             setDataExist(true);
           } else {
-            navigate("/NotFound");
+            // navigate("/NotFound");
           }
         }
       } catch (error) {

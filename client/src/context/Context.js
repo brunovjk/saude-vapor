@@ -6,6 +6,8 @@ export const ContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const [checked, setChecked] = useState(false);
 
+  const selectedLanguage = localStorage.getItem("i18nextLng") || "en";
+
   const handleChangeDarkMode = () => {
     setChecked((c) => !c);
   };
@@ -13,6 +15,7 @@ export const ContextProvider = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        selectedLanguage,
         isAuth,
         setIsAuth,
         checked,
