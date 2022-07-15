@@ -134,5 +134,190 @@
         "text2": "or register with"
       }
     }
+  },
+  "Dashboard": {
+    "menuSideList": {
+      "myAccount": "My account",
+      "publish": "Publish",
+      "logOut": "Logout"
+    },
+    "deleteDialog": {
+      "alert": {
+        "alert1": "Account successfully deleted.",
+        "alert2": "Unable to delete your account.",
+        "alert3": "Are you sure you want to delete your account?"
+      },
+      "text": "Your account will be permanently deleted and it will not be possible to recover it. But you can create a new account at any time.",
+      "button": {
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    },
+    "myAccount": {
+      "alert": {
+        "alert1": "You are using an account registered with an external provider. Please login with your provider to change your profile.",
+        "alert2": "Name successfully changed.",
+        "alert3": "Could not change name.",
+        "alert4": "Email successfully changed",
+        "alert5": "Unable to change email.",
+        "alert6": "Password successfully changed.",
+        "alert7": "Unable to change your password."
+      },
+      "personalInfo": {
+        "title": "Personal information",
+        "name": {
+          "textField": "Name",
+          "button": "Edit Name"
+        },
+        "email": {
+          "textField": "Email",
+          "button": "Edit Email"
+        },
+        "password": {
+          "textField": "Password",
+          "button": "Edit Password"
+        }
+      },
+      "deleteAcc": {
+        "title": "Delete account",
+        "text": "Your account will be permanently deleted and it will not be possible to recover it. But you can create a new account at any time.",
+        "button": "Delete"
+      }
+    },
+    "publish": {
+      "alert": {
+        "alert1": "You do not have permission to create a post, please contact us.",
+        "alert2": "You need to fill in all the fields to create a post. Including an image."
+      },
+      "textField": {
+        "category": {
+          "label": "Category",
+          "value1": "News",
+          "value2": "Articles"
+        },
+        "languague": {
+          "label": "Language",
+          "value1": "en",
+          "value2": "pt-BR"
+        },
+        "author": "Author",
+        "linkAuthor": "Author reference link",
+        "title": "Title",
+        "text": "Write here..."
+      },
+      "button": {
+        "pickImg": "Choose image",
+        "uploadImg": {
+          "upload": "Send image",
+          "success": "Success"
+        },
+        "post": {
+          "post": "Send post",
+          "success": "Post Created"
+        }
+      }
+    }
+  },
+  "Home": {
+    "infinityLoading": {
+      "text": "Didn't find what you're looking for?",
+      "button": "Search here!"
+    }
+  },
+  "Login": {
+    "forgotPassword": {
+      "alert1": "Email successfully sent.",
+      "alert2": "Email not registered in our database.",
+      "title": "Edit Password",
+      "text": "Enter your email and a link to change your password will be sent. Thanks!",
+      "textField": "Email address",
+      "button1": "Cancel",
+      "button2": "Submit"
+    },
+    "alert": {
+      "alert1": "Login failed, check email and password.",
+      "alert2": "Failed to login with Google",
+      "alert3": "Failed to login with Google"
+    },
+    "form": {
+      "header": {
+        "title": "SaudeVapor Account",
+        "text": "A single account for the entire SaudeVapor platform"
+      },
+      "textField": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "button": {
+        "singIn": "REGISTER.",
+        "logIn": "ENTER."
+      },
+      "text": {
+        "agreeTerms1": "I have read and agree with the",
+        "agreeTerms2": "Terms of services and privacy policy",
+        "text1": "Don't have an account?",
+        "text2": "Forgot password?",
+        "text3": "or enter with"
+      }
+    },
+    "NotFound": {
+      "tilte": "ERROR 404",
+      "text": "The page you are looking for has been moved, removed, renamed, or may never have existed.",
+      "button": "return to home page"
+    }
+  },
+  "Post": {
+    "post": {
+      "author": "Author: ",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "edit": {
+      "alert": {
+        "alert1": "Post edited successfully.",
+        "alert2": "You are not allowed to edit this post."
+      },
+      "text": "Edit Post",
+      "textField": {
+        "title": "Title",
+        "category": "Category",
+        "date": "Date",
+        "author": "Author",
+        "linkAuthor": "Author link",
+        "urlImage": "Link image",
+        "text": "Text"
+      },
+      "button": {
+        "cancel": "Cancel",
+        "edit": "Edit"
+      }
+    },
+    "delete": {
+      "alert": {
+        "alert1": "Post successfully deleted.",
+        "alert2": "You are not allowed to delete this post."
+      },
+      "title": "Delete post",
+      "text": "Are you sure you want to delete?",
+      "button": {
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    }
+  },
+  "Search": {
+    "textField": {
+      "input": "Search...",
+      "select": {
+        "label": "Category",
+        "value1": "All categories",
+        "value2": "News",
+        "value3": "Articles"
+      }
+    }
+  },
+  "Terms": {
+    "title": "Roboto/Medium/36",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
   }
 }

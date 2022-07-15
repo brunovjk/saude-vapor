@@ -171,7 +171,11 @@ export default function ToolbarComponent(props) {
                   >
                     <Link to="/">
                       <img
-                        src={checked ? LogoMobileDark : LogoMobileLight}
+                        src={
+                          checked === "true" || checked === true
+                            ? LogoMobileDark
+                            : LogoMobileLight
+                        }
                         alt="Saude Vapor"
                       />
                     </Link>
@@ -186,7 +190,11 @@ export default function ToolbarComponent(props) {
                   >
                     <Link to="/">
                       <img
-                        src={checked ? LogoDesktopDark : LogoDesktopLight}
+                        src={
+                          checked === "true" || checked === true
+                            ? LogoDesktopDark
+                            : LogoDesktopLight
+                        }
                         alt="Icon SaudeVapor"
                       />
                     </Link>

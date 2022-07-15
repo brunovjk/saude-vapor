@@ -29,7 +29,9 @@ export default function App() {
   const { checked } = useContext(Context);
 
   return (
-    <ThemeProvider theme={checked ? darkTheme : lightTheme}>
+    <ThemeProvider
+      theme={checked === "true" || checked === true ? darkTheme : lightTheme}
+    >
       <CssBaseline />
       <Container disableGutters={true} overflow="hidden" maxWidth="xl">
         <Router>
@@ -56,6 +58,7 @@ export default function App() {
             <Route path="/termos" element={<Terms />} />
             <Route path="/styleguide" element={<Styleguide />} />
             <Route path="/NotFound" element={<NotFound />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
           <ScrollButton />
           <Footer />

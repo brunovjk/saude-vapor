@@ -30,7 +30,7 @@ export default function NotFound() {
       >
         <Grid item>
           <Typography variant="h1" color="primary">
-            {t("NotFound.tilte")}
+            {t("NotFound.title")}
           </Typography>
         </Grid>
 

@@ -35,7 +35,7 @@ export default function Post() {
           if (dataDocRef.data() !== undefined) {
             setDataExist(true);
           } else {
-            // navigate("/NotFound");
+            navigate("/NotFound");
           }
         }
       } catch (error) {
@@ -44,7 +44,7 @@ export default function Post() {
     };
 
     getPost();
-  }, [blogId, navigate]);
+  }, [blogId, navigate, selectedLanguage]);
 
   const handleOpenEdit = async () => {
     setOpen(true);

@@ -259,12 +259,12 @@
         "text2": "Esqueceu a senha?",
         "text3": "ou entre com"
       }
-    },
-    "NotFound": {
-      "tilte": "ERROR 404",
-      "text": "A página que voce está procurando foi movida, removida, renomeada ou pode nunca ter existido.",
-      "button": "Volte a pagina inicial"
     }
+  },
+  "NotFound": {
+    "title": "ERROR 404",
+    "text": "A página que voce está procurando foi movida, removida, renomeada ou pode nunca ter existido.",
+    "button": "Volte a pagina inicial"
   },
   "Post": {
     "post": {

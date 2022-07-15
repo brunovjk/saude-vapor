@@ -59,7 +59,7 @@ const LanguageSelect = ({ onClickProps }) => {
                   i18next.changeLanguage(item);
                   setMenuAnchor(null);
                   onClickProps();
-                  // window.location.reload(false);
+                  window.location.reload(false);
                 }}
               >
                 {languageMap[item].label}
