@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   TextField,
   Grid,
@@ -14,6 +15,7 @@ import { CardArticle, AdBanner } from "../../components";
 // import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function DataSearch({ collectionData }) {
+  const { t } = useTranslation();
   const [searchField, setSearchField] = useState("");
   const [category, setCategory] = useState("");
 
@@ -68,7 +70,7 @@ export default function DataSearch({ collectionData }) {
               <TextField
                 fullWidth={true}
                 id="busca"
-                label="Busque..."
+                label={t("Search.textField.input")}
                 variant="outlined"
                 onChange={handleSearchChange}
               />
@@ -77,7 +79,9 @@ export default function DataSearch({ collectionData }) {
 
             <Grid item xs={12} md={3}>
               <FormControl fullWidth>
-                <InputLabel id="category-select-label">Categoria</InputLabel>
+                <InputLabel id="category-select-label">
+                  {t("Search.textField.select.label")}
+                </InputLabel>
                 <Select
                   labelId="category-select-label"
                   id="category-select"
@@ -85,9 +89,15 @@ export default function DataSearch({ collectionData }) {
                   label="Categoria"
                   onChange={handleCategoryChange}
                 >
-                  <MenuItem value={""}>Todos categorias</MenuItem>
-                  <MenuItem value={"Noticias"}>Noticias</MenuItem>
-                  <MenuItem value={"Artigos"}>Artigos</MenuItem>
+                  <MenuItem value={""}>
+                    {t("Search.textField.select.value1")}
+                  </MenuItem>
+                  <MenuItem value={"Noticias"}>
+                    {t("Search.textField.select.value2")}
+                  </MenuItem>
+                  <MenuItem value={"Artigos"}>
+                    {t("Search.textField.select.value3")}
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -17,6 +18,7 @@ export default function DeleteDialog({
   openDeleteDialog,
   setOpenDeleteDialog,
 }) {
+  const { t } = useTranslation();
   let navigate = useNavigate();
   const { setIsAuth } = useContext(Context);
 
@@ -35,7 +37,7 @@ export default function DeleteDialog({
           setAlertComponent({
             openAlert: true,
             severity: "success",
-            message: "Conta deletada com sucesso.",
+            message: t("Dashboard.deleteDialog.alert.alert1"),
           });
           localStorage.clear();
           setIsAuth(false);
@@ -47,7 +49,7 @@ export default function DeleteDialog({
           setAlertComponent({
             openAlert: true,
             severity: "error",
-            message: "Não foi possível deletar sua conta.",
+            message: t("Dashboard.deleteDialog.alert.alert2"),
           });
         });
     } catch (error) {}
@@ -66,18 +68,19 @@ export default function DeleteDialog({
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Certeza que deseja deletar sua conta?"}
+          {t("Dashboard.deleteDialog.alert.alert3")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Sua conta sera deletada permanentemente, não sendo possível
-            recupera-lá. Mas você pode criar uma conta nova a qualquer momento.
+            {t("Dashboard.deleteDialog.text")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose}>
+            {t("Dashboard.deleteDialog.button.cancel")}
+          </Button>
           <Button onClick={deleteAccount} autoFocus>
-            Deletar
+            {t("Dashboard.deleteDialog.button.delete")}
           </Button>
         </DialogActions>
       </Dialog>

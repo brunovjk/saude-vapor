@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Button,
@@ -17,6 +18,7 @@ export default function FormDialog({
   openForgotPassDialog,
   setOpenForgotPassDialog,
 }) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [alertComponent, setAlertComponent] = useState({
     openAlert: false,
@@ -40,7 +42,7 @@ export default function FormDialog({
         setAlertComponent({
           openAlert: true,
           severity: "success",
-          message: "Email enviado com sucesso.",
+          message: t("Login.forgotPassword.alert1"),
         });
         setTimeout(() => {
           handleClose();
@@ -50,7 +52,7 @@ export default function FormDialog({
         setAlertComponent({
           openAlert: true,
           severity: "error",
-          message: "Email não cadastrado em nossa base de dados.",
+          message: t("Login.forgotPassword.alert2"),
         });
 
         handleClose();
@@ -61,17 +63,16 @@ export default function FormDialog({
     <>
       <Dialog open={openForgotPassDialog} onClose={handleClose}>
         <Box component="form" onSubmit={handleSendRequest}>
-          <DialogTitle>Editar Senha</DialogTitle>
+          <DialogTitle>{t("Login.forgotPassword.title")}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Informe seu e-mail e será enviado um link para alterar sua senha.
-              Obrigado!
+              {t("Login.forgotPassword.text")}
             </DialogContentText>
             <TextField
               required
               margin="dense"
               id="email"
-              label="Email Address"
+              label={t("Login.forgotPassword.textField")}
               type="email"
               fullWidth
               variant="standard"
@@ -79,8 +80,12 @@ export default function FormDialog({
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancelar</Button>
-            <Button type="submit">Enviar</Button>
+            <Button onClick={handleClose}>
+              {t("Login.forgotPassword.button1")}
+            </Button>
+            <Button type="submit">
+              {t("Login.forgotPassword.button2")}Enviar
+            </Button>
           </DialogActions>
         </Box>
       </Dialog>

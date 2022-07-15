@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Container,
   Paper,
@@ -19,6 +20,7 @@ export default function DataPost({
   handleOpenEdit,
   setOpenDeleteConfirmation,
 }) {
+  const { t } = useTranslation();
   const { isAuth } = useContext(Context);
 
   const deletePost = () => {
@@ -72,7 +74,7 @@ export default function DataPost({
                   spacing={1}
                 >
                   <Typography variant="underline1" color="secondary.text">
-                    Autor:
+                    {t("Post.post.author")}
                   </Typography>
 
                   <Typography variant="underline1" color="primary">
@@ -102,7 +104,7 @@ export default function DataPost({
                     sx={{ cursor: "pointer" }}
                     onClick={handleOpenEdit}
                   >
-                    Editar
+                    {t("Post.post.edit")}
                   </Typography>
 
                   <Typography
@@ -112,7 +114,7 @@ export default function DataPost({
                     sx={{ cursor: "pointer" }}
                     onClick={deletePost}
                   >
-                    Deletar
+                    {t("Post.post.delete")}
                   </Typography>
                 </Stack>
               )}
@@ -172,35 +174,7 @@ export default function DataPost({
                   <Sticky>
                     {({ style }) => (
                       <Box style={style}>
-                        <AdBanner
-                          vertical={true}
-                          copyCalls={[
-                            {
-                              phrase1: "Controle",
-                              phrase2: "sua brisa",
-                            },
-                            {
-                              phrase1: "Reduza",
-                              phrase2: "os danos",
-                            },
-                            {
-                              phrase1: "Economize",
-                              phrase2: "sua erva",
-                            },
-                            {
-                              phraseMainCall1: "GOSTOU",
-                              phraseMainCall2: "DA IDEIA?",
-                            },
-                            {
-                              phraseButtonCall1: "ADQUIRA JÁ",
-                              phraseButtonCall2: "SEU VAPORIZADOR",
-                            },
-                            {
-                              img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                              url: "https://loja.saudevapor.com/",
-                            },
-                          ]}
-                        />
+                        <AdBanner vertical={true} />
                       </Box>
                     )}
                   </Sticky>

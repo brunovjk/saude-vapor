@@ -36,6 +36,7 @@
         "search": "Search",
         "contact": "Contact",
         "myAccount": "My account",
+        "login": "Login",
         "blockchain": "Blockchain",
         "terms": "Terms"
       }
@@ -85,6 +86,53 @@
     "connectWallet": {
       "text": "Please connect your wallet to see the latest collections",
       "button": "Connect"
+    }
+  },
+  "Contact": {
+    "form": {
+      "title": "Contact us",
+      "text1": "Send a message,",
+      "text2": "we will answer you by email.",
+      "textField": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message"
+      },
+      "button": "Submit"
+    },
+    "alert": {
+      "message": "Message sent successfully."
+    }
+  },
+  "CreateAccount": {
+    "alert": {
+      "alert1": "Passwords do not match.",
+      "alert2": "The password must be at least 6 characters long.",
+      "alert3": "You need to accept the terms.",
+      "alert4": "Unable to create your account.",
+      "alert5": "Failed to login with Google",
+      "alert6": "Failed to login with Facebook"
+    },
+    "form": {
+      "header": {
+        "title": "SaudeVapor Account",
+        "text": "Create your single account for the entire SaudeVapor platform"
+      },
+      "textField": {
+        "email": "Email",
+        "password": "Password",
+        "passwordCheck": "Confirm password"
+      },
+      "button": {
+        "singIn": "REGISTER",
+        "logIn": " LOGIN."
+      },
+      "text": {
+        "agreeTerms1": "I have read and agree with the",
+        "agreeTerms2": "Terms of Services and Privacy Policy",
+        "text1": "Already have an account? ",
+        "text2": "or register with"
+      }
     }
   }
 }

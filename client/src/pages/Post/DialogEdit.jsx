@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   TextField,
@@ -15,6 +16,7 @@ import { AlertComponent } from "../../components";
 import { Context } from "../../context/Context";
 
 export default function DialogEdit({ open, setOpen, blogId, postData }) {
+  const { t } = useTranslation();
   const { selectedLanguage } = useContext(Context);
 
   const [editValues, setEditValues] = useState(postData);
@@ -53,7 +55,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
       setAlertComponent({
         openAlert: true,
         severity: "success",
-        message: "Post editado com sucesso.",
+        message: t("Post.edit.alert.alert1"),
       });
       setTimeout(() => {
         window.location.reload(false);
@@ -62,7 +64,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message: "Você não tem permissão para editar este post.",
+        message: t("Post.edit.alert.alert2"),
       });
     }
   };
@@ -74,7 +76,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
   return (
     <>
       <Dialog fullWidth={true} maxWidth="md" open={open} onClose={handleClose}>
-        <DialogTitle>Editar Post</DialogTitle>
+        <DialogTitle>{t("Post.edit.text")}</DialogTitle>
         <DialogContent>
           <Stack
             direction="column"
@@ -86,7 +88,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
             <TextField
               autoFocus
               id="title"
-              label="Titulo"
+              label={t("Post.edit.textField.title")}
               type="text"
               fullWidth
               defaultValue={postData.title}
@@ -103,7 +105,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
                 autoFocus
                 margin="dense"
                 id="category"
-                label="Categoria"
+                label={t("Post.edit.textField.category")}
                 type="text"
                 fullWidth
                 defaultValue={postData.category}
@@ -113,7 +115,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
                 autoFocus
                 margin="dense"
                 id="date"
-                label="Data"
+                label={t("Post.edit.textField.date")}
                 type="text"
                 fullWidth
                 defaultValue={postData.date}
@@ -123,7 +125,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
                 autoFocus
                 margin="dense"
                 id="author"
-                label="Autor"
+                label={t("Post.edit.textField.author")}
                 type="text"
                 fullWidth
                 defaultValue={postData.author}
@@ -134,7 +136,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
               autoFocus
               margin="dense"
               id="linkAuthor"
-              label="Link Autor"
+              label={t("Post.edit.textField.linkAuthor")}
               type="text"
               fullWidth
               defaultValue={postData.linkAuthor}
@@ -145,7 +147,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
               autoFocus
               margin="dense"
               id="urlImage"
-              label="Link image"
+              label={t("Post.edit.textField.urlImage")}
               type="text"
               fullWidth
               defaultValue={postData.urlImage}
@@ -155,7 +157,7 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
               autoFocus
               margin="dense"
               id="text"
-              label="Texto"
+              label={t("Post.edit.textField.text")}
               type="text"
               multiline
               minRows={4}
@@ -166,8 +168,8 @@ export default function DialogEdit({ open, setOpen, blogId, postData }) {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={editPost}>Editar</Button>
+          <Button onClick={handleClose}>{t("Post.edit.button.cancel")}</Button>
+          <Button onClick={editPost}>{t("Post.edit.button.edit")}</Button>
         </DialogActions>
       </Dialog>
       {/* Alert */}

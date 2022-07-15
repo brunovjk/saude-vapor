@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   BannerSlider,
   CardArticle,
@@ -22,6 +23,7 @@ export default function DataHome({
   infinityScrollNumber,
   setInfinityScrollNumber,
 }) {
+  const { t } = useTranslation();
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreData = () => {
@@ -86,10 +88,10 @@ export default function DataHome({
               endMessage={
                 <Box sx={{ p: "32px" }}>
                   <Typography variant="body1" style={{ textAlign: "center" }}>
-                    Não encontrou oque procura?
+                    {t("Home.infinityLoading.text")}
                     <Link to="/busca" color="primary">
                       <Typography variant="h3" color="primary">
-                        Busque aqui!
+                        {t("Home.infinityLoading.button")}
                       </Typography>
                     </Link>
                   </Typography>

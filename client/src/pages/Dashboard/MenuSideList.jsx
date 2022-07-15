@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   List,
@@ -26,6 +27,7 @@ import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function MenuSideList({ setItemSelected }) {
+  const { t } = useTranslation();
   const { isAuth, setIsAuth, checked, handleChangeDarkMode } =
     useContext(Context);
   let navigate = useNavigate();
@@ -52,7 +54,7 @@ export default function MenuSideList({ setItemSelected }) {
             <ListItemIcon>
               <PersonIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Minha conta" />
+            <ListItemText primary={t("Dashboard.menuSideList.myAccount")} />
           </ListItem>
 
           {isAuth && (
@@ -66,7 +68,7 @@ export default function MenuSideList({ setItemSelected }) {
               <ListItemIcon>
                 <DriveFileRenameOutlineIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary="Publicar" />
+              <ListItemText primary={t("Dashboard.menuSideList.publish")} />
             </ListItem>
           )}
 
@@ -98,7 +100,7 @@ export default function MenuSideList({ setItemSelected }) {
             <ListItemIcon>
               <ExitToAppIcon color="primary" />
             </ListItemIcon>
-            <ListItemText primary="Sair" />
+            <ListItemText primary={t("Dashboard.menuSideList.logOut")} />
           </ListItem>
         </Box>
       </Box>

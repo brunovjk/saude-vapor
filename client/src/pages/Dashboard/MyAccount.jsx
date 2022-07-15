@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Grid,
@@ -14,6 +15,7 @@ import { updateProfile, updateEmail, updatePassword } from "firebase/auth";
 import { AlertComponent } from "../../components";
 
 export default function MyAccount() {
+  const { t } = useTranslation();
   const { isAuth } = useContext(Context);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [providerId, setProviderId] = useState("");
@@ -54,7 +56,7 @@ export default function MyAccount() {
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+        message: t("Dashboard.myAccount.alert.alert1"),
       });
       return;
     } else {
@@ -70,14 +72,14 @@ export default function MyAccount() {
               setAlertComponent({
                 openAlert: true,
                 severity: "success",
-                message: "Nome alterado com sucesso.",
+                message: t("Dashboard.myAccount.alert.alert2"),
               });
             })
             .catch((error) => {
               setAlertComponent({
                 openAlert: true,
                 severity: "error",
-                message: "Não foi possível alterar o nome.",
+                message: t("Dashboard.myAccount.alert.alert3"),
               });
             });
         }
@@ -94,7 +96,7 @@ export default function MyAccount() {
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+        message: t("Dashboard.myAccount.alert.alert1"),
       });
       return;
     } else {
@@ -108,14 +110,14 @@ export default function MyAccount() {
               setAlertComponent({
                 openAlert: true,
                 severity: "success",
-                message: "E-mail alterado com sucesso",
+                message: t("Dashboard.myAccount.alert.alert4"),
               });
             })
             .catch((error) => {
               setAlertComponent({
                 openAlert: true,
                 severity: "error",
-                message: "Não foi possível alterar o email.",
+                message: t("Dashboard.myAccount.alert.alert5"),
               });
             });
         }
@@ -132,7 +134,7 @@ export default function MyAccount() {
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message: `Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre ${providerId} para alterar seus dados`,
+        message: t("Dashboard.myAccount.alert.alert1"),
       });
       return;
     } else {
@@ -146,14 +148,14 @@ export default function MyAccount() {
               setAlertComponent({
                 openAlert: true,
                 severity: "success",
-                message: "Senha alterado com sucesso.",
+                message: t("Dashboard.myAccount.alert.alert1"),
               });
             })
             .catch((error) => {
               setAlertComponent({
                 openAlert: true,
                 severity: "error",
-                message: "Não foi possível alterar sua senha.",
+                message: t("Dashboard.myAccount.alert.alert1"),
               });
             });
         }
@@ -186,7 +188,7 @@ export default function MyAccount() {
               {/* Personal information */}
               <Grid item>
                 <Typography color="text.primary" variant="h3">
-                  Informações pessoais
+                  {t("Dashboard.myAccount.personalInfo.title")}
                 </Typography>
               </Grid>
               {/* Nome */}
@@ -202,14 +204,14 @@ export default function MyAccount() {
                   <TextField
                     disabled={nameButtonState}
                     id="name"
-                    label="Nome"
+                    label={t("Dashboard.myAccount.personalInfo.name.textField")}
                     defaultValue={displayName}
                     onChange={onChangeName}
                   />
                 </Grid>
                 <Grid item>
                   <Button variant="text" onClick={nameButton}>
-                    Editar Nome
+                    {t("Dashboard.myAccount.personalInfo.name.button")}
                   </Button>
                 </Grid>
               </Grid>
@@ -226,7 +228,9 @@ export default function MyAccount() {
                   <TextField
                     disabled={emailButtonState}
                     id="email"
-                    label="E-mail"
+                    label={t(
+                      "Dashboard.myAccount.personalInfo.email.textField"
+                    )}
                     type="email"
                     defaultValue={email}
                     onChange={onChangeEmail}
@@ -234,7 +238,7 @@ export default function MyAccount() {
                 </Grid>
                 <Grid item>
                   <Button variant="text" onClick={emailButton}>
-                    Editar E-mail
+                    {t("Dashboard.myAccount.personalInfo.email.button")}
                   </Button>
                 </Grid>
               </Grid>
@@ -251,7 +255,9 @@ export default function MyAccount() {
                   <TextField
                     disabled={passwordButtonState}
                     id="password"
-                    label="Senha"
+                    label={t(
+                      "Dashboard.myAccount.personalInfo.password.textField"
+                    )}
                     type="password"
                     defaultValue={password}
                     onChange={onChangePassword}
@@ -259,12 +265,11 @@ export default function MyAccount() {
                 </Grid>
                 <Grid item>
                   <Button variant="text" onClick={passwordButton}>
-                    Editar Senha
+                    {t("Dashboard.myAccount.personalInfo.password.button")}
                   </Button>
                 </Grid>
               </Grid>
             </Grid>
-
             <Grid item>
               <Divider />
             </Grid>
@@ -280,14 +285,12 @@ export default function MyAccount() {
             >
               <Grid item>
                 <Typography variant="h3" color="text.primary">
-                  Deletar conta
+                  {t("Dashboard.myAccount.deleteAcc.title")}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="body1" color="text.secondary">
-                  Sua conta sera deletada permanentemente, não sendo possível
-                  recupera-lá. Mas você pode criar uma conta nova a qualquer
-                  momento.
+                  {t("Dashboard.myAccount.deleteAcc.text")}
                 </Typography>
               </Grid>
               <Grid item>
@@ -296,7 +299,7 @@ export default function MyAccount() {
                     setOpenDeleteDialog(true);
                   }}
                 >
-                  Deletar
+                  {t("Dashboard.myAccount.deleteAcc.button")}
                 </Button>
               </Grid>
             </Grid>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Container,
   Grid,
@@ -12,6 +13,7 @@ import { AdBanner, FABSocialMedia } from "../../components";
 import { StickyContainer, Sticky } from "react-sticky";
 
 export default function SkeletonPost() {
+  const { t } = useTranslation();
   return (
     <>
       {/* AdBanner Mobile tablet*/}
@@ -48,7 +50,7 @@ export default function SkeletonPost() {
               />
 
               <Typography variant="underline1" color="secondary.text">
-                Autor:
+                {t("Post.post.author")}
               </Typography>
 
               <Skeleton animation="wave" height={14} width="15%" />
@@ -99,35 +101,7 @@ export default function SkeletonPost() {
                   <Sticky>
                     {({ style }) => (
                       <Box style={style}>
-                        <AdBanner
-                          vertical={true}
-                          copyCalls={[
-                            {
-                              phrase1: "Controle",
-                              phrase2: "sua brisa",
-                            },
-                            {
-                              phrase1: "Reduza",
-                              phrase2: "os danos",
-                            },
-                            {
-                              phrase1: "Economize",
-                              phrase2: "sua erva",
-                            },
-                            {
-                              phraseMainCall1: "GOSTOU",
-                              phraseMainCall2: "DA IDEIA?",
-                            },
-                            {
-                              phraseButtonCall1: "ADQUIRA JÁ",
-                              phraseButtonCall2: "SEU VAPORIZADOR",
-                            },
-                            {
-                              img: "https://i0.wp.com/www.smokebuddies.com.br/wp-content/uploads/2017/08/Conheca-5-modelos-de-Vaporizadores-que-cabem-literalmente-no-bolso.jpeg?fit=900%2C506&ssl=1",
-                              url: "https://loja.saudevapor.com/",
-                            },
-                          ]}
-                        />
+                        <AdBanner vertical={true} />
                       </Box>
                     )}
                   </Sticky>

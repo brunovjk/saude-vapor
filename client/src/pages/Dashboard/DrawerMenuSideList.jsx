@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   Menu,
@@ -22,6 +23,7 @@ import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 
 export default function DrawerMenuSideList({ setItemSelected }) {
+  const { t } = useTranslation();
   const { isAuth, setIsAuth, checked, handleChangeDarkMode } =
     useContext(Context);
   let navigate = useNavigate();
@@ -70,10 +72,12 @@ export default function DrawerMenuSideList({ setItemSelected }) {
           onClick={() => {
             handleClose();
             setItemSelected(<MyAccount isAuth={isAuth} />);
-            setItemMenuSelected("Minha conta");
+            setItemMenuSelected(t("Dashboard.menuSideList.myAccount"));
           }}
         >
-          <Typography variant="menu">Minha conta</Typography>
+          <Typography variant="menu">
+            {t("Dashboard.menuSideList.myAccount")}
+          </Typography>
         </MenuItem>
 
         {isAuth && (
@@ -84,7 +88,9 @@ export default function DrawerMenuSideList({ setItemSelected }) {
               setItemMenuSelected("Publicar");
             }}
           >
-            <Typography variant="menu">Publicar</Typography>
+            <Typography variant="menu">
+              {t("Dashboard.menuSideList.publish")}
+            </Typography>
           </MenuItem>
         )}
 
@@ -107,7 +113,9 @@ export default function DrawerMenuSideList({ setItemSelected }) {
             signUserOut();
           }}
         >
-          <Typography variant="menu">Sair</Typography>
+          <Typography variant="menu">
+            {t("Dashboard.menuSideList.logOut")}
+          </Typography>
         </MenuItem>
       </Menu>
       <Divider />

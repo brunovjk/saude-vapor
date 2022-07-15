@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Typography,
   TextField,
@@ -29,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateAccount() {
   let navigate = useNavigate();
+  const { t } = useTranslation();
   const { setIsAuth } = useContext(Context);
   const [alertMessage, setAlertMessage] = useState("");
   const [editValues, setEditValues] = useState({
@@ -47,15 +49,15 @@ export default function CreateAccount() {
   const CreateWithEmailAndPassword = (e) => {
     e.preventDefault();
     if (editValues.password !== editValues.passwordCheck) {
-      setAlertMessage("As senhas não coincidem.");
+      setAlertMessage(t("createAccount.alert.alert1"));
       return;
     }
     if (editValues.password.length < 6) {
-      setAlertMessage("A senha deve ter pelo menos 6 caracteres.");
+      setAlertMessage(t("createAccount.alert.alert2"));
       return;
     }
     if (editValues.agreeCheck !== "on") {
-      setAlertMessage("Você precisa aceitar os termos.");
+      setAlertMessage(t("createAccount.alert.alert3"));
       return;
     }
 
@@ -72,7 +74,7 @@ export default function CreateAccount() {
           navigate("/");
         });
       } catch {
-        setAlertMessage("Não foi possível criar sua conta.");
+        setAlertMessage(t("createAccount.alert.alert4"));
       }
     }
   };
@@ -85,7 +87,7 @@ export default function CreateAccount() {
         navigate("/");
       });
     } catch {
-      setAlertMessage("Falha ao entrar com Gogle");
+      setAlertMessage(t("createAccount.alert.alert5"));
     }
   };
   const SingInWithFacebook = () => {
@@ -98,7 +100,7 @@ export default function CreateAccount() {
         navigate("/");
       });
     } catch {
-      setAlertMessage("Falha ao entrar com Facebook");
+      setAlertMessage(t("createAccount.alert.alert6"));
     }
   };
 
@@ -127,13 +129,13 @@ export default function CreateAccount() {
               {/* Page title */}
               <Grid item>
                 <Typography variant="h1" color="primary.30">
-                  Conta SaudeVapor
+                  {t("CreateAccount.form.header.title")}
                 </Typography>
               </Grid>
               {/* body */}
               <Grid item>
                 <Typography variant="subtitle" color="text.primary">
-                  Crie a sua conta única para toda plataforma SaudeVapor
+                  {t("CreateAccount.form.header.text")}
                 </Typography>
               </Grid>
               {/* Alert */}
@@ -151,7 +153,7 @@ export default function CreateAccount() {
                   id="email"
                   required
                   type="email"
-                  label="E-Mail"
+                  label={t("CreateAccount.form.textField.email")}
                   variant="outlined"
                   onChange={handleChangeValues}
                 />
@@ -163,7 +165,7 @@ export default function CreateAccount() {
                   id="password"
                   required
                   type="password"
-                  label="Senha"
+                  label={t("CreateAccount.form.textField.password")}
                   variant="outlined"
                   onChange={handleChangeValues}
                 />
@@ -175,7 +177,7 @@ export default function CreateAccount() {
                   id="passwordCheck"
                   required
                   type="password"
-                  label="Confirmar Senha"
+                  label={t("CreateAccount.form.textField.passwordCheck")}
                   variant="outlined"
                   onChange={handleChangeValues}
                 />
@@ -198,10 +200,10 @@ export default function CreateAccount() {
                   onChange={handleChangeValues}
                 />
                 <Typography variant="underline1" color="text.primary">
-                  Li e concordo com os 
+                  {t("CreateAccount.form.text.agreeTerms1")}
                   <Link to="/termos">
                     <Typography variant="underline1" color="primary.30">
-                      Termos de Uso e Política de Privacidade
+                      {t("CreateAccount.form.text.agreeTerms2")}
                     </Typography>
                   </Link>
                   .
@@ -221,7 +223,7 @@ export default function CreateAccount() {
                   fullWidth={true}
                   sx={{ mx: { xs: "16px", sm: "32px" } }}
                 >
-                  CADASTRAR
+                  {t("CreateAccount.form.button.singIn")}
                 </Button>
               </Grid>
               {/* Login call */}
@@ -234,11 +236,11 @@ export default function CreateAccount() {
                 }}
               >
                 <Typography variant="body2" color="text.primary">
-                  Já tem uma conta?
+                  {t("CreateAccount.form.text.text1")}
                 </Typography>
                 <Link to="/login">
                   <Typography variant="body2" color="primary.30">
-                     ENTRE.
+                    {t("CreateAccount.form.button.logIn")}
                   </Typography>
                 </Link>
               </Grid>
@@ -257,7 +259,7 @@ export default function CreateAccount() {
                   color="text.secondary"
                   sx={{ p: "16px" }}
                 >
-                  ou cadastre-se com
+                  {t("CreateAccount.form.text.text2")}
                 </Typography>
                 <Divider sx={{ width: "64px" }} />
               </Grid>
@@ -304,7 +306,7 @@ export default function CreateAccount() {
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-          ></Paper>
+          />
         </Grid>
       </Grid>
     </>

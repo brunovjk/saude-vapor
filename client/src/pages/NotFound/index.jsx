@@ -1,10 +1,12 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Typography, Grid, Button, Box } from "@mui/material";
 import error404 from "../../assets/img/error404.jpg";
 
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
+  const { t } = useTranslation();
   return (
     <Grid
       container
@@ -28,20 +30,19 @@ export default function NotFound() {
       >
         <Grid item>
           <Typography variant="h1" color="primary">
-            ERROR 404
+            {t("NotFound.tilte")}
           </Typography>
         </Grid>
 
         <Grid item>
           <Typography variant="body1" textAlign="center">
-            A página que voce está procurando foi movida, removida, renomeada ou
-            pode nunca ter existido.
+            {t("NotFound.text")}
           </Typography>
         </Grid>
 
         <Grid item>
           <Link to="/">
-            <Button>Volte a pagina inicial</Button>
+            <Button>{t("NotFound.button")}</Button>
           </Link>
         </Grid>
       </Grid>

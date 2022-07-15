@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Button,
   Dialog,
@@ -18,6 +19,7 @@ export default function DeleteConfirmation({
   openDeleteConfirmation,
   setOpenDeleteConfirmation,
 }) {
+  const { t } = useTranslation();
   const { selectedLanguage } = useContext(Context);
 
   let navigate = useNavigate();
@@ -35,7 +37,7 @@ export default function DeleteConfirmation({
       setAlertComponent({
         openAlert: true,
         severity: "success",
-        message: "Post deletado com sucesso.",
+        message: t("Post.delete.alert.alert1"),
       });
       setTimeout(() => {
         navigate("/");
@@ -44,7 +46,7 @@ export default function DeleteConfirmation({
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message: "Você não tem permissão para deletar este post.",
+        message: t("Post.delete.alert.alert2"),
       });
     }
   };
@@ -61,16 +63,20 @@ export default function DeleteConfirmation({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Deletar Post"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {t("Post.delete.title")}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Tem certeza que deseja deletar?
+            {t("Post.delete.text")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose}>
+            {t("Post.delete.button.cancel")}
+          </Button>
           <Button onClick={deletePost} autoFocus>
-            Deletar
+            {t("Post.delete.button.delete")}
           </Button>
         </DialogActions>
       </Dialog>

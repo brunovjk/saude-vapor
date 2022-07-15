@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Grid,
@@ -24,6 +25,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function Publish() {
+  const { t } = useTranslation();
   let months = [
     "Jan",
     "Fev",
@@ -237,7 +239,7 @@ export default function Publish() {
         setAlertComponent({
           openAlert: true,
           severity: "error",
-          message: "Você nao tem permissao para criar post, entre em contato.",
+          message: t("Dashboard.publish.alert.alert1"),
         });
       }
     } else {
@@ -245,8 +247,7 @@ export default function Publish() {
       setAlertComponent({
         openAlert: true,
         severity: "error",
-        message:
-          "Você precisa preencher todos os campos para crir um post. Inclusive uma imagem.",
+        message: t("Dashboard.publish.alert.alert2"),
       });
     }
 
@@ -304,7 +305,7 @@ export default function Publish() {
                 component="span"
                 sx={{ minWidth: "200px" }}
               >
-                Escolher imagem
+                {t("Dashboard.publish.button.pickImg")}
               </Button>
             </label>
           </Grid>
@@ -319,7 +320,9 @@ export default function Publish() {
                 onClick={handleUploadImage}
                 sx={{ minWidth: "200px" }}
               >
-                {success ? "Sucesso" : "Enviar imagem"}
+                {success
+                  ? t("Dashboard.publish.button.uploadImg.success")
+                  : t("Dashboard.publish.button.uploadImg.upload")}
               </Button>
               {loading && (
                 <CircularProgress
@@ -351,7 +354,9 @@ export default function Publish() {
           {/* Handle category */}
           <Grid item xs={12} sm={4} md={3}>
             <FormControl required fullWidth={true}>
-              <InputLabel name="category-select-label">Categoria</InputLabel>
+              <InputLabel name="category-select-label">
+                {t("Dashboard.publish.textField.category.label")}
+              </InputLabel>
               <Select
                 labelId="category-select-label"
                 name="category"
@@ -359,8 +364,12 @@ export default function Publish() {
                 label="Categoria"
                 onChange={handleChangeCategory}
               >
-                <MenuItem value={"news"}>Noticias</MenuItem>
-                <MenuItem value={"articles"}>Artigos</MenuItem>
+                <MenuItem value={"news"}>
+                  {t("Dashboard.publish.textField.category.value1")}
+                </MenuItem>
+                <MenuItem value={"articles"}>
+                  {t("Dashboard.publish.textField.category.value2")}
+                </MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -380,7 +389,9 @@ export default function Publish() {
           {/* Handle lang */}
           <Grid item xs={12} sm={4} md={3}>
             <FormControl required fullWidth={true}>
-              <InputLabel name="lang-select-label">Idioma</InputLabel>
+              <InputLabel name="lang-select-label">
+                {t("Dashboard.publish.textField.languague.label")}
+              </InputLabel>
               <Select
                 labelId="lang-select-label"
                 name="lang"
@@ -388,8 +399,12 @@ export default function Publish() {
                 label="Idioma"
                 onChange={handleChangeLang}
               >
-                <MenuItem value={"en"}>en</MenuItem>
-                <MenuItem value={"pt-BR"}>pt-BR</MenuItem>
+                <MenuItem value={"en"}>
+                  {t("Dashboard.publish.textField.languague.value1")}
+                </MenuItem>
+                <MenuItem value={"pt-BR"}>
+                  {t("Dashboard.publish.textField.languague.value2")}
+                </MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -409,7 +424,7 @@ export default function Publish() {
                 required
                 fullWidth={true}
                 name="author"
-                label="Autor"
+                label={t("Dashboard.publish.textField.author")}
                 variant="outlined"
                 onChange={handleChangeAuthor}
               />
@@ -420,7 +435,7 @@ export default function Publish() {
                 fullWidth={true}
                 type="url"
                 name="link-author"
-                label="Link de referência ao Autor"
+                label={t("Dashboard.publish.textField.linkAuthor")}
                 variant="outlined"
                 onChange={handleChangeLinkAuthor}
               />
@@ -432,7 +447,7 @@ export default function Publish() {
               required
               fullWidth={true}
               name="title"
-              label="Titulo"
+              label={t("Dashboard.publish.textField.title")}
               variant="outlined"
               onChange={handleChangeTitle}
             />
@@ -459,7 +474,9 @@ export default function Publish() {
                 disabled={loadingPost}
                 sx={{ minWidth: "180px" }}
               >
-                {successPost ? "Post Criado" : "Enviar post"}
+                {successPost
+                  ? t("Dashboard.publish.button.post.success")
+                  : t("Dashboard.publish.button.post.post")}
               </Button>
               {loadingPost && (
                 <CircularProgress

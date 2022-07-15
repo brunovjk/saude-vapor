@@ -36,6 +36,7 @@
         "search": "Busca",
         "contact": "Contato",
         "myAccount": "Minha conta",
+        "login": "Login",
         "blockchain": "Blockchain",
         "terms": "Termos"
       }
@@ -86,5 +87,237 @@
       "text": "Conecte-se sua carteira para ver as últimas coleções",
       "button": "Conectar"
     }
+  },
+  "Contact": {
+    "form": {
+      "title": "Fale Conosco",
+      "text1": "Envie uma mensagem,",
+      "text2": "te respoderemos por e-mail.",
+      "textField": {
+        "name": "Nome",
+        "email": "E-mail",
+        "message": "Mensagem"
+      },
+      "button": "Enviar"
+    },
+    "alert": {
+      "message": "Mensagem enviada com sucesso."
+    }
+  },
+  "CreateAccount": {
+    "alert": {
+      "alert1": "As senhas não coincidem.",
+      "alert2": "A senha deve ter pelo menos 6 caracteres.",
+      "alert3": "Você precisa aceitar os termos.",
+      "alert4": "Não foi possível criar sua conta.",
+      "alert5": "Falha ao entrar com Gogle",
+      "alert6": "Falha ao entrar com Facebook"
+    },
+    "form": {
+      "header": {
+        "title": "Conta SaudeVapor",
+        "text": "Crie a sua conta única para toda plataforma SaudeVapor"
+      },
+      "textField": {
+        "email": "E-mail",
+        "password": "Senha",
+        "passwordCheck": "Confirmar Senha"
+      },
+      "button": {
+        "singIn": "CADASTRAR",
+        "logIn": " ENTRE."
+      },
+      "text": {
+        "agreeTerms1": "Li e concordo com os ",
+        "agreeTerms2": "Termos de Uso e Política de Privacidade",
+        "text1": "Já tem uma conta? ",
+        "text2": "ou cadastre-se com"
+      }
+    }
+  },
+  "Dashboard": {
+    "menuSideList": {
+      "myAccount": "Minha conta",
+      "publish": "Publicar",
+      "logOut": "Sair"
+    },
+    "deleteDialog": {
+      "alert": {
+        "alert1": "Conta deletada com sucesso.",
+        "alert2": "Não foi possível deletar sua conta.",
+        "alert3": "Certeza que deseja deletar sua conta?"
+      },
+      "text": "Sua conta sera deletada permanentemente, não sendo possível recupera-lá. Mas você pode criar uma conta nova a qualquer momento.",
+      "button": {
+        "cancel": "Cancelar",
+        "delete": "Deletar"
+      }
+    },
+    "myAccount": {
+      "alert": {
+        "alert1": "Voce esta usando uma conta cadastrada em um provedor externo. Por favor entre com seu provedor para alterar seus dados",
+        "alert2": "Nome alterado com sucesso.",
+        "alert3": "Não foi possível alterar o nome.",
+        "alert4": "E-mail alterado com sucesso",
+        "alert5": "Não foi possível alterar o email.",
+        "alert6": "Senha alterado com sucesso.",
+        "alert7": "Não foi possível alterar sua senha."
+      },
+      "personalInfo": {
+        "title": "Informações pessoais",
+        "name": {
+          "textField": "Nome",
+          "button": "Editar Nome"
+        },
+        "email": {
+          "textField": "E-mail",
+          "button": "Editar E-mail"
+        },
+        "password": {
+          "textField": "Senha",
+          "button": "Editar Senha"
+        }
+      },
+      "deleteAcc": {
+        "title": "Deletar conta",
+        "text": "Sua conta sera deletada permanentemente, não sendo possível recupera-lá. Mas você pode criar uma conta nova a qualquer momento.",
+        "button": "Deletar"
+      }
+    },
+    "publish": {
+      "alert": {
+        "alert1": "Você nao tem permissao para criar post, entre em contato.",
+        "alert2": "Você precisa preencher todos os campos para crir um post. Inclusive uma imagem."
+      },
+      "textField": {
+        "category": {
+          "label": "Categoria",
+          "value1": "Noticias",
+          "value2": "Artigos"
+        },
+        "languague": {
+          "label": "Idioma",
+          "value1": "en",
+          "value2": "pt-BR"
+        },
+        "author": "Autor",
+        "linkAuthor": "Link de referência ao Autor",
+        "title": "Titulo",
+        "text": "Escreva aqui..."
+      },
+      "button": {
+        "pickImg": "Escolher imagem",
+        "uploadImg": {
+          "upload": "Enviar imagem",
+          "success": "Sucesso"
+        },
+        "post": {
+          "post": "Enviar post",
+          "success": "Post Criado"
+        }
+      }
+    }
+  },
+  "Home": {
+    "infinityLoading": {
+      "text": "Não encontrou oque procura?",
+      "button": "Busque aqui!"
+    }
+  },
+  "Login": {
+    "forgotPassword": {
+      "alert1": "Email enviado com sucesso.",
+      "alert2": "Email não cadastrado em nossa base de dados.",
+      "title": "Editar Senha",
+      "text": "Informe seu e-mail e será enviado um link para alterar sua senha. Obrigado!",
+      "textField": "Endereço de Email",
+      "button1": "Cancelar",
+      "button2": "Enviar"
+    },
+    "alert": {
+      "alert1": "Falha no login, confira e-mail e senha.",
+      "alert2": "Falha ao entrar com Google",
+      "alert3": "Falha ao entrar com Google"
+    },
+    "form": {
+      "header": {
+        "title": "Conta SaudeVapor",
+        "text": "Uma só conta para toda plataforma SaudeVapor"
+      },
+      "textField": {
+        "email": "E-mail",
+        "password": "Senha"
+      },
+      "button": {
+        "singIn": "CADASTRE-SE.",
+        "logIn": "ENTRAR"
+      },
+      "text": {
+        "agreeTerms1": "Li e concordo com os ",
+        "agreeTerms2": "Termos de Uso e Política de Privacidade",
+        "text1": "Não tem conta? ",
+        "text2": "Esqueceu a senha?",
+        "text3": "ou entre com"
+      }
+    },
+    "NotFound": {
+      "tilte": "ERROR 404",
+      "text": "A página que voce está procurando foi movida, removida, renomeada ou pode nunca ter existido.",
+      "button": "Volte a pagina inicial"
+    }
+  },
+  "Post": {
+    "post": {
+      "author": "Autor: ",
+      "edit": "Editar",
+      "delete": "Deletar"
+    },
+    "edit": {
+      "alert": {
+        "alert1": "Post editado com sucesso.",
+        "alert2": "Você não tem permissão para editar este post."
+      },
+      "text": "Editar Post",
+      "textField": {
+        "title": "Titulo",
+        "category": "Categoria",
+        "date": "Data",
+        "author": "Autor",
+        "linkAuthor": "Link Autor",
+        "urlImage": "Link image",
+        "text": "Texto"
+      },
+      "button": {
+        "cancel": "Cancelar",
+        "edit": "Editar"
+      }
+    },
+    "delete": {
+      "alert": {
+        "alert1": "Post deletado com sucesso.",
+        "alert2": "Você não tem permissão para deletar este post."
+      },
+      "title": "Deletar Post",
+      "text": "Tem certeza que deseja deletar?",
+      "button": {
+        "cancel": "Cancelar",
+        "delete": "Deletar"
+      }
+    }
+  },
+  "Search": {
+    "textField": {
+      "input": "Busque...",
+      "select": {
+        "label": "Categoria",
+        "value1": "Todos categorias",
+        "value2": "Noticias",
+        "value3": "Artigos"
+      }
+    }
+  },
+  "Terms": {
+    "title": "Roboto/Medium/36",
+    "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
   }
 }

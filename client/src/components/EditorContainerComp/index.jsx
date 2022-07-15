@@ -1,11 +1,14 @@
 import React from "react";
 import { Box, Paper } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { stateToHTML } from "draft-js-export-html";
 
 export default function EditorContainerComp({ setText }) {
+  const { t } = useTranslation();
+
   const [editorState, setEditorState] = React.useState(() =>
     EditorState.createEmpty()
   );
@@ -23,7 +26,7 @@ export default function EditorContainerComp({ setText }) {
     <Paper
       variant="outlined"
       sx={{
-        p: {xs: "8px", md: "12px"},
+        p: { xs: "8px", md: "12px" },
         borderRadius: "12px",
         borderColor: "secondary.80",
         // border: "2px solid",
@@ -34,7 +37,7 @@ export default function EditorContainerComp({ setText }) {
         <Editor
           editorState={editorState}
           onEditorStateChange={onEditorStateChange}
-          placeholder="Escreva aqui..."
+          placeholder={t("Dashboard.publish.textField.text")}
         />
       </Box>
     </Paper>

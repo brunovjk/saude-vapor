@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Container,
   Grid,
@@ -17,6 +18,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { AlertComponent } from "../../components";
 
 export default function Contact() {
+  const { t } = useTranslation();
+
   const [alertComponent, setAlertComponent] = useState({
     openAlert: false,
     severity: "success",
@@ -80,7 +83,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener"
                 underline="none"
-                href="https://www.facebook.com/SaudeVapor"
+                href={t("SocialMediaLinks.facebook")}
               >
                 <IconButton>
                   <FacebookIcon color="primary" />
@@ -90,7 +93,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener"
                 underline="none"
-                href="https://twitter.com/SaudeVapor"
+                href={t("SocialMediaLinks.twitter")}
               >
                 <IconButton>
                   <TwitterIcon color="primary" />
@@ -100,7 +103,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener"
                 underline="none"
-                href="https://www.instagram.com/saudevapor/"
+                href={t("SocialMediaLinks.instagram")}
               >
                 <IconButton>
                   <InstagramIcon color="primary" />
@@ -118,13 +121,13 @@ export default function Contact() {
               spacing={2}
             >
               <Grid item>
-                <Typography variant="h1">Fale Conosco</Typography>
+                <Typography variant="h1">{t("Contact.form.title")}</Typography>
               </Grid>
               <Grid item>
                 <Typography variant="body1">
-                  Envie uma mensagem,
+                  {t("Contact.form.text1")}
                   <br />
-                  te respoderemos por e-mail.
+                  {t("Contact.form.text2")}
                 </Typography>
               </Grid>
             </Grid>
@@ -134,7 +137,7 @@ export default function Contact() {
             <TextField
               fullWidth={true}
               id="Nome-field"
-              label="Nome"
+              label={t("Contact.form.textField.name")}
               variant="outlined"
             />
           </Grid>
@@ -143,7 +146,7 @@ export default function Contact() {
             <TextField
               fullWidth={true}
               id="E-mail-field"
-              label="E-mail"
+              label={t("Contact.form.textField.email")}
               variant="outlined"
             />
           </Grid>
@@ -152,7 +155,7 @@ export default function Contact() {
             <TextField
               fullWidth={true}
               id="Mensagem-field"
-              label="Mensagem"
+              label={t("Contact.form.textField.message")}
               variant="outlined"
               multiline
               rows={12}
@@ -174,11 +177,11 @@ export default function Contact() {
                 setAlertComponent({
                   openAlert: true,
                   severity: "success",
-                  message: "Mensagem enviada com sucesso.",
+                  message: t("Contact.alert.message"),
                 });
               }}
             >
-              Enviar
+              {t("Contact.form.button")}
             </Button>
           </Grid>
         </Grid>

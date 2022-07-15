@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Typography,
   TextField,
@@ -27,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 export default function Login() {
+  const { t } = useTranslation();
   let navigate = useNavigate();
   const { setIsAuth } = useContext(Context);
 
@@ -60,7 +62,7 @@ export default function Login() {
           navigate("/");
         })
         .catch((error) => {
-          setAlertMessage("Falha no login, confira e-mail e senha.");
+          setAlertMessage(t("Login.alert.alert1"));
         });
     }
   };
@@ -73,7 +75,7 @@ export default function Login() {
         navigate("/");
       });
     } catch {
-      setAlertMessage("Falha ao entrar com Google");
+      setAlertMessage(t("Login.alert.alert2"));
     }
   };
   const SingInWithFacebook = () => {
@@ -86,7 +88,7 @@ export default function Login() {
         navigate("/");
       });
     } catch {
-      setAlertMessage("Falha ao entrar com Google");
+      setAlertMessage(t("Login.alert.alert3"));
     }
   };
 
@@ -115,13 +117,13 @@ export default function Login() {
               {/* Page title */}
               <Grid item>
                 <Typography variant="h1" color="primary.30">
-                  Conta SaudeVapor
+                  {t("Login.form.header.title")}
                 </Typography>
               </Grid>
               {/* body */}
               <Grid item>
                 <Typography variant="subtitle" color="text.primary">
-                  Uma só conta para toda plataforma SaudeVapor
+                  {t("Login.form.header.text")}
                 </Typography>
               </Grid>
               {/* Alert */}
@@ -139,7 +141,7 @@ export default function Login() {
                   id="email"
                   required
                   type="email"
-                  label="E-Mail"
+                  label={t("Login.form.textField.email")}
                   variant="outlined"
                   onChange={handleChangeValues}
                 />
@@ -151,7 +153,7 @@ export default function Login() {
                   id="password"
                   required
                   type="password"
-                  label="Senha"
+                  label={t("Login.form.textField.password")}
                   variant="outlined"
                   onChange={handleChangeValues}
                 />
@@ -171,7 +173,7 @@ export default function Login() {
                   type="submit"
                   sx={{ mx: { xs: "16px", sm: "32px" } }}
                 >
-                  ENTRAR
+                  {t("Login.form.button.logIn")}
                 </Button>
               </Grid>
               {/* Create call */}
@@ -184,11 +186,11 @@ export default function Login() {
                 }}
               >
                 <Typography variant="body2" color="text.primary">
-                  Não tem conta?
+                  {t("Login.form.text.text1")}
                 </Typography>
                 <Link to="/criarconta">
                   <Typography variant="body2" color="primary.30">
-                     CADASTRE-SE.
+                    {t("Login.form.button.singIn")}
                   </Typography>
                 </Link>
               </Grid>
@@ -211,7 +213,7 @@ export default function Login() {
                   }}
                   onClick={handleClickOpenForgotPassDialog}
                 >
-                  Esqueceu a senha?
+                  {t("Login.form.text.text2")}
                 </Typography>
               </Grid>
               {/* text */}
@@ -229,7 +231,7 @@ export default function Login() {
                   color="text.secondary"
                   sx={{ p: "16px" }}
                 >
-                  ou entre com
+                  {t("Login.form.text.text3")}
                 </Typography>
                 <Divider sx={{ width: "64px" }} />
               </Grid>
