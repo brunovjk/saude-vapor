@@ -144,7 +144,7 @@ export default function Publish() {
     setDateToId(event.target.value);
     if (event.target.value.slice(5, 6) === "0") {
       const dateFormated = `${event.target.value.slice(8, 10)} ${
-        months[event.target.value.slice(6, 7)]
+        months[event.target.value.slice(6, 7) - 1]
       } ${event.target.value.slice(0, 4)} `;
       setDate(dateFormated);
     } else {

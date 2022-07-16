@@ -13,3 +13,4 @@ export { default as ContractDetails } from "./ContractDetails";
 export { default as ScrollToSection } from "./ScrollToSection";
 export { default as LanguageSelect } from "./LanguageSelect";
 export { default as AlertComponent } from "./AlertComponent";
+export { default as Partners } from "./Partners";

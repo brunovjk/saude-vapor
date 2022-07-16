@@ -36,7 +36,14 @@ const DrawerComponent = (props) => {
     <Box>
       <Box sx={{ width: { xs: "14rem", md: "15rem" }, p: { xs: "2rem" } }}>
         <Link to="/">
-          <img src={props.checked ? LogoDark : LogoLight} alt="Logo" />
+          <img
+            src={
+              props.checked === "true" || props.checked === true
+                ? LogoDark
+                : LogoLight
+            }
+            alt="Logo"
+          />
         </Link>
       </Box>
 
@@ -106,7 +113,7 @@ const DrawerComponent = (props) => {
 
         <ListItem button onClick={props.toggleDrawerHandler}>
           <ListItemIcon>
-            {checked ? (
+            {checked === "true" || checked === true ? (
               <DarkModeIcon color="primary" />
             ) : (
               <LightModeIcon color="primary" />

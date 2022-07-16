@@ -10,7 +10,7 @@ function CardArticle(props) {
 
   useEffect(() => {
     if (props.direction === "column") {
-      setMinHeight("310px");
+      setMinHeight("280px");
     }
   }, [props.direction]);
 
@@ -51,6 +51,7 @@ function CardArticle(props) {
                   <Grid item>
                     <Typography
                       variant="underline2"
+                      color="primary"
                       sx={{
                         display: "-webkit-box",
                         overflow: "hidden",
@@ -61,7 +62,7 @@ function CardArticle(props) {
                       {props.postData[0].date}
                     </Typography>
                   </Grid>
-                  {/* category */}
+                  {/* category
                   <Grid item>
                     <Typography
                       variant="underline2"
@@ -75,7 +76,7 @@ function CardArticle(props) {
                     >
                       {props.postData[0].category}
                     </Typography>
-                  </Grid>
+                  </Grid> */}
                   {/* title */}
                   <Grid item>
                     <Typography
@@ -86,7 +87,7 @@ function CardArticle(props) {
                         overflow: "hidden",
                         WebkitBoxOrient: "vertical",
                         WebkitLineClamp: 3,
-                        my: "6px",
+                        mt: "6px",
                       }}
                     >
                       {props.postData[0].title}

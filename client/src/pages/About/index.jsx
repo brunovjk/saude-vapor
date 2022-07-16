@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Grid, Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { AdBanner } from "../../components";
+import { AdBanner, Partners } from "../../components";
 import hero1 from "../../assets/img/hero1.png";
 import hero2 from "../../assets/img/hero2.png";
 import hero3 from "../../assets/img/hero3.png";
@@ -166,6 +166,10 @@ export default function About() {
       {/* Ad Banner */}
       <Grid item m={{ xs: "16px", sm: "32x", md: "48px" }}>
         <AdBanner />
+      </Grid>
+      {/* Partners */}
+      <Grid item m={{ xs: "16px", sm: "32x", md: "48px" }}>
+        <Partners />
       </Grid>
     </Grid>
   );

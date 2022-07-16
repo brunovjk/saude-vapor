@@ -259,12 +259,12 @@
         "text2": "Forgot password?",
         "text3": "or enter with"
       }
-    },
-    "NotFound": {
-      "tilte": "ERROR 404",
-      "text": "The page you are looking for has been moved, removed, renamed, or may never have existed.",
-      "button": "return to home page"
     }
+  },
+  "NotFound": {
+    "tilte": "ERROR 404",
+    "text": "The page you are looking for has been moved, removed, renamed, or may never have existed.",
+    "button": "return to home page"
   },
   "Post": {
     "post": {
