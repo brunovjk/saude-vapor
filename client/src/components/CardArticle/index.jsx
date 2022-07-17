@@ -34,7 +34,6 @@ function CardArticle(props) {
             <Grid item xs={5}>
               <CardMedia
                 component="img"
-                height="100%"
                 src={props.postData[0].urlImage}
                 alt={`${props.postData[0].urlImage}`}
               />
@@ -51,6 +50,7 @@ function CardArticle(props) {
                   <Grid item>
                     <Typography
                       variant="underline2"
+<<<<<<< Updated upstream
                       color="primary"
                       sx={{
                         display: "-webkit-box",
@@ -66,6 +66,8 @@ function CardArticle(props) {
                   <Grid item>
                     <Typography
                       variant="underline2"
+=======
+>>>>>>> Stashed changes
                       color="primary"
                       sx={{
                         display: "-webkit-box",
@@ -74,7 +76,7 @@ function CardArticle(props) {
                         WebkitLineClamp: 1,
                       }}
                     >
-                      {props.postData[0].category}
+                      {props.postData[0].date}
                     </Typography>
                   </Grid> */}
                   {/* title */}

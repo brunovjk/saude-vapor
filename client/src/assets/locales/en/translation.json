@@ -262,7 +262,11 @@
     }
   },
   "NotFound": {
+<<<<<<< Updated upstream
     "tilte": "ERROR 404",
+=======
+    "title": "ERROR 404",
+>>>>>>> Stashed changes
     "text": "The page you are looking for has been moved, removed, renamed, or may never have existed.",
     "button": "return to home page"
   },
