@@ -40,7 +40,7 @@ export default function Home() {
 
   const currentDate = `${new Date().getFullYear()}-${
     monthsNumber[new Date().getMonth()]
-  }-${new Date().getDate() + 1}`;
+  }-${new Date().getDate()}`;
 
   useEffect(() => {
     const getCollection = async () => {

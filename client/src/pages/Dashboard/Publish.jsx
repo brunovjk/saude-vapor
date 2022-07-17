@@ -27,7 +27,6 @@ import { useNavigate } from "react-router-dom";
 export default function Publish() {
   const { t } = useTranslation();
   let months = [
-    "Mes",
     "Jan",
     "Fev",
     "Mar",
