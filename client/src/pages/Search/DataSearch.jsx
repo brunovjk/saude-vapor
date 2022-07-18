@@ -92,10 +92,10 @@ export default function DataSearch({ collectionData }) {
                   <MenuItem value={""}>
                     {t("Search.textField.select.value1")}
                   </MenuItem>
-                  <MenuItem value={"Noticias"}>
+                  <MenuItem value={"news"}>
                     {t("Search.textField.select.value2")}
                   </MenuItem>
-                  <MenuItem value={"Artigos"}>
+                  <MenuItem value={"articles"}>
                     {t("Search.textField.select.value3")}
                   </MenuItem>
                 </Select>
